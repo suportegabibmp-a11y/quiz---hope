@@ -5,7 +5,7 @@ window.LZ_CONFIG = {
   // ---- Onde guardar os leads: preencha UMA das opções ----
 
   // Opção A — Google Planilhas (veja google-sheets/Code.gs)
-  sheetsUrl: "",         // ex.: "https://script.google.com/macros/s/AKfy.../exec"
+  sheetsUrl: "https://script.google.com/macros/s/AKfycbxyTQfeB6ihF7VxxLxj-_B0fdNA_fF1kzTNFMszs38PwwB0-ajBjSoCl-uRju-oq-Y/exec",
 
   // Opção B — Supabase (pode ser um projeto que você já tem; veja supabase/schema.sql)
   supabaseUrl: "",       // ex.: "https://abcdxyz.supabase.co"
