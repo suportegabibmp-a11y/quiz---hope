@@ -3,312 +3,403 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Diagnóstico gratuito de liderança para quem trabalha com a Geração Z, baseado no livro Liderança Z, de Tiago Favaro. Lançamento 23/11 na Livraria da Vila.">
-<meta property="og:title" content="Diagnóstico Liderança Z">
-<meta property="og:description" content="Descubra em que altitude está a sua liderança. Lançamento do livro 23/11, 19h, Livraria da Vila.">
-<meta property="og:image" content="assets/livro.jpg">
 <title>Diagnóstico Liderança Z</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Diagnóstico gratuito de liderança para quem trabalha com a Geração Z, baseado no livro Liderança Z, de Tiago Favaro. Lançamento 23/11, 19h, Livraria da Vila.">
+<meta property="og:title" content="Em que altitude está a sua liderança?">
+<meta property="og:description" content="Diagnóstico gratuito baseado no livro Liderança Z, de Tiago Favaro. Lançamento 23/11, 19h, Livraria da Vila.">
+<meta property="og:image" content="assets/livro.jpg">
+<meta name="theme-color" content="#0C1712">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: noite na montanha, como o banner de lançamento — verde-floresta profundo, título condensado, um único acento verde-limão. Visual único (escuro), escolhido de propósito. */
+/* Noite na montanha: verde-floresta profundo, curvas de nível, um só acento verde-limão.
+   A página é uma subida — o altímetro à esquerda vai de 800 m (topo) a 8.848 m (pré-venda). */
 :root{
-  --paper:#0E1A15; --paper-2:#16271F; --ink:#EEF1E8; --forest:#1D3A2C; --forest-2:#2C5243;
-  --sage:#9FB0A3; --rust:#8CC63F; --rust-ink:#A6DA5C; --line:rgba(238,241,232,.14); --muted:#A3B0A7; --on-accent:#0E1A15; --low:#E58A5C;
+  --night:#0C1712; --night-2:#132219; --night-3:#1B3025; --ridge:#22402F;
+  --snow:#EEF0E6; --mist:#A4B1A7; --fog:#6E7E73;
+  --lime:#8CC63F; --lime-hi:#A9DC5E; --ember:#E58A5C;
+  --paper:#E8E5DA; --paper-ink:#14201A;
+  --line:rgba(238,240,230,.13);
   --display:"Anton","Oswald","Impact","Arial Narrow",sans-serif;
   --body:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.7,.1,1);
   color-scheme:dark;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 img{max-width:100%;display:block}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.98;margin:0;text-wrap:balance;letter-spacing:.005em}
+body{margin:0;background:var(--night);color:var(--snow);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+::selection{background:var(--lime);color:var(--night)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;margin:0;text-wrap:balance;text-transform:uppercase}
 p{margin:0}
-.eyebrow{font-family:var(--body);font-weight:500;text-transform:uppercase;letter-spacing:.32em;font-size:12px;color:var(--muted)}
-.mono{font-family:var(--mono)}
 a{color:inherit}
-button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+.tag{font-family:var(--mono);font-size:12px;color:var(--lime);letter-spacing:.06em}
+
+/* botões */
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;border:0;padding:16px 26px;font-weight:500;font-size:16px;text-decoration:none;overflow:hidden;isolation:isolate;transition:color .3s var(--ease)}
+.btn .arr{display:inline-block;transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(5px)}
+.btn-lime{background:var(--lime);color:var(--night)}
+.btn-lime::before{content:"";position:absolute;inset:0;background:var(--snow);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}
+.btn-lime:hover::before{transform:none}
+.btn-line{color:var(--snow);box-shadow:inset 0 0 0 1px rgba(238,240,230,.4)}
+.btn-line::before{content:"";position:absolute;inset:0;background:var(--snow);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}
+.btn-line:hover{color:var(--night)}
+.btn-line:hover::before{transform:none}
 
 /* topo */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--paper)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
-.brand{font-weight:600;letter-spacing:.38em;text-transform:uppercase;font-size:14px}
-.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:2px;padding:15px 24px;font-weight:600;font-size:16px;text-decoration:none;transition:transform .15s ease,background .15s ease}
-.btn:active{transform:translateY(1px)}
-.btn-rust{background:var(--rust);color:var(--on-accent)}
-.btn-rust:hover{background:var(--rust-ink)}
-.btn-ink{background:var(--ink);color:var(--paper)}
-.btn-ink:hover{background:#FFFFFF}
-.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.btn-ghost:hover{background:var(--paper-2)}
-.btn-sm{padding:10px 16px;font-size:14px}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:env(safe-area-inset-top,0px);transition:background .3s,backdrop-filter .3s}
+.top.solid{background:rgba(12,23,18,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+.brand{font-family:var(--display);font-size:22px;letter-spacing:.02em;text-decoration:none}
+.brand b{color:var(--lime);font-weight:400}
+.top nav{display:flex;align-items:center;gap:28px;font-size:15px}
+.top nav a{text-decoration:none;color:var(--mist);transition:color .2s}
+.top nav a:hover{color:var(--snow)}
+.top .btn{padding:11px 18px;font-size:14px}
 
-/* faixa */
-.strip{background:var(--forest);color:var(--ink);overflow:hidden;white-space:nowrap}
-.strip .track{display:inline-flex;gap:48px;padding-block:11px;animation:roll 38s linear infinite;font-weight:500;letter-spacing:.24em;text-transform:uppercase;font-size:13px}
-.strip span b{color:var(--rust);font-weight:600}
-@keyframes roll{to{transform:translateX(-50%)}}
+/* altímetro */
+.alti{position:fixed;left:max(14px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%);z-index:30;display:flex;gap:10px;align-items:stretch;height:46vh;pointer-events:none}
+.alti .scale{width:9px;background:repeating-linear-gradient(to top,var(--fog) 0 1px,transparent 1px 10%);position:relative;border-left:1px solid var(--fog)}
+.alti .mark{position:absolute;left:-5px;width:15px;height:2px;background:var(--lime);bottom:0;transition:bottom .15s linear}
+.alti .read{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.12em;white-space:nowrap}
+.alti .read b{color:var(--lime);font-weight:500}
 
 /* hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(14,26,21,.97) 0%,rgba(14,26,21,.82) 45%,rgba(14,26,21,.35) 100%),url(assets/banner.jpg) center/cover no-repeat,linear-gradient(160deg,#21402F 0%,#0E1A15 70%)}
-.hero::after{content:"";position:absolute;inset:auto 0 0;height:45%;background:#13261C;clip-path:polygon(0 70%,12% 52%,22% 60%,36% 28%,48% 44%,60% 12%,70% 30%,82% 6%,92% 26%,100% 18%,100% 100%,0 100%);opacity:.75;pointer-events:none}
-.hero::before{content:"";position:absolute;inset:auto 0 0;height:28%;background:#0B1611;clip-path:polygon(0 60%,18% 30%,30% 52%,44% 18%,58% 46%,72% 22%,86% 50%,100% 30%,100% 100%,0 100%);pointer-events:none;z-index:1}
-.hero .wrap{position:relative;z-index:2}
-.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end;padding-block:56px 0}
-.hero-copy{padding-bottom:64px;display:grid;gap:22px;min-width:0}
-.hero h1{font-size:clamp(44px,6.2vw,86px);text-transform:uppercase}
-.hero h1 em{font-style:normal;color:var(--rust)}
-.hero .lead{font-size:clamp(17px,1.6vw,20px);max-width:34em;color:#CFD7CE}
-.hero .eyebrow{color:var(--rust)}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.small{font-size:14px;color:var(--muted)}
-.hero-art{position:relative;align-self:stretch;min-height:520px}
-.hero-art .author{position:absolute;right:0;bottom:0;width:min(100%,400px);aspect-ratio:369/600;object-fit:cover;object-position:top;max-width:100%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 70%,transparent 100%)}
-.hero-art .book{position:absolute;left:-14%;bottom:-6px;width:62%;max-width:300px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4))}
+.hero{position:relative;min-height:min(920px,100svh);display:flex;align-items:flex-end;overflow:hidden;background:radial-gradient(120% 80% at 75% 10%,#1E3A2B 0%,var(--night) 60%)}
+.hero .photo{position:absolute;inset:0;background:url(assets/banner.jpg) center/cover no-repeat;opacity:.55}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.hero .layer{position:absolute;left:-2%;right:-2%;bottom:0;pointer-events:none;will-change:transform}
+.hero .l1{height:46%;background:#152A1F;clip-path:polygon(0 62%,9% 48%,17% 55%,29% 22%,38% 36%,47% 14%,56% 30%,66% 4%,75% 26%,86% 12%,94% 30%,100% 22%,100% 100%,0 100%)}
+.hero .l2{height:30%;background:#0F2018;clip-path:polygon(0 50%,13% 26%,24% 46%,37% 16%,52% 44%,63% 24%,77% 50%,89% 28%,100% 42%,100% 100%,0 100%)}
+.hero .l3{height:14%;background:var(--night);clip-path:polygon(0 60%,20% 30%,42% 66%,61% 36%,82% 62%,100% 40%,100% 100%,0 100%)}
+.hero .inner{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:end;padding-block:140px 40px}
+.hero .copy{display:grid;gap:26px;padding-bottom:48px}
+.hero h1{font-size:clamp(50px,7.6vw,118px);letter-spacing:-.005em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .ln span{display:block;animation:rise 1s var(--ease) both}
+.hero h1 .ln:nth-child(2) span{animation-delay:.08s}
+.hero h1 .ln:nth-child(3) span{animation-delay:.16s}
+.hero h1 em{font-style:normal;color:var(--lime)}
+@keyframes rise{from{transform:translateY(105%)}}
+.fade{animation:fade 1s .35s var(--ease) both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}}
+.hero .lead{font-size:clamp(17px,1.5vw,20px);font-weight:300;max-width:31em;color:#D5DCD3}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--mono);font-size:12px;color:var(--mist)}
+.meta span::before{content:"▲ ";color:var(--lime);font-size:9px}
+.hero figure{margin:0;position:relative;justify-self:end;width:min(100%,380px)}
+.hero figure img{width:100%;aspect-ratio:369/560;object-fit:cover;object-position:top;filter:saturate(.85) contrast(1.05);
+  -webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 98%);mask-image:linear-gradient(to bottom,#000 62%,transparent 98%)}
+.hero figcaption{position:absolute;left:-18px;top:28%;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.14em}
 
-/* evento */
-.event{background:#08120E;color:var(--ink);border-block:1px solid var(--line)}
-.event .wrap{display:grid;grid-template-columns:repeat(3,1fr);padding-block:0}
-.event .cell{padding:26px 24px;display:flex;gap:16px;align-items:center;border-left:1px solid rgba(236,232,221,.18)}
-.event .cell:first-child{border-left:0;padding-left:0}
-.event .big{font-family:var(--display);font-size:42px;line-height:1}
-.event .lbl{text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--sage)}
-.event svg{flex:none}
+/* contagem */
+.count{border-block:1px solid var(--line);background:var(--night)}
+.count .wrap{display:grid;grid-template-columns:1.2fr repeat(4,auto) 1.1fr;align-items:center;gap:0}
+.count .cell{padding:22px 26px;border-left:1px solid var(--line)}
+.count .cell:first-child{border-left:0;padding-left:0}
+.count .num{font-family:var(--display);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.count .u{font-family:var(--mono);font-size:11px;color:var(--mist);margin-top:4px}
+.count .where{font-size:15px;color:var(--mist);line-height:1.45}
+.count .where b{color:var(--snow);font-weight:500;display:block;font-size:17px}
 
-/* secoes */
-section.block{padding-block:88px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.grid-2>*{min-width:0}
-.h2{font-size:clamp(38px,5vw,64px);text-transform:uppercase}
-.prose{display:grid;gap:16px;max-width:36em;color:#CFD7CE}
-.dims{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line)}
-.dim{padding:22px 18px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}
-.dim:nth-child(odd){border-right:1px solid var(--line)}
-.dim:nth-child(even){padding-left:18px}
-.dim .alt{font-family:var(--mono);font-size:12px;color:var(--rust-ink)}
-.dim h3{font-family:var(--body);font-weight:600;font-size:19px;line-height:1.25}
-.dim p{font-size:15px;color:var(--muted)}
+/* trilha */
+section.sec{padding-block:120px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;margin-bottom:64px}
+.h2{font-size:clamp(40px,5.4vw,76px)}
+.body-l{font-weight:300;font-size:19px;color:#CCD4CA;max-width:32em;display:grid;gap:14px}
+.profile{position:relative}
+.profile svg{width:100%;height:auto;display:block;overflow:visible}
+.profile .path{fill:none;stroke:var(--lime);stroke-width:2;vector-effect:non-scaling-stroke}
+.profile .area{fill:url(#pg)}
+.profile.draw .path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.camps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.camp{padding:26px 22px 0 0;display:grid;gap:8px;align-content:start}
+.camp+.camp{padding-left:22px;border-left:1px solid var(--line)}
+.camp .alt{font-family:var(--mono);font-size:12px;color:var(--lime)}
+.camp h3{font-family:var(--body);text-transform:none;font-weight:500;font-size:21px;line-height:1.2}
+.camp p{color:var(--mist);font-size:15.5px}
+.camp .q{font-style:italic;font-weight:300;color:#CCD4CA}
 
-.cta-band{background:var(--forest);color:var(--ink)}
-.cta-band .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding-block:44px}
-.cta-band h2{font-size:clamp(30px,4vw,48px);text-transform:uppercase;max-width:16em}
+/* frase */
+.quote{background:var(--paper);color:var(--paper-ink)}
+.quote .wrap{padding-block:110px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.quote img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.1)}
+.quote blockquote{margin:0;font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,4.6vw,64px);line-height:1}
+.quote blockquote em{font-style:normal;color:#4F8A1E}
+.quote .who{margin-top:26px;font-size:16px;color:#3E4A43;max-width:34em;display:grid;gap:12px}
+.quote .who b{color:var(--paper-ink);font-weight:600}
+.quote .btn-line{color:var(--paper-ink);box-shadow:inset 0 0 0 1px rgba(20,32,26,.5)}
+.quote .btn-line::before{background:var(--paper-ink)}
+.quote .btn-line:hover{color:var(--paper)}
 
-.presale{background:var(--paper-2)}
-.price-card{background:var(--paper);border:1.5px solid var(--rust);padding:32px;display:grid;gap:18px}
-.price{font-family:var(--display);font-size:clamp(44px,8vw,64px);line-height:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
-.price s{font-family:var(--body);font-size:20px;color:var(--muted);margin-right:8px}
-.bonus{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.bonus li{position:relative;padding-left:26px;font-size:16px}
-.bonus li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;background:var(--rust);clip-path:polygon(50% 0,100% 100%,0 100%)}
+/* passe de subida (pré-venda) */
+.pass-sec .sec-head{margin-bottom:48px}
+.pass{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--night-2);position:relative;
+  --notch:radial-gradient(circle at 0 50%,transparent 14px,#000 15px)}
+.pass .stub{position:relative;padding:36px;display:grid;gap:22px;align-content:space-between;border-right:2px dashed rgba(238,240,230,.18);background:linear-gradient(160deg,var(--ridge),var(--night-2))}
+.pass .stub::before,.pass .stub::after{content:"";position:absolute;right:-15px;width:28px;height:28px;border-radius:50%;background:var(--night)}
+.pass .stub::before{top:-14px}.pass .stub::after{bottom:-14px}
+.pass .stub img{width:78%;max-width:280px;margin:0 auto;transform:rotate(-4deg);box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.pass dl{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin:0}
+.pass dt{font-family:var(--mono);font-size:11px;color:var(--mist)}
+.pass dd{margin:2px 0 0;font-family:var(--display);font-size:24px;line-height:1.05}
+.pass .main{padding:36px clamp(22px,4vw,48px);display:grid;gap:22px}
+.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px}
+.price b{font-family:var(--display);font-weight:400;font-size:clamp(52px,6vw,72px);line-height:1;color:var(--lime)}
+.price s{color:var(--fog);font-size:19px}
+.inc{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:16px}
+.inc li{position:relative;padding-left:24px}
+.inc li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;background:var(--lime);clip-path:polygon(50% 0,100% 100%,0 100%)}
 
-.about img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
+/* formulários */
+.form{display:grid;gap:16px}
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.06em}
+.field input,.field select{width:100%;font:inherit;font-size:16px;padding:12px 0;border:0;border-bottom:1px solid rgba(238,240,230,.28);background:transparent;color:var(--snow);border-radius:0;transition:border-color .2s}
+.field select{padding-right:20px;background:transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23A4B1A7'/></svg>") right center no-repeat;appearance:none}
+.field select option{background:var(--night-2)}
+.field input::placeholder{color:var(--fog)}
+.field input:focus,.field select:focus{outline:none;border-bottom-color:var(--lime)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.phone{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.phone span{font-size:16px;color:var(--mist)}
+.err{color:var(--ember);font-size:14px;min-height:1.3em}
+.consent{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:13px;color:var(--mist);align-items:start}
+.consent input{margin-top:3px;accent-color:var(--lime)}
+.small{font-size:13px;color:var(--fog)}
 
 footer{border-top:1px solid var(--line)}
-footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px;color:var(--muted)}
+footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px;color:var(--fog)}
 
-/* overlay do quiz */
-.overlay{position:fixed;inset:0;z-index:50;background:rgba(4,10,7,.8);backdrop-filter:blur(4px);display:grid;place-items:start center;overflow-y:auto;padding:calc(24px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
-.sheet{position:relative;width:min(760px,100%);background:var(--paper);border-top:6px solid var(--rust);box-shadow:0 30px 80px rgba(0,0,0,.5);padding:36px clamp(20px,5vw,52px) 40px}
-.close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;background:transparent;font-size:26px;line-height:1;color:var(--ink)}
-.meter{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-bottom:28px;padding-right:36px}
-.meter .mono{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.ridge{height:28px;width:100%}
-.q-title{font-size:clamp(28px,4vw,40px);text-transform:uppercase;margin-bottom:8px}
-.q-sub{color:var(--muted);margin-bottom:22px;font-size:15px}
-.opts{display:grid;gap:10px}
-.opt{display:grid;grid-template-columns:44px 1fr;align-items:center;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--paper-2);padding:14px 16px 14px 0;color:var(--ink);font-size:16px;line-height:1.4;transition:border-color .12s,background .12s}
-.opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--muted)}
-.opt:hover{border-color:var(--rust)}
-.opt[aria-pressed="true"]{border-color:var(--rust);background:var(--forest);color:var(--ink)}
-.opt[aria-pressed="true"] .n{color:var(--rust)}
-.q-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
-.linkbtn{background:none;border:0;padding:8px 0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:15px}
+/* revelar ao rolar */
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv:not(.in){opacity:0;transform:translateY(28px)}
 
-.form{display:grid;gap:14px}
-.field{display:grid;gap:6px}
-.field label{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
-.field input,.field select{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1.5px solid var(--line);background:#12221B;color:var(--ink);border-radius:2px}
-.field input:focus,.field select:focus{outline:none;border-color:var(--rust)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.phone{display:grid;grid-template-columns:62px 1fr}
-.phone span{display:grid;place-items:center;background:var(--paper-2);border:1.5px solid var(--line);border-right:0;font-size:15px}
-.err{color:var(--low);font-size:14px;min-height:1.2em}
-.consent{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:var(--muted);align-items:start}
-.consent input{margin-top:3px;accent-color:var(--rust)}
+/* ======= quiz ======= */
+.quiz{position:fixed;inset:0;z-index:60;background:var(--night);overflow-y:auto;display:flex;flex-direction:column}
+.quiz canvas{position:fixed;inset:0;width:100%;height:100%;opacity:.35;pointer-events:none}
+.quiz-top{position:sticky;top:0;z-index:2;background:linear-gradient(var(--night) 70%,transparent);padding-top:env(safe-area-inset-top,0px)}
+.quiz-top .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding-block:18px 26px}
+.x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1;transition:background .2s,border-color .2s}
+.x:hover{border-color:var(--snow)}
+.ridge{height:34px;width:100%}
+.ridge .climber{transition:transform .7s var(--ease)}
+.ridge .done{transition:width .7s var(--ease)}
+.quiz-body{position:relative;z-index:1;flex:1;display:flex;align-items:flex-start}
+.quiz-body .wrap{width:100%;max-width:820px;padding-block:20px 60px}
+.stage{transition:opacity .35s var(--ease),transform .45s var(--ease)}
+.stage.out{opacity:0;transform:translateX(-40px)}
+.stage.pre{opacity:0;transform:translateX(40px);transition:none}
+.q-title{font-size:clamp(32px,4.6vw,54px);margin:14px 0 30px}
+.opts{display:grid;gap:8px;counter-reset:o}
+.opt{position:relative;display:grid;grid-template-columns:52px 1fr;align-items:center;text-align:left;width:100%;border:0;background:var(--night-2);padding:16px 18px 16px 0;font-size:16.5px;line-height:1.4;overflow:hidden;isolation:isolate;transition:color .25s}
+.opt::before{content:"";position:absolute;inset:0;background:var(--ridge);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:-1}
+.opt:hover::before{transform:scaleX(1)}
+.opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--fog);transition:color .2s}
+.opt:hover .n{color:var(--lime)}
+.opt[aria-pressed="true"]{color:var(--night)}
+.opt[aria-pressed="true"]::before{background:var(--lime);transform:scaleX(1)}
+.opt[aria-pressed="true"] .n{color:var(--night)}
+.q-foot{display:flex;justify-content:space-between;gap:12px;margin-top:22px;align-items:center}
+.linkbtn{background:none;border:0;padding:8px 0;color:var(--mist);font-size:15px}
+.linkbtn:hover{color:var(--snow)}
+.altnum{font-family:var(--display);font-size:clamp(84px,15vw,170px);line-height:.85;color:var(--lime);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.altnum small{font-family:var(--body);font-size:20px;color:var(--mist);letter-spacing:0;margin-left:8px}
+.badge{display:inline-block;background:var(--lime);color:var(--night);font-family:var(--mono);font-size:12px;padding:5px 10px;font-weight:500}
+.bars{display:grid;gap:16px;margin:30px 0}
+.bar .t{display:flex;justify-content:space-between;font-size:15px;margin-bottom:7px}
+.bar .t span{font-family:var(--mono);font-size:13px;color:var(--mist);font-variant-numeric:tabular-nums}
+.bar .track{height:6px;background:var(--night-3);position:relative;overflow:hidden}
+.bar .fill{position:absolute;inset:0;background:var(--lime);transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease)}
+.bar.low .fill{background:var(--ember)}
+.next{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:10px}
+.next>div{padding:24px;display:grid;gap:12px;align-content:start;background:var(--night-2)}
+.next .hot{background:var(--ridge)}
+.next h3{font-size:30px}
+.next p{font-size:15px;color:#CCD4CA}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--snow);color:var(--night);padding:12px 18px;font-size:15px;z-index:95;max-width:calc(100% - 32px)}
 
-.result-head{display:grid;gap:10px;margin-bottom:24px}
-.altitude{font-family:var(--display);font-size:clamp(64px,12vw,110px);line-height:.9;color:var(--rust);font-variant-numeric:tabular-nums}
-.altitude small{font-family:var(--body);font-size:22px;color:var(--muted);margin-left:6px}
-.camp{display:inline-block;background:var(--rust);color:var(--on-accent);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;padding:6px 10px;justify-self:start}
-.bars{display:grid;gap:14px;margin:8px 0 28px}
-.bar{display:grid;gap:6px}
-.bar .t{display:flex;justify-content:space-between;gap:12px;font-size:15px}
-.bar .t b{font-weight:600}
-.bar .t span{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.bar .track{height:8px;background:var(--paper-2);position:relative}
-.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--rust)}
-.bar.low .fill{background:var(--low)}
-.next-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
-.next-card{border:1.5px solid var(--line);padding:20px;display:grid;gap:12px;align-content:start}
-.next-card.dark{background:var(--forest);color:var(--ink);border-color:var(--rust)}
-.next-card h3{font-size:26px;text-transform:uppercase}
-.next-card p{font-size:15px}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 18px;font-size:15px;z-index:60;max-width:calc(100% - 32px)}
-
-@media (max-width:860px){
-  .hero .wrap{grid-template-columns:1fr;padding-block:36px 0}
-  .hero-copy{padding-bottom:8px}
-  .hero-art{min-height:440px}
-  .hero-art .book{left:0;width:52%}
-  .grid-2{grid-template-columns:1fr;gap:36px}
-  .event .wrap{grid-template-columns:1fr}
-  .event .cell{border-left:0;border-top:1px solid rgba(236,232,221,.18);padding:18px 0}
-  .event .cell:first-child{border-top:0}
+@media (max-width:1100px){.alti{display:none}}
+@media (max-width:900px){
+  .top nav a{display:none}
+  .hero .inner{grid-template-columns:1fr;padding-block:110px 20px}
+  .hero .copy{padding-bottom:0}
+  .hero figure{justify-self:center;width:min(78%,320px);margin-top:-10px}
+  .hero figcaption{display:none}
+  .count .wrap{grid-template-columns:repeat(4,1fr)}
+  .count .cell{padding:16px 10px;text-align:center}
+  .count .cell:first-child,.count .cell:last-child{grid-column:1/-1;text-align:left;padding:18px 0;border-left:0}
+  .count .cell:nth-child(2){border-left:0}
+  .count .num{font-size:36px}
+  .sec-head,.quote .wrap,.pass{grid-template-columns:1fr}
+  .camps{grid-template-columns:1fr 1fr}
+  .camp:nth-child(3){border-left:0;padding-left:0}
+  .camp{padding-bottom:26px}
+  .pass .stub{border-right:0;border-bottom:2px dashed rgba(238,240,230,.18)}
+  .pass .stub::before,.pass .stub::after{top:auto;bottom:-15px}
+  .pass .stub::before{left:-14px;right:auto}.pass .stub::after{right:-14px}
+  section.sec{padding-block:84px}
 }
 @media (max-width:560px){
   body{font-size:16px}
-  .dims{grid-template-columns:1fr}
-  .dim:nth-child(odd){border-right:0}
-  .dim:nth-child(even){padding-left:0}
-  .row2,.next-cards{grid-template-columns:1fr}
-  .top .btn{display:none}
-  section.block{padding-block:64px}
+  .camps,.row2,.next{grid-template-columns:1fr}
+  .camp+.camp{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .profile{display:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .strip .track{animation:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
-  *{transition:none!important}
+  .js .rv:not(.in){opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
-<header class="top">
+<header class="top" id="top">
   <div class="wrap">
-    <div class="brand">Liderança Z</div>
-    <button class="btn btn-ink btn-sm" data-start>Fazer diagnóstico</button>
+    <a class="brand" href="#">Liderança <b>Z</b></a>
+    <nav>
+      <a href="#trilha">O diagnóstico</a>
+      <a href="#autor">O autor</a>
+      <a href="#pre-venda">Pré-venda</a>
+      <button class="btn btn-lime" data-start><span>Começar</span></button>
+    </nav>
   </div>
 </header>
 
-<div class="strip" aria-hidden="true"><div class="track" id="track"></div></div>
+<div class="alti" aria-hidden="true">
+  <div class="scale"><i class="mark" id="altMark"></i></div>
+  <div class="read">ALTITUDE <b id="altRead">800</b> M</div>
+</div>
 
 <main>
-<section class="hero">
+<section class="hero" id="hero">
+  <div class="photo" aria-hidden="true"></div>
+  <canvas id="topo" aria-hidden="true"></canvas>
+  <div class="layer l1" data-depth=".12" aria-hidden="true"></div>
+  <div class="layer l2" data-depth=".22" aria-hidden="true"></div>
+  <div class="wrap inner">
+    <div class="copy">
+      <p class="tag fade">Diagnóstico do livro Liderança Z, de Tiago Favaro</p>
+      <h1><span class="ln"><span>Em que altitude</span></span><span class="ln"><span>está a sua</span></span><span class="ln"><span><em>liderança?</em></span></span></h1>
+      <p class="lead fade">Oito perguntas para quem lidera gente da Geração Z. Em três minutos você descobre onde a sua equipe sobe junto e em que trecho você está perdendo talentos.</p>
+      <div class="actions fade">
+        <button class="btn btn-lime" data-start>Fazer o diagnóstico grátis <span class="arr" aria-hidden="true">→</span></button>
+        <a class="btn btn-line" href="#pre-venda">Garantir meu exemplar</a>
+      </div>
+      <div class="meta fade"><span>8 perguntas</span><span>resultado na hora</span><span>gratuito</span></div>
+    </div>
+    <figure class="fade">
+      <img src="assets/autor.jpg" alt="Tiago Favaro, autor de Liderança Z" width="369" height="675">
+      <figcaption>TIAGO FAVARO · AUTOR</figcaption>
+    </figure>
+  </div>
+  <div class="layer l3" data-depth=".32" aria-hidden="true"></div>
+</section>
+
+<section class="count" aria-label="Contagem para o lançamento">
   <div class="wrap">
-    <div class="hero-copy">
-      <p class="eyebrow">Baseado no livro <b>Liderança Z</b>, de <b>Tiago Favaro</b></p>
-      <h1>Sua equipe sobe com você, ou <em>desce</em> no meio da trilha?</h1>
-      <p class="lead">Diagnóstico gratuito de 3 minutos para líderes que trabalham com a Geração Z. Descubra em que altitude está a sua liderança e onde você está perdendo talentos sem perceber.</p>
-      <div class="hero-actions">
-        <button class="btn btn-rust" data-start>Fazer diagnóstico gratuito <span aria-hidden="true">→</span></button>
-        <a class="btn btn-ghost" href="#pre-venda">Garantir meu exemplar</a>
-      </div>
-      <p class="small">8 perguntas · resultado na hora · sem custo</p>
-    </div>
-    <div class="hero-art">
-      <img class="author" src="assets/autor.jpg" alt="Tiago Favaro, autor de Liderança Z">
-    </div>
+    <div class="cell"><div class="tag">Noite de lançamento</div><div class="where" style="margin-top:4px"><b>Segunda, 23/11 · 19h</b>Faltam</div></div>
+    <div class="cell"><div class="num" id="cdD">00</div><div class="u">dias</div></div>
+    <div class="cell"><div class="num" id="cdH">00</div><div class="u">horas</div></div>
+    <div class="cell"><div class="num" id="cdM">00</div><div class="u">min</div></div>
+    <div class="cell"><div class="num" id="cdS">00</div><div class="u">seg</div></div>
+    <div class="cell"><div class="where"><b>Livraria da Vila</b>Bate-papo e sessão de autógrafos com o autor</div></div>
   </div>
 </section>
 
-<section class="event" aria-label="Lançamento">
+<section class="sec" id="trilha">
   <div class="wrap">
-    <div class="cell">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-      <div><div class="big">23/11</div><div class="lbl">Segunda-feira</div></div>
-    </div>
-    <div class="cell">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      <div><div class="big">19:00</div><div class="lbl">Horas</div></div>
-    </div>
-    <div class="cell">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-      <div><div class="big" style="font-size:30px">Livraria da Vila</div><div class="lbl">Noite de lançamento e autógrafos</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="block">
-  <div class="wrap grid-2">
-    <div style="display:grid;gap:22px">
-      <p class="eyebrow">O que o diagnóstico mede</p>
-      <h2 class="h2">Liderar a Gen Z é uma escalada</h2>
-      <div class="prose">
-        <p>Na montanha, ninguém chega ao cume sozinho. A cordada depende de clareza sobre a rota, confiança no parceiro e conversas francas a cada acampamento.</p>
-        <p>Com a Geração Z é igual. Eles não abandonam empresas, abandonam líderes que não explicam o porquê, não dão retorno e não mostram para onde a trilha vai.</p>
-        <p>O diagnóstico olha para quatro pontos da sua liderança e mostra em que altitude você está hoje.</p>
+    <div class="sec-head">
+      <h2 class="h2 rv">Ninguém chega<br>ao cume sozinho</h2>
+      <div class="body-l rv">
+        <p>Na montanha, a cordada depende de rota clara, confiança no parceiro e conversa franca em cada acampamento.</p>
+        <p>Com a Geração Z funciona igual. Eles não largam empresas. Largam líderes que não explicam o porquê, não dão retorno e não mostram para onde a trilha vai.</p>
       </div>
-      <div><button class="btn btn-rust" data-start>Começar agora <span aria-hidden="true">→</span></button></div>
     </div>
-    <div class="dims">
-      <div class="dim"><span class="alt">ROTA</span><h3>Propósito e clareza</h3><p>Sua equipe sabe por que faz o que faz e onde quer chegar?</p></div>
-      <div class="dim"><span class="alt">CORDADA</span><h3>Confiança e autonomia</h3><p>Você delega decisões de verdade ou segura a corda sozinho?</p></div>
-      <div class="dim"><span class="alt">RÁDIO</span><h3>Feedback e conversa</h3><p>O retorno chega na hora certa ou só na avaliação anual?</p></div>
-      <div class="dim"><span class="alt">ACLIMATAÇÃO</span><h3>Crescimento e retenção</h3><p>Seus talentos enxergam um caminho para crescer com você?</p></div>
+    <div class="profile" id="profile" aria-hidden="true">
+      <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
+        <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CC63F" stop-opacity=".22"/><stop offset="1" stop-color="#8CC63F" stop-opacity="0"/></linearGradient></defs>
+        <path class="area" d="M0 160 L60 150 L125 128 L180 138 L250 112 L320 120 L375 90 L440 100 L500 70 L560 82 L625 52 L690 64 L760 34 L820 46 L875 14 L940 26 L1000 6 L1000 170 L0 170Z"/>
+        <path class="path" pathLength="1" d="M0 160 L60 150 L125 128 L180 138 L250 112 L320 120 L375 90 L440 100 L500 70 L560 82 L625 52 L690 64 L760 34 L820 46 L875 14 L940 26 L1000 6"/>
+        <g fill="#0C1712" stroke="#8CC63F" stroke-width="2">
+          <circle cx="125" cy="128" r="6" vector-effect="non-scaling-stroke"/><circle cx="375" cy="90" r="6"/><circle cx="625" cy="52" r="6"/><circle cx="875" cy="14" r="6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="camps">
+      <div class="camp rv"><span class="alt">Acampamento base · 2.000 m</span><h3>Rota</h3><p>Propósito e clareza. A equipe sabe por que faz o que faz?</p><p class="q">“Por que a gente está fazendo isso?”</p></div>
+      <div class="camp rv"><span class="alt">Campo 1 · 4.400 m</span><h3>Cordada</h3><p>Confiança e autonomia. Você delega de verdade ou segura a corda sozinho?</p><p class="q">“Posso resolver do meu jeito?”</p></div>
+      <div class="camp rv"><span class="alt">Campo 2 · 6.600 m</span><h3>Rádio</h3><p>Feedback e conversa. O retorno chega na hora ou só na avaliação anual?</p><p class="q">“Como eu estou indo?”</p></div>
+      <div class="camp rv"><span class="alt">Cume · 8.848 m</span><h3>Aclimatação</h3><p>Crescimento e retenção. Seus talentos veem um caminho para crescer com você?</p><p class="q">“Onde eu chego aqui?”</p></div>
+    </div>
+    <div class="actions rv" style="margin-top:56px">
+      <button class="btn btn-lime" data-start>Medir a minha altitude <span class="arr" aria-hidden="true">→</span></button>
+      <span class="small">As quatro perguntas acima são as que a Gen Z faz, mesmo quando não diz em voz alta.</span>
     </div>
   </div>
 </section>
 
-<section class="cta-band">
+<section class="quote" id="autor">
   <div class="wrap">
-    <h2>Em 3 minutos você sabe onde está perdendo talentos</h2>
-    <button class="btn btn-rust" data-start>Fazer diagnóstico gratuito <span aria-hidden="true">→</span></button>
-  </div>
-</section>
-
-<section class="block presale" id="pre-venda">
-  <div class="wrap grid-2">
-    <div style="display:grid;gap:22px">
-      <p class="eyebrow">Pré-venda</p>
-      <h2 class="h2">Garanta seu exemplar antes do lançamento</h2>
-      <div class="prose">
-        <p>Quem compra na pré-venda recebe o livro com dedicatória e leva os bônus de lançamento junto, sem custo extra. Os bônus valem só até a noite de 23/11.</p>
+    <img class="rv" src="assets/autor.jpg" alt="Tiago Favaro" loading="lazy">
+    <div class="rv">
+      <blockquote>Como parar de perder talentos da Geração Z e começar a transformá-los em <em>alta performance.</em></blockquote>
+      <div class="who">
+        <p><b>Tiago Favaro</b> escreveu Liderança Z para líderes que estão cansados de ver gente boa ir embora.</p>
+        <p>O livro usa o que o montanhismo ensina sobre rota, cordada e aclimatação para mostrar como conduzir uma equipe jovem montanha acima, sem deixar ninguém no caminho.</p>
       </div>
-      <img src="assets/livro.jpg" alt="" style="width:100%;max-width:420px">
-    </div>
-    <div class="price-card">
-      <p class="eyebrow" style="color:var(--rust-ink)">Oferta de pré-venda</p>
-      <div class="price" id="priceTag"></div>
-      <ul class="bonus">
-        <li>Livro físico <b>Liderança Z</b> com dedicatória do autor</li>
-        <li>Capítulo 1 em PDF para começar a ler hoje</li>
-        <li>Seu diagnóstico completo com o plano de subida</li>
-        <li>Lugar garantido na noite de autógrafos, 23/11</li>
-      </ul>
-      <form class="form" id="presaleForm" novalidate>
-        <div class="field"><label for="ps-nome">Nome completo</label><input id="ps-nome" name="nome" autocomplete="name" placeholder="Como você se chama"></div>
-        <div class="field"><label for="ps-email">E-mail</label><input id="ps-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
-        <div class="field"><label for="ps-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ps-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
-        <p class="err" id="ps-err" role="alert"></p>
-        <button class="btn btn-rust" type="submit" style="justify-content:center">Continuar para pagamento <span aria-hidden="true">→</span></button>
-        <p class="small" style="text-align:center">Você será levado ao checkout seguro para concluir a compra.</p>
-      </form>
+      <div class="actions" style="margin-top:28px"><a class="btn btn-line" href="#pre-venda">Quero o livro</a></div>
     </div>
   </div>
 </section>
 
-<section class="block about">
-  <div class="wrap grid-2">
-    <img src="assets/autor.jpg" alt="Tiago Favaro">
-    <div style="display:grid;gap:22px;align-self:center">
-      <p class="eyebrow">Sobre o autor</p>
-      <h2 class="h2">Tiago Favaro</h2>
-      <div class="prose">
-        <p>Tiago Favaro escreveu <b>Liderança Z</b> para líderes que querem parar de perder talentos da Geração Z e começar a transformá-los em alta performance.</p>
-        <p>O livro usa as lições do montanhismo, da rota, da cordada e da aclimatação, para mostrar como conduzir uma equipe jovem montanha acima sem deixar ninguém pelo caminho.</p>
+<section class="sec pass-sec" id="pre-venda">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2 rv">Seu passe<br>de subida</h2>
+      <div class="body-l rv"><p>Compre na pré-venda e receba o livro com dedicatória, o capítulo 1 hoje mesmo e lugar garantido na noite de autógrafos. Os bônus valem até 23/11.</p></div>
+    </div>
+    <div class="pass rv">
+      <div class="stub">
+        <img src="assets/livro.jpg" alt="Livro Liderança Z" loading="lazy">
+        <dl>
+          <div><dt>Data</dt><dd>23/11</dd></div>
+          <div><dt>Horário</dt><dd>19:00</dd></div>
+          <div><dt>Local</dt><dd>Livraria da Vila</dd></div>
+          <div><dt>Passe nº</dt><dd id="passNo">0001</dd></div>
+        </dl>
       </div>
-      <div class="hero-actions">
-        <button class="btn btn-ink" data-start>Fazer o diagnóstico</button>
-        <a class="btn btn-ghost" href="#pre-venda">Comprar na pré-venda</a>
+      <div class="main">
+        <div class="price"><b id="pPrice"></b><s id="pFull"></s></div>
+        <ul class="inc">
+          <li>Livro físico Liderança Z com dedicatória do autor</li>
+          <li>Capítulo 1 em PDF para começar a ler hoje</li>
+          <li>Lugar garantido na noite de autógrafos</li>
+        </ul>
+        <form class="form" id="presaleForm" novalidate>
+          <div class="field"><label for="ps-nome">Nome completo</label><input id="ps-nome" autocomplete="name" placeholder="Como você se chama"></div>
+          <div class="row2">
+            <div class="field"><label for="ps-email">E-mail</label><input id="ps-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+            <div class="field"><label for="ps-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ps-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+          </div>
+          <p class="err" id="ps-err" role="alert"></p>
+          <button class="btn btn-lime" type="submit" style="justify-content:center">Continuar para o pagamento <span class="arr" aria-hidden="true">→</span></button>
+          <p class="small">O pagamento é feito no checkout seguro, em outra aba.</p>
+        </form>
       </div>
     </div>
   </div>
@@ -318,174 +409,215 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <footer>
   <div class="wrap">
     <span>Liderança Z · Tiago Favaro</span>
-    <span>Lançamento 23/11 · 19h · Livraria da Vila</span>
+    <span>23/11 · 19h · Livraria da Vila</span>
   </div>
 </footer>
 
-<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-  <div class="sheet" id="sheet"></div>
+<div class="quiz" id="quiz" hidden role="dialog" aria-modal="true" aria-label="Diagnóstico Liderança Z">
+  <canvas id="topo2" aria-hidden="true"></canvas>
+  <div class="quiz-top"><div class="wrap">
+    <span class="mono" id="qCount" style="color:var(--mist)">01 / 08</span>
+    <svg class="ridge" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true">
+      <defs><clipPath id="rc"><rect class="done" id="rDone" x="0" y="0" width="0" height="34"/></clipPath></defs>
+      <path d="M0 34 L40 26 L70 29 L110 18 L150 22 L190 12 L230 16 L270 7 L310 11 L350 3 L400 6 L400 34Z" fill="#1B3025"/>
+      <path d="M0 34 L40 26 L70 29 L110 18 L150 22 L190 12 L230 16 L270 7 L310 11 L350 3 L400 6 L400 34Z" fill="#8CC63F" clip-path="url(#rc)"/>
+    </svg>
+    <button class="x" id="qClose" aria-label="Fechar diagnóstico">×</button>
+  </div></div>
+  <div class="quiz-body"><div class="wrap"><div class="stage" id="stage"></div></div></div>
 </div>
 <div class="toast" id="toast" hidden></div>
 
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-/* ============ CONFIGURAÇÃO — edite aqui ============ */
-const CONFIG = {
-  // Link do checkout da pré-venda (Hotmart, Kiwify, Mercado Pago, site da editora...)
-  checkoutUrl: "https://exemplo.com/checkout-lideranca-z",
-  // Link do PDF do capítulo 1 (Google Drive público, Dropbox...)
-  capitulo1Url: "https://exemplo.com/capitulo-1-lideranca-z.pdf",
-  // Para onde vão os leads: URL de um Google Apps Script, Make, Zapier ou n8n (POST JSON). Vazio = só guarda no aparelho.
-  webhookUrl: "",
-  preco: "R$ 59,90",
-  precoCheio: "R$ 79,90",
-  // Modo evento (tablet no estande): abra a página com #evento no final do link.
-  // Depois do resultado, a tela volta sozinha para o início em 90 s, pronta para a próxima pessoa.
-  reinicioEventoSeg: 90
-};
-/* =================================================== */
-
+const C = window.LZ_CONFIG || {};
 const MODO_EVENTO = location.hash === "#evento";
-const DIMS = {rota:"Propósito e clareza",cordada:"Confiança e autonomia",radio:"Feedback e conversa",acli:"Crescimento e retenção"};
-
-const QUESTIONS = [
-  {d:"rota",q:"Quando alguém da Gen Z pergunta “por que estamos fazendo isso?”, o que costuma acontecer?",o:[
-    "Respondo que é assim que funciona e pronto.",
-    "Fico incomodado; parece questionamento à minha autoridade.",
-    "Explico quando dá tempo, mas quase nunca dá.",
-    "Explico o motivo da tarefa, mas não ligo ao objetivo maior.",
-    "Explico o porquê e como aquilo conecta com a meta da equipe.",
-    "A equipe já sabe o porquê antes de perguntar; o propósito é conversa recorrente."]},
-  {d:"rota",q:"Sua equipe sabe dizer, com as próprias palavras, onde vocês querem chegar este ano?",o:[
-    "Não temos uma meta clara nem para mim.",
-    "Eu sei, mas nunca compartilhei com o time.",
-    "Foi falado uma vez, numa reunião, e ficou por lá.",
-    "Alguns sabem; outros só conhecem a própria tarefa.",
-    "A maioria sabe e acompanha a meta de vez em quando.",
-    "Todos sabem, acompanham o progresso e ajudam a ajustar a rota."]},
-  {d:"cordada",q:"Como as decisões do dia a dia são tomadas na sua equipe?",o:[
-    "Tudo passa por mim, sem exceção.",
-    "Delego tarefas, mas reviso e refaço quase tudo.",
-    "Delego decisões pequenas, e só quando estou sem tempo.",
-    "Existe alguma autonomia, mas sem combinados claros de limite.",
-    "Há combinados claros do que cada um pode decidir sozinho.",
-    "A equipe decide com autonomia e eu atuo como apoio, não como gargalo."]},
-  {d:"cordada",q:"Quando alguém jovem da equipe erra, qual é a reação mais comum?",o:[
-    "Corrijo na frente de todos para servir de exemplo.",
-    "Assumo a tarefa de volta e não delego de novo tão cedo.",
-    "Fico frustrado, mas não falo nada.",
-    "Converso, mas o foco fica no erro, não no aprendizado.",
-    "Converso em particular sobre o que aprender com aquilo.",
-    "O erro vira aprendizado do time, sem culpa, e a pessoa ganha nova chance."]},
-  {d:"radio",q:"Com que frequência você dá feedback individual para quem é da Gen Z?",o:[
-    "Só quando algo dá muito errado.",
-    "Na avaliação anual, se ela acontecer.",
-    "De vez em quando, sem nenhuma regularidade.",
-    "Uma vez por mês, mais ou menos.",
-    "Toda semana ou a cada entrega importante.",
-    "É contínuo: conversas curtas e frequentes, nos dois sentidos."]},
-  {d:"radio",q:"E o contrário: sua equipe te dá feedback sobre a sua liderança?",o:[
-    "Nunca. Não acho que seja papel deles.",
-    "Nunca pedi e ninguém nunca ofereceu.",
-    "Já pedi, mas ninguém se sentiu à vontade para falar.",
-    "Recebo, mas de forma rara e indireta.",
-    "Peço com regularidade e recebo respostas sinceras.",
-    "É parte da cultura: recebo, ajo e mostro o que mudei."]},
-  {d:"acli",q:"Seus talentos jovens enxergam um caminho para crescer com você?",o:[
-    "Não existe plano de crescimento na equipe.",
-    "Existe, mas só para quem tem anos de casa.",
-    "Falo de crescimento quando alguém ameaça sair.",
-    "Alguns têm conversas de carreira; outros não.",
-    "Cada pessoa tem metas de desenvolvimento conversadas comigo.",
-    "Há plano individual, acompanhado de perto, com conquistas visíveis."]},
-  {d:"acli",q:"Nos últimos 12 meses, como foi a saída de pessoas da Gen Z da sua equipe?",o:[
-    "Perdi várias e não sei bem o motivo.",
-    "Perdi algumas e atribuo a “essa geração não para em lugar nenhum”.",
-    "Perdi gente boa que eu queria ter mantido.",
-    "Saiu pouca gente, mas sinto que outras estão de saída.",
-    "Saídas raras, e quando acontecem eu entendo o motivo.",
-    "Quase ninguém saiu, e quem saiu foi para crescer, com a porta aberta."]}
-];
-
-const CAMPS = [
-  {max:2500, nome:"Acampamento base", txt:"Sua liderança ainda está no pé da montanha. A boa notícia: cada passo aqui rende muito. Comece pela clareza do porquê e por conversas mais frequentes."},
-  {max:5000, nome:"Campo 1", txt:"Você já saiu da base, mas a equipe ainda sobe sem rota clara. É aqui que muitos talentos desistem da subida. Ajuste os pontos mais baixos abaixo."},
-  {max:7500, nome:"Campo 2", txt:"Boa altitude. Você já lidera com intenção, mas há trechos onde a corda afrouxa. Fortalecer os pontos mais baixos deixa a equipe pronta para o cume."},
-  {max:9000, nome:"Ataque ao cume", txt:"Sua liderança está entre as mais preparadas para a Gen Z. Agora o desafio é sustentar a cultura e formar novos líderes na cordada."}
-];
-const CUME = 8848;
-
-const state = {step:0, answers:[], lead:null};
 const $ = s => document.querySelector(s);
-const overlay = $("#overlay"), sheet = $("#sheet");
-let resetTimer = null;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3400)}
 
-// faixa
-(() => {
-  const item = '<span>Lançamento <b>23/11</b> · 19h</span><span>Livraria da Vila</span><span>Diagnóstico gratuito</span><span>Pré-venda com bônus</span>';
-  $("#track").innerHTML = item.repeat(4) + item.repeat(4);
-  $("#priceTag").innerHTML = `<s>${CONFIG.precoCheio}</s>${CONFIG.preco}`;
-})();
-
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3200)}
-
-function ridgeSVG(p){ // perfil de montanha com o marcador do progresso
-  const pts=[[0,26],[14,20],[24,22],[38,12],[50,15],[64,6],[74,9],[86,2],[100,26]];
-  const d="M"+pts.map(x=>x.join(" ")).join(" L")+" Z";
-  const x=Math.max(2,Math.min(98,p*100));
-  return `<svg class="ridge" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
-    <defs><clipPath id="cp"><rect x="0" y="0" width="${x}" height="28"/></clipPath></defs>
-    <path d="${d}" fill="var(--paper-2)"/>
-    <path d="${d}" fill="var(--forest)" clip-path="url(#cp)"/>
-    <rect x="${x-0.6}" y="0" width="1.2" height="28" fill="var(--rust)"/>
-  </svg>`;
+/* ---------- envio de leads (Supabase + fila offline) ---------- */
+const sb = (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey, {auth:{persistSession:false}}) : null;
+const UTM = (() => { const q = new URLSearchParams(location.search); return {utm_source:q.get("utm_source"), utm_medium:q.get("utm_medium"), utm_campaign:q.get("utm_campaign")}; })();
+function readQ(){try{return JSON.parse(localStorage.getItem("lz_fila")||"[]")}catch(e){return []}}
+function writeQ(q){try{localStorage.setItem("lz_fila",JSON.stringify(q))}catch(e){}}
+async function sendLead(lead){
+  const row = {...lead, ...UTM, origem: MODO_EVENTO ? "evento" : "digital"};
+  if(!sb){ writeQ([...readQ(), row]); return; }
+  const {error} = await sb.from("leads").insert(row);
+  if(error){ console.warn("Lead guardado para reenviar:", error.message); writeQ([...readQ(), row]); }
 }
+async function flushQ(){
+  if(!sb) return; const q = readQ(); if(!q.length) return;
+  const {error} = await sb.from("leads").insert(q);
+  if(!error) writeQ([]);
+}
+flushQ(); addEventListener("online", flushQ);
 
-function open(){clearTimeout(resetTimer);state.step=0;state.answers=[];state.lead=null;overlay.hidden=false;document.body.style.overflow="hidden";render()}
-function close(){overlay.hidden=true;document.body.style.overflow="";clearTimeout(resetTimer)}
-document.querySelectorAll("[data-start]").forEach(b=>b.addEventListener("click",open));
-overlay.addEventListener("click",e=>{if(e.target===overlay)close()});
-document.addEventListener("keydown",e=>{
-  if(overlay.hidden)return;
-  if(e.key==="Escape")close();
-  if(state.step<QUESTIONS.length && /^[1-6]$/.test(e.key))choose(+e.key-1);
+/* ---------- curvas de nível ---------- */
+function topo(canvas, opts){
+  const ctx = canvas.getContext("2d"); let w, h, dpr, t = Math.random()*100, raf;
+  const peaks = opts.peaks;
+  function size(){dpr=Math.min(devicePixelRatio||1,2);w=canvas.clientWidth;h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    const base = Math.max(w,h);
+    peaks.forEach((p,pi)=>{
+      const cx=p.x*w, cy=p.y*h;
+      for(let k=1;k<=p.rings;k++){
+        const r0 = k*base*p.step;
+        ctx.beginPath();
+        for(let a=0;a<=Math.PI*2+.01;a+=Math.PI/90){
+          const n = Math.sin(a*3+t*.6+k*.35+pi)*.07 + Math.sin(a*5-t*.4+k*.2)*.045 + Math.sin(a*2+k*.5+pi*2)*.09;
+          const r = r0*(1+n);
+          const x=cx+Math.cos(a)*r*1.35, y=cy+Math.sin(a)*r*.8;
+          a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        const major = k%5===0;
+        ctx.strokeStyle = major ? `rgba(140,198,63,${opts.alpha*1.6})` : `rgba(238,240,230,${opts.alpha*(1-k/p.rings*.6)})`;
+        ctx.lineWidth = major?1.1:.7; ctx.stroke();
+      }
+    });
+    t += .0035;
+    if(!reduce) raf=requestAnimationFrame(frame);
+  }
+  size(); addEventListener("resize",()=>{size(); if(reduce) frame();}); frame();
+  return {stop:()=>cancelAnimationFrame(raf), start:()=>{cancelAnimationFrame(raf);frame()}};
+}
+const heroTopo = topo($("#topo"), {alpha:.09, peaks:[{x:.72,y:.18,rings:26,step:.022},{x:.12,y:.95,rings:16,step:.028}]});
+let quizTopo = null;
+
+/* ---------- topo, parallax, altímetro ---------- */
+const layers=[...document.querySelectorAll(".layer")];
+function onScroll(){
+  const y=scrollY, max=document.documentElement.scrollHeight-innerHeight;
+  $("#top").classList.toggle("solid", y>40);
+  if(!reduce) layers.forEach(l=>l.style.transform=`translateY(${y*+l.dataset.depth}px)`);
+  const p=Math.min(1,Math.max(0,y/max));
+  $("#altMark").style.bottom=(p*100)+"%";
+  $("#altRead").textContent=Math.round(800+p*8048).toLocaleString("pt-BR");
+}
+addEventListener("scroll",onScroll,{passive:true}); onScroll();
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15,rootMargin:"0px 0px -40px"});
+document.querySelectorAll(".rv").forEach((el,i)=>{el.style.transitionDelay=(el.parentElement.classList.contains("camps")?[...el.parentElement.children].indexOf(el)*90:0)+"ms";io.observe(el)});
+const prof=$("#profile");
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){prof.classList.add("draw");o.disconnect()}}),{threshold:.4}).observe(prof);
+
+/* ---------- contagem regressiva ---------- */
+const alvo=new Date(C.lancamento||"2026-11-23T19:00:00-03:00").getTime();
+function tick(){
+  let s=Math.max(0,Math.floor((alvo-Date.now())/1000));
+  const d=Math.floor(s/86400); s%=86400; const h=Math.floor(s/3600); s%=3600; const m=Math.floor(s/60); s%=60;
+  [["#cdD",d],["#cdH",h],["#cdM",m],["#cdS",s]].forEach(([id,v])=>$(id).textContent=String(v).padStart(2,"0"));
+}
+tick(); setInterval(tick,1000);
+
+$("#pPrice").textContent=C.preco||""; $("#pFull").textContent=C.precoCheio?("de "+C.precoCheio):"";
+$("#passNo").textContent=String(Math.floor(Date.now()/1000)%9000+1000);
+
+/* ---------- quiz ---------- */
+const DIMS={rota:"Rota · propósito e clareza",cordada:"Cordada · confiança e autonomia",radio:"Rádio · feedback e conversa",acli:"Aclimatação · crescimento e retenção"};
+const QUESTIONS=[
+  {d:"rota",q:"Alguém da Gen Z pergunta “por que estamos fazendo isso?”. O que costuma acontecer?",o:[
+    "Respondo que é assim que funciona e pronto.","Fico incomodado. Parece que estão questionando minha autoridade.","Explico quando dá tempo, e quase nunca dá.","Explico o motivo da tarefa, mas não ligo ao objetivo maior.","Explico o porquê e como aquilo conecta com a meta da equipe.","Eles já sabem o porquê antes de perguntar. Propósito é assunto frequente entre nós."]},
+  {d:"rota",q:"Sua equipe sabe dizer, com as próprias palavras, aonde vocês querem chegar este ano?",o:[
+    "Não temos uma meta clara nem para mim.","Eu sei, mas nunca compartilhei com o time.","Foi falado uma vez, numa reunião, e ficou por lá.","Alguns sabem. Outros só conhecem a própria tarefa.","A maioria sabe e acompanha a meta de vez em quando.","Todos sabem, acompanham o progresso e ajudam a ajustar a rota."]},
+  {d:"cordada",q:"Como as decisões do dia a dia são tomadas na sua equipe?",o:[
+    "Tudo passa por mim, sem exceção.","Delego tarefas, mas reviso e refaço quase tudo.","Delego decisões pequenas, e só quando estou sem tempo.","Existe alguma autonomia, mas sem combinado claro de limite.","Há combinados claros do que cada um decide sozinho.","A equipe decide com autonomia e eu entro como apoio, não como gargalo."]},
+  {d:"cordada",q:"Quando alguém jovem da equipe erra, qual é a reação mais comum?",o:[
+    "Corrijo na frente de todos para servir de exemplo.","Pego a tarefa de volta e não delego de novo tão cedo.","Fico frustrado, mas não falo nada.","Converso, mas o foco fica no erro e não no aprendizado.","Converso em particular sobre o que aprender com aquilo.","O erro vira aprendizado do time, sem culpa, e a pessoa ganha outra chance."]},
+  {d:"radio",q:"Com que frequência você dá feedback individual para quem é da Gen Z?",o:[
+    "Só quando algo dá muito errado.","Na avaliação anual, se ela acontecer.","De vez em quando, sem regularidade.","Mais ou menos uma vez por mês.","Toda semana ou a cada entrega importante.","O tempo todo: conversas curtas e frequentes, nos dois sentidos."]},
+  {d:"radio",q:"E o contrário: sua equipe te dá feedback sobre a sua liderança?",o:[
+    "Nunca. Não acho que seja papel deles.","Nunca pedi e ninguém nunca ofereceu.","Já pedi, mas ninguém se sentiu à vontade para falar.","Recebo, mas raramente e de forma indireta.","Peço com regularidade e recebo respostas sinceras.","Faz parte da cultura: recebo, ajo e mostro o que mudei."]},
+  {d:"acli",q:"Seus talentos jovens enxergam um caminho para crescer com você?",o:[
+    "Não existe plano de crescimento na equipe.","Existe, mas só para quem tem anos de casa.","Falo de crescimento quando alguém ameaça sair.","Alguns têm conversas de carreira, outros não.","Cada pessoa tem metas de desenvolvimento combinadas comigo.","Há plano individual, acompanhado de perto, com conquistas que todo mundo vê."]},
+  {d:"acli",q:"Nos últimos 12 meses, como foi a saída de pessoas da Gen Z da sua equipe?",o:[
+    "Perdi várias e não sei bem o motivo.","Perdi algumas e acho que essa geração não para em lugar nenhum.","Perdi gente boa que eu queria ter mantido.","Saiu pouca gente, mas sinto que outros estão de saída.","Saídas raras, e quando acontecem eu entendo o motivo.","Quase ninguém saiu, e quem saiu foi para crescer, de porta aberta."]}
+];
+const CAMPS=[
+  {max:2500,nome:"Acampamento base",txt:"Sua liderança ainda está no pé da montanha. A boa notícia é que aqui cada passo rende muito. Comece explicando o porquê das coisas e conversando com mais frequência."},
+  {max:5000,nome:"Campo 1",txt:"Você já saiu da base, mas a equipe ainda sobe sem rota clara. É nesse trecho que muitos talentos desistem. Olhe com atenção para as barras mais baixas."},
+  {max:7500,nome:"Campo 2",txt:"Boa altitude. Você já lidera com intenção, mas em alguns trechos a corda afrouxa. Fortalecer os pontos mais baixos deixa a equipe pronta para o cume."},
+  {max:9000,nome:"Ataque ao cume",txt:"Sua liderança está entre as mais preparadas para a Gen Z. O desafio agora é sustentar essa cultura e formar novos líderes na cordada."}
+];
+const CUME=8848;
+const st={step:0,answers:[],lead:null,busy:false};
+const quiz=$("#quiz"), stage=$("#stage");
+let resetTimer=null;
+
+function openQuiz(){
+  clearTimeout(resetTimer); Object.assign(st,{step:0,answers:[],lead:null,busy:false});
+  quiz.hidden=false; document.body.style.overflow="hidden";
+  if(!quizTopo) quizTopo=topo($("#topo2"),{alpha:.07,peaks:[{x:.85,y:.1,rings:22,step:.025},{x:.05,y:.9,rings:14,step:.03}]}); else quizTopo.start();
+  heroTopo.stop(); paint(false);
+}
+function closeQuiz(){quiz.hidden=true;document.body.style.overflow="";clearTimeout(resetTimer);quizTopo&&quizTopo.stop();heroTopo.start()}
+document.querySelectorAll("[data-start]").forEach(b=>b.addEventListener("click",openQuiz));
+$("#qClose").addEventListener("click",closeQuiz);
+addEventListener("keydown",e=>{
+  if(quiz.hidden)return;
+  if(e.key==="Escape")closeQuiz();
+  if(st.step<QUESTIONS.length && /^[1-6]$/.test(e.key) && !e.target.matches("input,select"))choose(+e.key-1);
 });
+
+function setProgress(p,label){$("#rDone").setAttribute("width",400*p);$("#qCount").textContent=label}
+
+function paint(animate=true){
+  const go=()=>{
+    render();
+    if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>{requestAnimationFrame(()=>stage.classList.remove("pre"))})}
+    quiz.scrollTop=0;
+  };
+  if(animate&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)} else go();
+}
 
 function render(){
   const total=QUESTIONS.length;
-  if(state.step<total){
-    const q=QUESTIONS[state.step], sel=state.answers[state.step];
-    sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
-      <div class="meter"><span class="mono">${String(state.step+1).padStart(2,"0")} / ${String(total).padStart(2,"0")}</span>${ridgeSVG(state.step/total)}</div>
-      <p class="eyebrow" style="margin-bottom:10px">${DIMS[q.d]}</p>
-      <h2 class="q-title" id="sheetTitle">${q.q}</h2>
-      <p class="q-sub">Escolha a opção que mais se parece com a sua realidade hoje.</p>
+  if(st.step<total){
+    const q=QUESTIONS[st.step], sel=st.answers[st.step];
+    setProgress(st.step/total,`${String(st.step+1).padStart(2,"0")} / ${String(total).padStart(2,"0")}`);
+    stage.innerHTML=`<p class="tag">${DIMS[q.d]}</p>
+      <h2 class="q-title">${q.q}</h2>
       <div class="opts">${q.o.map((t,i)=>`<button class="opt" aria-pressed="${sel===i}" data-i="${i}"><span class="n">${i+1}</span><span>${t}</span></button>`).join("")}</div>
-      <div class="q-nav">${state.step>0?'<button class="linkbtn" data-back>← Voltar</button>':'<span></span>'}<span class="small">Dica: use as teclas 1 a 6</span></div>`;
-    sheet.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.i)));
-    sheet.querySelector("[data-back]")?.addEventListener("click",()=>{state.step--;render()});
-  } else if(!state.lead){
-    renderLead();
-  } else {
-    renderResult();
-  }
-  sheet.querySelector("[data-close]")?.addEventListener("click",close);
-  overlay.scrollTop=0;
-  (sheet.querySelector(".opt[aria-pressed=true]")||sheet.querySelector(".opt,input"))?.focus({preventScroll:true});
+      <div class="q-foot">${st.step>0?'<button class="linkbtn" id="back">← Voltar</button>':'<span></span>'}<span class="small">Teclas 1 a 6 também funcionam</span></div>`;
+    stage.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.i)));
+    $("#back")?.addEventListener("click",()=>{st.step--;paint()});
+  } else if(!st.lead){ renderLead(); }
+  else { renderResult(); }
 }
 
 function choose(i){
-  state.answers[state.step]=i;
-  render();
-  setTimeout(()=>{state.step++;render()},220);
+  if(st.busy)return; st.busy=true;
+  st.answers[st.step]=i;
+  stage.querySelectorAll(".opt").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
+  setTimeout(()=>{st.step++;st.busy=false;paint()},380);
+}
+
+function validate(nome,email,tel){
+  if(nome.length<2)return "Digite seu nome.";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return "Confira o e-mail, parece estar incompleto.";
+  if(tel.length<10||tel.length>11)return "Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
+  return "";
+}
+
+function score(){
+  const s={},c={};
+  QUESTIONS.forEach((q,i)=>{s[q.d]=(s[q.d]||0)+st.answers[i];c[q.d]=(c[q.d]||0)+5});
+  const dims={};Object.keys(s).forEach(k=>dims[k]=Math.round(s[k]/c[k]*100));
+  const pct=Math.round(st.answers.reduce((a,b)=>a+b,0)/(QUESTIONS.length*5)*100);
+  const alt=Math.round((800+pct/100*(CUME-800))/10)*10;
+  return {dims,pct,alt,camp:CAMPS.find(x=>alt<=x.max)||CAMPS[3]};
 }
 
 function renderLead(){
-  sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
-    <div class="meter"><span class="mono">✓ ${QUESTIONS.length} / ${QUESTIONS.length}</span>${ridgeSVG(1)}</div>
-    <p class="eyebrow" style="margin-bottom:10px">Quase lá</p>
-    <h2 class="q-title" id="sheetTitle">Para onde enviamos o seu resultado?</h2>
-    <p class="q-sub">Você vê o resultado agora e recebe o diagnóstico completo e o capítulo 1 grátis no seu WhatsApp e e-mail.</p>
+  setProgress(1,"✓ 08 / 08");
+  stage.innerHTML=`<p class="tag">Última parada antes do resultado</p>
+    <h2 class="q-title">Para onde mandamos<br>o seu diagnóstico?</h2>
+    <p style="color:#CCD4CA;margin:-12px 0 28px;max-width:34em">Você vê o resultado agora e recebe o diagnóstico completo e o capítulo 1 grátis no WhatsApp e no e-mail.</p>
     <form class="form" id="leadForm" novalidate>
       <div class="field"><label for="ld-nome">Nome</label><input id="ld-nome" autocomplete="name" placeholder="Como você se chama"></div>
       <div class="row2">
@@ -493,104 +625,64 @@ function renderLead(){
         <div class="field"><label for="ld-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ld-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
       </div>
       <div class="row2">
-        <div class="field"><label for="ld-cargo">Você lidera</label>
-          <select id="ld-cargo"><option value="">Selecione</option><option>Equipe na empresa</option><option>Minha própria empresa</option><option>Ministério ou equipe na igreja</option><option>Escola ou projeto social</option><option>Ainda não lidero</option></select></div>
-        <div class="field"><label for="ld-time">Tamanho da equipe</label>
-          <select id="ld-time"><option value="">Selecione</option><option>1 a 5 pessoas</option><option>6 a 15 pessoas</option><option>16 a 50 pessoas</option><option>Mais de 50</option></select></div>
+        <div class="field"><label for="ld-cargo">Você lidera</label><select id="ld-cargo"><option value="">Selecione</option><option>Equipe na empresa</option><option>Minha própria empresa</option><option>Ministério ou equipe na igreja</option><option>Escola ou projeto social</option><option>Ainda não lidero</option></select></div>
+        <div class="field"><label for="ld-time">Tamanho da equipe</label><select id="ld-time"><option value="">Selecione</option><option>1 a 5 pessoas</option><option>6 a 15 pessoas</option><option>16 a 50 pessoas</option><option>Mais de 50</option></select></div>
       </div>
       <label class="consent"><input type="checkbox" id="ld-ok" checked><span>Aceito receber o diagnóstico e novidades do livro Liderança Z por WhatsApp e e-mail.</span></label>
       <p class="err" id="ld-err" role="alert"></p>
-      <button class="btn btn-rust" type="submit" style="justify-content:center">Ver meu resultado <span aria-hidden="true">→</span></button>
+      <div><button class="btn btn-lime" type="submit">Ver minha altitude <span class="arr" aria-hidden="true">→</span></button></div>
     </form>`;
+  $("#ld-nome").focus({preventScroll:true});
   $("#leadForm").addEventListener("submit",e=>{
     e.preventDefault();
     const nome=$("#ld-nome").value.trim(), email=$("#ld-email").value.trim(), tel=$("#ld-tel").value.replace(/\D/g,"");
     const err=validate(nome,email,tel); if(err){$("#ld-err").textContent=err;return}
     if(!$("#ld-ok").checked){$("#ld-err").textContent="Marque o aceite para receber o diagnóstico completo.";return}
     const sc=score();
-    state.lead={tipo:"diagnostico",nome,email,whatsapp:"+55"+tel,lidera:$("#ld-cargo").value,equipe:$("#ld-time").value,
-      altitude:sc.alt,acampamento:sc.camp.nome,pontuacao:sc.pct,...Object.fromEntries(Object.entries(sc.dims).map(([k,v])=>["dim_"+k,v])),
-      respostas:state.answers.map(a=>a+1).join(","),origem:MODO_EVENTO?"evento":"digital",data:new Date().toISOString()};
-    saveLead(state.lead);
-    render();
+    st.lead={tipo:"diagnostico",nome,email,whatsapp:"+55"+tel,lidera:$("#ld-cargo").value||null,equipe:$("#ld-time").value||null,
+      altitude:sc.alt,acampamento:sc.camp.nome,pontuacao:sc.pct,dim_rota:sc.dims.rota,dim_cordada:sc.dims.cordada,dim_radio:sc.dims.radio,dim_acli:sc.dims.acli,
+      respostas:st.answers.map(a=>a+1).join("")};
+    sendLead(st.lead);
+    paint();
   });
 }
 
-function validate(nome,email,tel){
-  if(nome.length<2)return "Digite seu nome.";
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return "Confira o e-mail; parece estar incompleto.";
-  if(tel.length<10||tel.length>11)return "Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
-  return "";
-}
-
-function score(){
-  const sums={},counts={};
-  QUESTIONS.forEach((q,i)=>{sums[q.d]=(sums[q.d]||0)+state.answers[i];counts[q.d]=(counts[q.d]||0)+5});
-  const dims={};Object.keys(sums).forEach(k=>dims[k]=Math.round(sums[k]/counts[k]*100));
-  const totalMax=QUESTIONS.length*5, got=state.answers.reduce((a,b)=>a+b,0);
-  const pct=Math.round(got/totalMax*100);
-  const alt=Math.round((800+pct/100*(CUME-800))/10)*10; // base a 800 m, cume a 8.848 m
-  const camp=CAMPS.find(c=>alt<=c.max)||CAMPS[CAMPS.length-1];
-  return {dims,pct,alt,camp};
-}
-
 function renderResult(){
-  const sc=score(), first=esc(state.lead.nome.split(" ")[0]);
-  const sorted=Object.entries(sc.dims).sort((a,b)=>a[1]-b[1]);
-  const weakest=DIMS[sorted[0][0]];
-  sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
-    <div class="result-head">
-      <p class="eyebrow">${first}, sua liderança está a</p>
-      <div class="altitude" id="sheetTitle">${sc.alt.toLocaleString("pt-BR")}<small>m de ${CUME.toLocaleString("pt-BR")} m</small></div>
-      <span class="camp">${sc.camp.nome}</span>
-      <p>${sc.camp.txt}</p>
+  const sc=score(), first=esc(st.lead.nome.split(" ")[0]);
+  const order=Object.keys(DIMS), weakest=Object.entries(sc.dims).sort((a,b)=>a[1]-b[1])[0][0];
+  setProgress(sc.alt/CUME,"CUME 8.848 M");
+  stage.innerHTML=`<p class="tag">${first}, a sua liderança está a</p>
+    <div class="altnum" style="margin:12px 0 18px"><span id="altCount">800</span><small>m</small></div>
+    <span class="badge">${sc.camp.nome}</span>
+    <p style="margin-top:18px;max-width:38em;color:#D5DCD3;font-size:18px;font-weight:300">${sc.camp.txt}</p>
+    <div class="bars">${order.map(k=>`<div class="bar ${sc.dims[k]<50?"low":""}"><div class="t"><b style="font-weight:500">${DIMS[k]}</b><span>${sc.dims[k]}%</span></div><div class="track"><div class="fill" data-v="${sc.dims[k]}"></div></div></div>`).join("")}</div>
+    <p style="margin-bottom:24px;color:#CCD4CA">O trecho mais difícil para você hoje é <b style="color:var(--snow);font-weight:500">${DIMS[weakest].split(" · ")[0]}</b>. O livro dedica um capítulo inteiro a ele.</p>
+    <div class="next">
+      <div class="hot"><span class="tag">Pré-venda</span><h3>Leve o livro e os bônus</h3><p>${esc(C.preco)} com dedicatória e lugar garantido na noite de autógrafos.</p><div><button class="btn btn-lime" id="buy">Garantir meu exemplar <span class="arr" aria-hidden="true">→</span></button></div></div>
+      <div><span class="tag">Grátis</span><h3>Capítulo 1</h3><p>Comece a leitura hoje e veja como a rota muda tudo.</p><div><a class="btn btn-line" href="${esc(C.capitulo1Url)}" target="_blank" rel="noopener">Baixar o PDF</a></div></div>
     </div>
-    <div class="bars">${sorted.slice().sort((a,b)=>Object.keys(DIMS).indexOf(a[0])-Object.keys(DIMS).indexOf(b[0])).map(([k,v])=>`
-      <div class="bar ${v<50?"low":""}"><div class="t"><b>${DIMS[k]}</b><span>${v}%</span></div><div class="track"><div class="fill" style="width:${Math.max(3,v)}%"></div></div></div>`).join("")}
-    </div>
-    <p style="margin-bottom:20px">Seu trecho mais difícil hoje é <b>${weakest}</b>. É exatamente esse o tema que o livro trabalha com mais profundidade.</p>
-    <div class="next-cards">
-      <div class="next-card dark">
-        <p class="eyebrow" style="color:var(--sage)">Pré-venda</p>
-        <h3>Garanta o livro e os bônus</h3>
-        <p>${CONFIG.preco} com dedicatória e lugar na noite de autógrafos.</p>
-        <button class="btn btn-rust" data-buy style="justify-content:center">Garantir meu exemplar →</button>
-      </div>
-      <div class="next-card">
-        <p class="eyebrow">Grátis</p>
-        <h3>Capítulo 1</h3>
-        <p>Comece a leitura hoje e veja como a rota muda tudo.</p>
-        <a class="btn btn-ghost" href="${esc(CONFIG.capitulo1Url)}" target="_blank" rel="noopener" style="justify-content:center">Baixar capítulo 1 (PDF)</a>
-      </div>
-    </div>
-    ${MODO_EVENTO?`<div class="q-nav"><span class="small">A tela volta ao início sozinha em ${CONFIG.reinicioEventoSeg} s.</span><button class="btn btn-ink btn-sm" data-again>Próxima pessoa</button></div>`:""}`;
-  sheet.querySelector("[data-buy]").addEventListener("click",()=>goCheckout(state.lead));
-  const again=sheet.querySelector("[data-again]");
-  if(again){again.addEventListener("click",reset);resetTimer=setTimeout(reset,CONFIG.reinicioEventoSeg*1000)}
-}
-function reset(){close();window.scrollTo(0,0)}
-
-function saveLead(lead){
-  try{const all=JSON.parse(localStorage.getItem("lz_leads")||"[]");all.push(lead);localStorage.setItem("lz_leads",JSON.stringify(all))}catch(e){}
-  if(CONFIG.webhookUrl){
-    fetch(CONFIG.webhookUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(lead)}).catch(()=>{});
-  }
+    ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-line" id="again">Próxima pessoa</button></div>`:""}`;
+  const el=$("#altCount"), t0=performance.now(), dur=reduce?0:1600;
+  (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1, e=1-Math.pow(1-p,3);el.textContent=Math.round(800+(sc.alt-800)*e).toLocaleString("pt-BR");if(p<1)requestAnimationFrame(step)})(t0);
+  setTimeout(()=>stage.querySelectorAll(".fill").forEach((f,i)=>{f.style.transitionDelay=(i*120)+"ms";f.style.transform=`scaleX(${Math.max(.03,f.dataset.v/100)})`}),300);
+  $("#buy").addEventListener("click",()=>goCheckout(st.lead));
+  const again=$("#again"); if(again){again.addEventListener("click",()=>{closeQuiz();scrollTo(0,0)});resetTimer=setTimeout(()=>{closeQuiz();scrollTo(0,0)},(C.reinicioEventoSeg||90)*1000)}
 }
 
 function goCheckout(lead){
-  const u=new URL(CONFIG.checkoutUrl);
+  let u; try{u=new URL(C.checkoutUrl)}catch(e){toast("O link de pagamento ainda não foi configurado.");return}
   if(lead){u.searchParams.set("name",lead.nome);u.searchParams.set("email",lead.email);u.searchParams.set("phone",lead.whatsapp)}
-  ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(k=>{const v=new URLSearchParams(location.search).get(k);if(v)u.searchParams.set(k,v)});
-  const a=document.createElement("a");a.href=u.toString();a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
-  toast("Abrindo o checkout em uma nova aba.");
+  Object.entries(UTM).forEach(([k,v])=>v&&u.searchParams.set(k,v));
+  window.open(u.toString(),"_blank","noopener");
+  toast("Abrindo o checkout em outra aba.");
 }
 
 $("#presaleForm").addEventListener("submit",e=>{
   e.preventDefault();
   const nome=$("#ps-nome").value.trim(), email=$("#ps-email").value.trim(), tel=$("#ps-tel").value.replace(/\D/g,"");
   const err=validate(nome,email,tel); $("#ps-err").textContent=err; if(err)return;
-  const lead={tipo:"pre-venda",nome,email,whatsapp:"+55"+tel,origem:MODO_EVENTO?"evento":"digital",data:new Date().toISOString()};
-  saveLead(lead); goCheckout(lead);
+  const lead={tipo:"pre-venda",nome,email,whatsapp:"+55"+tel};
+  sendLead(lead); goCheckout(lead);
 });
 </script>
 </body>
