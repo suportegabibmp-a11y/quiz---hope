@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Diagnóstico gratuito de liderança para quem trabalha com a Geração Z, baseado no livro Liderança Z, de Tiago Favaro. Lançamento 23/11 na Livraria da Vila.">
+<meta property="og:title" content="Diagnóstico Liderança Z">
+<meta property="og:description" content="Descubra em que altitude está a sua liderança. Lançamento do livro 23/11, 19h, Livraria da Vila.">
+<meta property="og:image" content="assets/livro.jpg">
+<title>Diagnóstico Liderança Z</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: noite na montanha, como o banner de lançamento — verde-floresta profundo, título condensado, um único acento verde-limão. Visual único (escuro), escolhido de propósito. */
+:root{
+  --paper:#0E1A15; --paper-2:#16271F; --ink:#EEF1E8; --forest:#1D3A2C; --forest-2:#2C5243;
+  --sage:#9FB0A3; --rust:#8CC63F; --rust-ink:#A6DA5C; --line:rgba(238,241,232,.14); --muted:#A3B0A7; --on-accent:#0E1A15; --low:#E58A5C;
+  --display:"Anton","Oswald","Impact","Arial Narrow",sans-serif;
+  --body:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.98;margin:0;text-wrap:balance;letter-spacing:.005em}
+p{margin:0}
+.eyebrow{font-family:var(--body);font-weight:500;text-transform:uppercase;letter-spacing:.32em;font-size:12px;color:var(--muted)}
+.mono{font-family:var(--mono)}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+
+/* topo */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--paper)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{font-weight:600;letter-spacing:.38em;text-transform:uppercase;font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:2px;padding:15px 24px;font-weight:600;font-size:16px;text-decoration:none;transition:transform .15s ease,background .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn-rust{background:var(--rust);color:var(--on-accent)}
+.btn-rust:hover{background:var(--rust-ink)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:#FFFFFF}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-ghost:hover{background:var(--paper-2)}
+.btn-sm{padding:10px 16px;font-size:14px}
+
+/* faixa */
+.strip{background:var(--forest);color:var(--ink);overflow:hidden;white-space:nowrap}
+.strip .track{display:inline-flex;gap:48px;padding-block:11px;animation:roll 38s linear infinite;font-weight:500;letter-spacing:.24em;text-transform:uppercase;font-size:13px}
+.strip span b{color:var(--rust);font-weight:600}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(14,26,21,.97) 0%,rgba(14,26,21,.82) 45%,rgba(14,26,21,.35) 100%),url(assets/banner.jpg) center/cover no-repeat,linear-gradient(160deg,#21402F 0%,#0E1A15 70%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:45%;background:#13261C;clip-path:polygon(0 70%,12% 52%,22% 60%,36% 28%,48% 44%,60% 12%,70% 30%,82% 6%,92% 26%,100% 18%,100% 100%,0 100%);opacity:.75;pointer-events:none}
+.hero::before{content:"";position:absolute;inset:auto 0 0;height:28%;background:#0B1611;clip-path:polygon(0 60%,18% 30%,30% 52%,44% 18%,58% 46%,72% 22%,86% 50%,100% 30%,100% 100%,0 100%);pointer-events:none;z-index:1}
+.hero .wrap{position:relative;z-index:2}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:end;padding-block:56px 0}
+.hero-copy{padding-bottom:64px;display:grid;gap:22px;min-width:0}
+.hero h1{font-size:clamp(44px,6.2vw,86px);text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--rust)}
+.hero .lead{font-size:clamp(17px,1.6vw,20px);max-width:34em;color:#CFD7CE}
+.hero .eyebrow{color:var(--rust)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.small{font-size:14px;color:var(--muted)}
+.hero-art{position:relative;align-self:stretch;min-height:520px}
+.hero-art .author{position:absolute;right:0;bottom:0;width:min(100%,400px);aspect-ratio:369/600;object-fit:cover;object-position:top;max-width:100%;-webkit-mask-image:linear-gradient(to bottom,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 70%,transparent 100%)}
+.hero-art .book{position:absolute;left:-14%;bottom:-6px;width:62%;max-width:300px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.4))}
+
+/* evento */
+.event{background:#08120E;color:var(--ink);border-block:1px solid var(--line)}
+.event .wrap{display:grid;grid-template-columns:repeat(3,1fr);padding-block:0}
+.event .cell{padding:26px 24px;display:flex;gap:16px;align-items:center;border-left:1px solid rgba(236,232,221,.18)}
+.event .cell:first-child{border-left:0;padding-left:0}
+.event .big{font-family:var(--display);font-size:42px;line-height:1}
+.event .lbl{text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--sage)}
+.event svg{flex:none}
+
+/* secoes */
+section.block{padding-block:88px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.grid-2>*{min-width:0}
+.h2{font-size:clamp(38px,5vw,64px);text-transform:uppercase}
+.prose{display:grid;gap:16px;max-width:36em;color:#CFD7CE}
+.dims{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line)}
+.dim{padding:22px 18px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}
+.dim:nth-child(odd){border-right:1px solid var(--line)}
+.dim:nth-child(even){padding-left:18px}
+.dim .alt{font-family:var(--mono);font-size:12px;color:var(--rust-ink)}
+.dim h3{font-family:var(--body);font-weight:600;font-size:19px;line-height:1.25}
+.dim p{font-size:15px;color:var(--muted)}
+
+.cta-band{background:var(--forest);color:var(--ink)}
+.cta-band .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding-block:44px}
+.cta-band h2{font-size:clamp(30px,4vw,48px);text-transform:uppercase;max-width:16em}
+
+.presale{background:var(--paper-2)}
+.price-card{background:var(--paper);border:1.5px solid var(--rust);padding:32px;display:grid;gap:18px}
+.price{font-family:var(--display);font-size:clamp(44px,8vw,64px);line-height:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.price s{font-family:var(--body);font-size:20px;color:var(--muted);margin-right:8px}
+.bonus{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.bonus li{position:relative;padding-left:26px;font-size:16px}
+.bonus li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;background:var(--rust);clip-path:polygon(50% 0,100% 100%,0 100%)}
+
+.about img{width:100%;max-width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px;color:var(--muted)}
+
+/* overlay do quiz */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(4,10,7,.8);backdrop-filter:blur(4px);display:grid;place-items:start center;overflow-y:auto;padding:calc(24px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.sheet{position:relative;width:min(760px,100%);background:var(--paper);border-top:6px solid var(--rust);box-shadow:0 30px 80px rgba(0,0,0,.5);padding:36px clamp(20px,5vw,52px) 40px}
+.close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;background:transparent;font-size:26px;line-height:1;color:var(--ink)}
+.meter{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-bottom:28px;padding-right:36px}
+.meter .mono{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ridge{height:28px;width:100%}
+.q-title{font-size:clamp(28px,4vw,40px);text-transform:uppercase;margin-bottom:8px}
+.q-sub{color:var(--muted);margin-bottom:22px;font-size:15px}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:44px 1fr;align-items:center;text-align:left;width:100%;border:1.5px solid var(--line);background:var(--paper-2);padding:14px 16px 14px 0;color:var(--ink);font-size:16px;line-height:1.4;transition:border-color .12s,background .12s}
+.opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--muted)}
+.opt:hover{border-color:var(--rust)}
+.opt[aria-pressed="true"]{border-color:var(--rust);background:var(--forest);color:var(--ink)}
+.opt[aria-pressed="true"] .n{color:var(--rust)}
+.q-nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.linkbtn{background:none;border:0;padding:8px 0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:15px}
+
+.form{display:grid;gap:14px}
+.field{display:grid;gap:6px}
+.field label{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.field input,.field select{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1.5px solid var(--line);background:#12221B;color:var(--ink);border-radius:2px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--rust)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.phone{display:grid;grid-template-columns:62px 1fr}
+.phone span{display:grid;place-items:center;background:var(--paper-2);border:1.5px solid var(--line);border-right:0;font-size:15px}
+.err{color:var(--low);font-size:14px;min-height:1.2em}
+.consent{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:var(--muted);align-items:start}
+.consent input{margin-top:3px;accent-color:var(--rust)}
+
+.result-head{display:grid;gap:10px;margin-bottom:24px}
+.altitude{font-family:var(--display);font-size:clamp(64px,12vw,110px);line-height:.9;color:var(--rust);font-variant-numeric:tabular-nums}
+.altitude small{font-family:var(--body);font-size:22px;color:var(--muted);margin-left:6px}
+.camp{display:inline-block;background:var(--rust);color:var(--on-accent);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px;padding:6px 10px;justify-self:start}
+.bars{display:grid;gap:14px;margin:8px 0 28px}
+.bar{display:grid;gap:6px}
+.bar .t{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.bar .t b{font-weight:600}
+.bar .t span{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar .track{height:8px;background:var(--paper-2);position:relative}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--rust)}
+.bar.low .fill{background:var(--low)}
+.next-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.next-card{border:1.5px solid var(--line);padding:20px;display:grid;gap:12px;align-content:start}
+.next-card.dark{background:var(--forest);color:var(--ink);border-color:var(--rust)}
+.next-card h3{font-size:26px;text-transform:uppercase}
+.next-card p{font-size:15px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 18px;font-size:15px;z-index:60;max-width:calc(100% - 32px)}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:36px 0}
+  .hero-copy{padding-bottom:8px}
+  .hero-art{min-height:440px}
+  .hero-art .book{left:0;width:52%}
+  .grid-2{grid-template-columns:1fr;gap:36px}
+  .event .wrap{grid-template-columns:1fr}
+  .event .cell{border-left:0;border-top:1px solid rgba(236,232,221,.18);padding:18px 0}
+  .event .cell:first-child{border-top:0}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .dims{grid-template-columns:1fr}
+  .dim:nth-child(odd){border-right:0}
+  .dim:nth-child(even){padding-left:0}
+  .row2,.next-cards{grid-template-columns:1fr}
+  .top .btn{display:none}
+  section.block{padding-block:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  .strip .track{animation:none}
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Liderança Z</div>
+    <button class="btn btn-ink btn-sm" data-start>Fazer diagnóstico</button>
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">Baseado no livro <b>Liderança Z</b>, de <b>Tiago Favaro</b></p>
+      <h1>Sua equipe sobe com você, ou <em>desce</em> no meio da trilha?</h1>
+      <p class="lead">Diagnóstico gratuito de 3 minutos para líderes que trabalham com a Geração Z. Descubra em que altitude está a sua liderança e onde você está perdendo talentos sem perceber.</p>
+      <div class="hero-actions">
+        <button class="btn btn-rust" data-start>Fazer diagnóstico gratuito <span aria-hidden="true">→</span></button>
+        <a class="btn btn-ghost" href="#pre-venda">Garantir meu exemplar</a>
+      </div>
+      <p class="small">8 perguntas · resultado na hora · sem custo</p>
+    </div>
+    <div class="hero-art">
+      <img class="author" src="assets/autor.jpg" alt="Tiago Favaro, autor de Liderança Z">
+    </div>
+  </div>
+</section>
+
+<section class="event" aria-label="Lançamento">
+  <div class="wrap">
+    <div class="cell">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+      <div><div class="big">23/11</div><div class="lbl">Segunda-feira</div></div>
+    </div>
+    <div class="cell">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <div><div class="big">19:00</div><div class="lbl">Horas</div></div>
+    </div>
+    <div class="cell">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <div><div class="big" style="font-size:30px">Livraria da Vila</div><div class="lbl">Noite de lançamento e autógrafos</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap grid-2">
+    <div style="display:grid;gap:22px">
+      <p class="eyebrow">O que o diagnóstico mede</p>
+      <h2 class="h2">Liderar a Gen Z é uma escalada</h2>
+      <div class="prose">
+        <p>Na montanha, ninguém chega ao cume sozinho. A cordada depende de clareza sobre a rota, confiança no parceiro e conversas francas a cada acampamento.</p>
+        <p>Com a Geração Z é igual. Eles não abandonam empresas, abandonam líderes que não explicam o porquê, não dão retorno e não mostram para onde a trilha vai.</p>
+        <p>O diagnóstico olha para quatro pontos da sua liderança e mostra em que altitude você está hoje.</p>
+      </div>
+      <div><button class="btn btn-rust" data-start>Começar agora <span aria-hidden="true">→</span></button></div>
+    </div>
+    <div class="dims">
+      <div class="dim"><span class="alt">ROTA</span><h3>Propósito e clareza</h3><p>Sua equipe sabe por que faz o que faz e onde quer chegar?</p></div>
+      <div class="dim"><span class="alt">CORDADA</span><h3>Confiança e autonomia</h3><p>Você delega decisões de verdade ou segura a corda sozinho?</p></div>
+      <div class="dim"><span class="alt">RÁDIO</span><h3>Feedback e conversa</h3><p>O retorno chega na hora certa ou só na avaliação anual?</p></div>
+      <div class="dim"><span class="alt">ACLIMATAÇÃO</span><h3>Crescimento e retenção</h3><p>Seus talentos enxergam um caminho para crescer com você?</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Em 3 minutos você sabe onde está perdendo talentos</h2>
+    <button class="btn btn-rust" data-start>Fazer diagnóstico gratuito <span aria-hidden="true">→</span></button>
+  </div>
+</section>
+
+<section class="block presale" id="pre-venda">
+  <div class="wrap grid-2">
+    <div style="display:grid;gap:22px">
+      <p class="eyebrow">Pré-venda</p>
+      <h2 class="h2">Garanta seu exemplar antes do lançamento</h2>
+      <div class="prose">
+        <p>Quem compra na pré-venda recebe o livro com dedicatória e leva os bônus de lançamento junto, sem custo extra. Os bônus valem só até a noite de 23/11.</p>
+      </div>
+      <img src="assets/livro.jpg" alt="" style="width:100%;max-width:420px">
+    </div>
+    <div class="price-card">
+      <p class="eyebrow" style="color:var(--rust-ink)">Oferta de pré-venda</p>
+      <div class="price" id="priceTag"></div>
+      <ul class="bonus">
+        <li>Livro físico <b>Liderança Z</b> com dedicatória do autor</li>
+        <li>Capítulo 1 em PDF para começar a ler hoje</li>
+        <li>Seu diagnóstico completo com o plano de subida</li>
+        <li>Lugar garantido na noite de autógrafos, 23/11</li>
+      </ul>
+      <form class="form" id="presaleForm" novalidate>
+        <div class="field"><label for="ps-nome">Nome completo</label><input id="ps-nome" name="nome" autocomplete="name" placeholder="Como você se chama"></div>
+        <div class="field"><label for="ps-email">E-mail</label><input id="ps-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+        <div class="field"><label for="ps-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ps-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+        <p class="err" id="ps-err" role="alert"></p>
+        <button class="btn btn-rust" type="submit" style="justify-content:center">Continuar para pagamento <span aria-hidden="true">→</span></button>
+        <p class="small" style="text-align:center">Você será levado ao checkout seguro para concluir a compra.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="block about">
+  <div class="wrap grid-2">
+    <img src="assets/autor.jpg" alt="Tiago Favaro">
+    <div style="display:grid;gap:22px;align-self:center">
+      <p class="eyebrow">Sobre o autor</p>
+      <h2 class="h2">Tiago Favaro</h2>
+      <div class="prose">
+        <p>Tiago Favaro escreveu <b>Liderança Z</b> para líderes que querem parar de perder talentos da Geração Z e começar a transformá-los em alta performance.</p>
+        <p>O livro usa as lições do montanhismo, da rota, da cordada e da aclimatação, para mostrar como conduzir uma equipe jovem montanha acima sem deixar ninguém pelo caminho.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-ink" data-start>Fazer o diagnóstico</button>
+        <a class="btn btn-ghost" href="#pre-venda">Comprar na pré-venda</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Liderança Z · Tiago Favaro</span>
+    <span>Lançamento 23/11 · 19h · Livraria da Vila</span>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet" id="sheet"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ============ CONFIGURAÇÃO — edite aqui ============ */
+const CONFIG = {
+  // Link do checkout da pré-venda (Hotmart, Kiwify, Mercado Pago, site da editora...)
+  checkoutUrl: "https://exemplo.com/checkout-lideranca-z",
+  // Link do PDF do capítulo 1 (Google Drive público, Dropbox...)
+  capitulo1Url: "https://exemplo.com/capitulo-1-lideranca-z.pdf",
+  // Para onde vão os leads: URL de um Google Apps Script, Make, Zapier ou n8n (POST JSON). Vazio = só guarda no aparelho.
+  webhookUrl: "",
+  preco: "R$ 59,90",
+  precoCheio: "R$ 79,90",
+  // Modo evento (tablet no estande): abra a página com #evento no final do link.
+  // Depois do resultado, a tela volta sozinha para o início em 90 s, pronta para a próxima pessoa.
+  reinicioEventoSeg: 90
+};
+/* =================================================== */
+
+const MODO_EVENTO = location.hash === "#evento";
+const DIMS = {rota:"Propósito e clareza",cordada:"Confiança e autonomia",radio:"Feedback e conversa",acli:"Crescimento e retenção"};
+
+const QUESTIONS = [
+  {d:"rota",q:"Quando alguém da Gen Z pergunta “por que estamos fazendo isso?”, o que costuma acontecer?",o:[
+    "Respondo que é assim que funciona e pronto.",
+    "Fico incomodado; parece questionamento à minha autoridade.",
+    "Explico quando dá tempo, mas quase nunca dá.",
+    "Explico o motivo da tarefa, mas não ligo ao objetivo maior.",
+    "Explico o porquê e como aquilo conecta com a meta da equipe.",
+    "A equipe já sabe o porquê antes de perguntar; o propósito é conversa recorrente."]},
+  {d:"rota",q:"Sua equipe sabe dizer, com as próprias palavras, onde vocês querem chegar este ano?",o:[
+    "Não temos uma meta clara nem para mim.",
+    "Eu sei, mas nunca compartilhei com o time.",
+    "Foi falado uma vez, numa reunião, e ficou por lá.",
+    "Alguns sabem; outros só conhecem a própria tarefa.",
+    "A maioria sabe e acompanha a meta de vez em quando.",
+    "Todos sabem, acompanham o progresso e ajudam a ajustar a rota."]},
+  {d:"cordada",q:"Como as decisões do dia a dia são tomadas na sua equipe?",o:[
+    "Tudo passa por mim, sem exceção.",
+    "Delego tarefas, mas reviso e refaço quase tudo.",
+    "Delego decisões pequenas, e só quando estou sem tempo.",
+    "Existe alguma autonomia, mas sem combinados claros de limite.",
+    "Há combinados claros do que cada um pode decidir sozinho.",
+    "A equipe decide com autonomia e eu atuo como apoio, não como gargalo."]},
+  {d:"cordada",q:"Quando alguém jovem da equipe erra, qual é a reação mais comum?",o:[
+    "Corrijo na frente de todos para servir de exemplo.",
+    "Assumo a tarefa de volta e não delego de novo tão cedo.",
+    "Fico frustrado, mas não falo nada.",
+    "Converso, mas o foco fica no erro, não no aprendizado.",
+    "Converso em particular sobre o que aprender com aquilo.",
+    "O erro vira aprendizado do time, sem culpa, e a pessoa ganha nova chance."]},
+  {d:"radio",q:"Com que frequência você dá feedback individual para quem é da Gen Z?",o:[
+    "Só quando algo dá muito errado.",
+    "Na avaliação anual, se ela acontecer.",
+    "De vez em quando, sem nenhuma regularidade.",
+    "Uma vez por mês, mais ou menos.",
+    "Toda semana ou a cada entrega importante.",
+    "É contínuo: conversas curtas e frequentes, nos dois sentidos."]},
+  {d:"radio",q:"E o contrário: sua equipe te dá feedback sobre a sua liderança?",o:[
+    "Nunca. Não acho que seja papel deles.",
+    "Nunca pedi e ninguém nunca ofereceu.",
+    "Já pedi, mas ninguém se sentiu à vontade para falar.",
+    "Recebo, mas de forma rara e indireta.",
+    "Peço com regularidade e recebo respostas sinceras.",
+    "É parte da cultura: recebo, ajo e mostro o que mudei."]},
+  {d:"acli",q:"Seus talentos jovens enxergam um caminho para crescer com você?",o:[
+    "Não existe plano de crescimento na equipe.",
+    "Existe, mas só para quem tem anos de casa.",
+    "Falo de crescimento quando alguém ameaça sair.",
+    "Alguns têm conversas de carreira; outros não.",
+    "Cada pessoa tem metas de desenvolvimento conversadas comigo.",
+    "Há plano individual, acompanhado de perto, com conquistas visíveis."]},
+  {d:"acli",q:"Nos últimos 12 meses, como foi a saída de pessoas da Gen Z da sua equipe?",o:[
+    "Perdi várias e não sei bem o motivo.",
+    "Perdi algumas e atribuo a “essa geração não para em lugar nenhum”.",
+    "Perdi gente boa que eu queria ter mantido.",
+    "Saiu pouca gente, mas sinto que outras estão de saída.",
+    "Saídas raras, e quando acontecem eu entendo o motivo.",
+    "Quase ninguém saiu, e quem saiu foi para crescer, com a porta aberta."]}
+];
+
+const CAMPS = [
+  {max:2500, nome:"Acampamento base", txt:"Sua liderança ainda está no pé da montanha. A boa notícia: cada passo aqui rende muito. Comece pela clareza do porquê e por conversas mais frequentes."},
+  {max:5000, nome:"Campo 1", txt:"Você já saiu da base, mas a equipe ainda sobe sem rota clara. É aqui que muitos talentos desistem da subida. Ajuste os pontos mais baixos abaixo."},
+  {max:7500, nome:"Campo 2", txt:"Boa altitude. Você já lidera com intenção, mas há trechos onde a corda afrouxa. Fortalecer os pontos mais baixos deixa a equipe pronta para o cume."},
+  {max:9000, nome:"Ataque ao cume", txt:"Sua liderança está entre as mais preparadas para a Gen Z. Agora o desafio é sustentar a cultura e formar novos líderes na cordada."}
+];
+const CUME = 8848;
+
+const state = {step:0, answers:[], lead:null};
+const $ = s => document.querySelector(s);
+const overlay = $("#overlay"), sheet = $("#sheet");
+let resetTimer = null;
+
+// faixa
+(() => {
+  const item = '<span>Lançamento <b>23/11</b> · 19h</span><span>Livraria da Vila</span><span>Diagnóstico gratuito</span><span>Pré-venda com bônus</span>';
+  $("#track").innerHTML = item.repeat(4) + item.repeat(4);
+  $("#priceTag").innerHTML = `<s>${CONFIG.precoCheio}</s>${CONFIG.preco}`;
+})();
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3200)}
+
+function ridgeSVG(p){ // perfil de montanha com o marcador do progresso
+  const pts=[[0,26],[14,20],[24,22],[38,12],[50,15],[64,6],[74,9],[86,2],[100,26]];
+  const d="M"+pts.map(x=>x.join(" ")).join(" L")+" Z";
+  const x=Math.max(2,Math.min(98,p*100));
+  return `<svg class="ridge" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
+    <defs><clipPath id="cp"><rect x="0" y="0" width="${x}" height="28"/></clipPath></defs>
+    <path d="${d}" fill="var(--paper-2)"/>
+    <path d="${d}" fill="var(--forest)" clip-path="url(#cp)"/>
+    <rect x="${x-0.6}" y="0" width="1.2" height="28" fill="var(--rust)"/>
+  </svg>`;
+}
+
+function open(){clearTimeout(resetTimer);state.step=0;state.answers=[];state.lead=null;overlay.hidden=false;document.body.style.overflow="hidden";render()}
+function close(){overlay.hidden=true;document.body.style.overflow="";clearTimeout(resetTimer)}
+document.querySelectorAll("[data-start]").forEach(b=>b.addEventListener("click",open));
+overlay.addEventListener("click",e=>{if(e.target===overlay)close()});
+document.addEventListener("keydown",e=>{
+  if(overlay.hidden)return;
+  if(e.key==="Escape")close();
+  if(state.step<QUESTIONS.length && /^[1-6]$/.test(e.key))choose(+e.key-1);
+});
+
+function render(){
+  const total=QUESTIONS.length;
+  if(state.step<total){
+    const q=QUESTIONS[state.step], sel=state.answers[state.step];
+    sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
+      <div class="meter"><span class="mono">${String(state.step+1).padStart(2,"0")} / ${String(total).padStart(2,"0")}</span>${ridgeSVG(state.step/total)}</div>
+      <p class="eyebrow" style="margin-bottom:10px">${DIMS[q.d]}</p>
+      <h2 class="q-title" id="sheetTitle">${q.q}</h2>
+      <p class="q-sub">Escolha a opção que mais se parece com a sua realidade hoje.</p>
+      <div class="opts">${q.o.map((t,i)=>`<button class="opt" aria-pressed="${sel===i}" data-i="${i}"><span class="n">${i+1}</span><span>${t}</span></button>`).join("")}</div>
+      <div class="q-nav">${state.step>0?'<button class="linkbtn" data-back>← Voltar</button>':'<span></span>'}<span class="small">Dica: use as teclas 1 a 6</span></div>`;
+    sheet.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.i)));
+    sheet.querySelector("[data-back]")?.addEventListener("click",()=>{state.step--;render()});
+  } else if(!state.lead){
+    renderLead();
+  } else {
+    renderResult();
+  }
+  sheet.querySelector("[data-close]")?.addEventListener("click",close);
+  overlay.scrollTop=0;
+  (sheet.querySelector(".opt[aria-pressed=true]")||sheet.querySelector(".opt,input"))?.focus({preventScroll:true});
+}
+
+function choose(i){
+  state.answers[state.step]=i;
+  render();
+  setTimeout(()=>{state.step++;render()},220);
+}
+
+function renderLead(){
+  sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
+    <div class="meter"><span class="mono">✓ ${QUESTIONS.length} / ${QUESTIONS.length}</span>${ridgeSVG(1)}</div>
+    <p class="eyebrow" style="margin-bottom:10px">Quase lá</p>
+    <h2 class="q-title" id="sheetTitle">Para onde enviamos o seu resultado?</h2>
+    <p class="q-sub">Você vê o resultado agora e recebe o diagnóstico completo e o capítulo 1 grátis no seu WhatsApp e e-mail.</p>
+    <form class="form" id="leadForm" novalidate>
+      <div class="field"><label for="ld-nome">Nome</label><input id="ld-nome" autocomplete="name" placeholder="Como você se chama"></div>
+      <div class="row2">
+        <div class="field"><label for="ld-email">E-mail</label><input id="ld-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+        <div class="field"><label for="ld-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ld-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="ld-cargo">Você lidera</label>
+          <select id="ld-cargo"><option value="">Selecione</option><option>Equipe na empresa</option><option>Minha própria empresa</option><option>Ministério ou equipe na igreja</option><option>Escola ou projeto social</option><option>Ainda não lidero</option></select></div>
+        <div class="field"><label for="ld-time">Tamanho da equipe</label>
+          <select id="ld-time"><option value="">Selecione</option><option>1 a 5 pessoas</option><option>6 a 15 pessoas</option><option>16 a 50 pessoas</option><option>Mais de 50</option></select></div>
+      </div>
+      <label class="consent"><input type="checkbox" id="ld-ok" checked><span>Aceito receber o diagnóstico e novidades do livro Liderança Z por WhatsApp e e-mail.</span></label>
+      <p class="err" id="ld-err" role="alert"></p>
+      <button class="btn btn-rust" type="submit" style="justify-content:center">Ver meu resultado <span aria-hidden="true">→</span></button>
+    </form>`;
+  $("#leadForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const nome=$("#ld-nome").value.trim(), email=$("#ld-email").value.trim(), tel=$("#ld-tel").value.replace(/\D/g,"");
+    const err=validate(nome,email,tel); if(err){$("#ld-err").textContent=err;return}
+    if(!$("#ld-ok").checked){$("#ld-err").textContent="Marque o aceite para receber o diagnóstico completo.";return}
+    const sc=score();
+    state.lead={tipo:"diagnostico",nome,email,whatsapp:"+55"+tel,lidera:$("#ld-cargo").value,equipe:$("#ld-time").value,
+      altitude:sc.alt,acampamento:sc.camp.nome,pontuacao:sc.pct,...Object.fromEntries(Object.entries(sc.dims).map(([k,v])=>["dim_"+k,v])),
+      respostas:state.answers.map(a=>a+1).join(","),origem:MODO_EVENTO?"evento":"digital",data:new Date().toISOString()};
+    saveLead(state.lead);
+    render();
+  });
+}
+
+function validate(nome,email,tel){
+  if(nome.length<2)return "Digite seu nome.";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return "Confira o e-mail; parece estar incompleto.";
+  if(tel.length<10||tel.length>11)return "Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
+  return "";
+}
+
+function score(){
+  const sums={},counts={};
+  QUESTIONS.forEach((q,i)=>{sums[q.d]=(sums[q.d]||0)+state.answers[i];counts[q.d]=(counts[q.d]||0)+5});
+  const dims={};Object.keys(sums).forEach(k=>dims[k]=Math.round(sums[k]/counts[k]*100));
+  const totalMax=QUESTIONS.length*5, got=state.answers.reduce((a,b)=>a+b,0);
+  const pct=Math.round(got/totalMax*100);
+  const alt=Math.round((800+pct/100*(CUME-800))/10)*10; // base a 800 m, cume a 8.848 m
+  const camp=CAMPS.find(c=>alt<=c.max)||CAMPS[CAMPS.length-1];
+  return {dims,pct,alt,camp};
+}
+
+function renderResult(){
+  const sc=score(), first=esc(state.lead.nome.split(" ")[0]);
+  const sorted=Object.entries(sc.dims).sort((a,b)=>a[1]-b[1]);
+  const weakest=DIMS[sorted[0][0]];
+  sheet.innerHTML=`<button class="close" aria-label="Fechar" data-close>×</button>
+    <div class="result-head">
+      <p class="eyebrow">${first}, sua liderança está a</p>
+      <div class="altitude" id="sheetTitle">${sc.alt.toLocaleString("pt-BR")}<small>m de ${CUME.toLocaleString("pt-BR")} m</small></div>
+      <span class="camp">${sc.camp.nome}</span>
+      <p>${sc.camp.txt}</p>
+    </div>
+    <div class="bars">${sorted.slice().sort((a,b)=>Object.keys(DIMS).indexOf(a[0])-Object.keys(DIMS).indexOf(b[0])).map(([k,v])=>`
+      <div class="bar ${v<50?"low":""}"><div class="t"><b>${DIMS[k]}</b><span>${v}%</span></div><div class="track"><div class="fill" style="width:${Math.max(3,v)}%"></div></div></div>`).join("")}
+    </div>
+    <p style="margin-bottom:20px">Seu trecho mais difícil hoje é <b>${weakest}</b>. É exatamente esse o tema que o livro trabalha com mais profundidade.</p>
+    <div class="next-cards">
+      <div class="next-card dark">
+        <p class="eyebrow" style="color:var(--sage)">Pré-venda</p>
+        <h3>Garanta o livro e os bônus</h3>
+        <p>${CONFIG.preco} com dedicatória e lugar na noite de autógrafos.</p>
+        <button class="btn btn-rust" data-buy style="justify-content:center">Garantir meu exemplar →</button>
+      </div>
+      <div class="next-card">
+        <p class="eyebrow">Grátis</p>
+        <h3>Capítulo 1</h3>
+        <p>Comece a leitura hoje e veja como a rota muda tudo.</p>
+        <a class="btn btn-ghost" href="${esc(CONFIG.capitulo1Url)}" target="_blank" rel="noopener" style="justify-content:center">Baixar capítulo 1 (PDF)</a>
+      </div>
+    </div>
+    ${MODO_EVENTO?`<div class="q-nav"><span class="small">A tela volta ao início sozinha em ${CONFIG.reinicioEventoSeg} s.</span><button class="btn btn-ink btn-sm" data-again>Próxima pessoa</button></div>`:""}`;
+  sheet.querySelector("[data-buy]").addEventListener("click",()=>goCheckout(state.lead));
+  const again=sheet.querySelector("[data-again]");
+  if(again){again.addEventListener("click",reset);resetTimer=setTimeout(reset,CONFIG.reinicioEventoSeg*1000)}
+}
+function reset(){close();window.scrollTo(0,0)}
+
+function saveLead(lead){
+  try{const all=JSON.parse(localStorage.getItem("lz_leads")||"[]");all.push(lead);localStorage.setItem("lz_leads",JSON.stringify(all))}catch(e){}
+  if(CONFIG.webhookUrl){
+    fetch(CONFIG.webhookUrl,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(lead)}).catch(()=>{});
+  }
+}
+
+function goCheckout(lead){
+  const u=new URL(CONFIG.checkoutUrl);
+  if(lead){u.searchParams.set("name",lead.nome);u.searchParams.set("email",lead.email);u.searchParams.set("phone",lead.whatsapp)}
+  ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(k=>{const v=new URLSearchParams(location.search).get(k);if(v)u.searchParams.set(k,v)});
+  const a=document.createElement("a");a.href=u.toString();a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
+  toast("Abrindo o checkout em uma nova aba.");
+}
+
+$("#presaleForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const nome=$("#ps-nome").value.trim(), email=$("#ps-email").value.trim(), tel=$("#ps-tel").value.replace(/\D/g,"");
+  const err=validate(nome,email,tel); $("#ps-err").textContent=err; if(err)return;
+  const lead={tipo:"pre-venda",nome,email,whatsapp:"+55"+tel,origem:MODO_EVENTO?"evento":"digital",data:new Date().toISOString()};
+  saveLead(lead); goCheckout(lead);
+});
+</script>
+</body>
+</html>
