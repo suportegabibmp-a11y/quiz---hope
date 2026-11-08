@@ -28,7 +28,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--forest);color:var(--paper)}
@@ -229,7 +229,8 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 @media (max-width:900px){
   .top nav a{display:none}
   .hero .inner{grid-template-columns:1fr;padding-block:120px 80px;gap:28px}
-  .hero .book{width:min(88%,420px);order:-1}
+  .hero .book{display:none}
+  .hero .inner{padding-block:110px 90px}
   .manifesto .wrap,.author .wrap,.reserve .grid,.event .wrap{grid-template-columns:1fr;gap:36px}
   .camps{grid-template-columns:1fr 1fr}
   .camp:nth-child(3){border-left:0;padding-left:0}
@@ -242,6 +243,10 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   .camps,.row2{grid-template-columns:1fr}
   .camp+.camp{border-left:0;padding-left:0;border-top:1px solid var(--line)}
   .profile{display:none}
+  .top .btn{padding:10px 14px;font-size:12px}
+  .brand{font-size:13px;letter-spacing:.26em}
+  .hero h1{font-size:40px}
+  .reserve .book{max-width:320px}
   .cd div{padding-right:18px}.cd div+div{padding-left:18px}
   .cta-box{grid-template-columns:1fr;padding:24px}
   .cta-box img{max-width:180px}
