@@ -18,7 +18,9 @@ const SENHA = "troque-esta-senha";
 const ABA = "Leads";
 
 const COLS = ["id","created_at","tipo","nome","email","whatsapp","lidera","equipe","altitude","acampamento","pontuacao",
-  "dim_rota","dim_cordada","dim_radio","dim_acli","respostas","origem","utm_source","utm_medium","utm_campaign","status","notas"];
+  "dim_rota","dim_cordada","dim_radio","dim_acli","respostas","origem","utm_source","utm_medium","utm_campaign","status","notas",
+  "empresa","cargo","colaboradores","lideres","saidas_ano","interesse","cidade"];
+const TIPOS = ["diagnostico","pre-venda","empresa"];
 const NUMS = ["altitude","pontuacao","dim_rota","dim_cordada","dim_radio","dim_acli"];
 const STATUS = ["novo","contatado","comprou","descartado"];
 
@@ -46,6 +48,14 @@ function txt_(v, max) {
   return s;
 }
 
+// Acrescenta no cabeçalho as colunas novas que ainda não existirem
+function garanteColunas_(sh) {
+  const atual = sh.getRange(1, 1, 1, Math.max(1, sh.getLastColumn())).getValues()[0];
+  if (atual.length >= COLS.length && atual[COLS.length - 1] === COLS[COLS.length - 1]) return;
+  if (sh.getMaxColumns() < COLS.length) sh.insertColumnsAfter(sh.getMaxColumns(), COLS.length - sh.getMaxColumns());
+  sh.getRange(1, 1, 1, COLS.length).setValues([COLS]).setFontWeight("bold");
+}
+
 function linhaDoId_(sh, id) {
   const ids = sh.getRange(2, 1, Math.max(0, sh.getLastRow() - 1), 1).getValues();
   for (let i = 0; i < ids.length; i++) if (ids[i][0] === id) return i + 2;
@@ -61,11 +71,12 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents || "{}");
     const sh = aba_();
+    garanteColunas_(sh);
 
     // ---- público: só insere ----
     if (body.action === "insert") {
       const rows = (body.rows || []).slice(0, 50)
-        .filter(r => r && (r.tipo === "diagnostico" || r.tipo === "pre-venda") && r.nome && r.email)
+        .filter(r => r && TIPOS.indexOf(r.tipo) > -1 && r.nome && r.email)
         .map(r => COLS.map(c => {
           if (c === "id") return Utilities.getUuid();
           if (c === "created_at") return new Date();

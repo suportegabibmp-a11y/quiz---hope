@@ -88,12 +88,12 @@ button{font:inherit;cursor:pointer;color:inherit}
 @keyframes fade{from{opacity:0;transform:translateY(14px)}}
 .hero .lead{font-size:clamp(18px,1.5vw,20px);font-weight:300;color:var(--ink-2);max-width:30em}
 .actions{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
-.plate{margin:0;display:grid;gap:12px}
-.plate .fr{background:#EEECE2;border:1px solid var(--line);overflow:hidden}
-.plate img{width:100%;transition:transform 1.2s var(--ease)}
-.plate:hover img{transform:scale(1.03)}
-.plate figcaption{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.hero .book{position:relative;justify-self:end;width:min(100%,500px)}
+.cover{margin:0;position:relative;display:grid;justify-items:center;gap:22px}
+.cover img{width:100%;filter:drop-shadow(0 34px 40px rgba(22,34,28,.28)) drop-shadow(0 6px 10px rgba(22,34,28,.18));transform:rotate(-3deg);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:rotate(-2deg) translateY(-12px)}}
+.cover::after{content:"";position:absolute;bottom:38px;left:16%;right:16%;height:24px;background:radial-gradient(ellipse at center,rgba(22,34,28,.22),transparent 70%);z-index:-1;filter:blur(6px)}
+.cover figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.hero .book{justify-self:center;width:min(78%,360px)}
 
 /* faixa */
 .strip{background:var(--forest);color:var(--paper);overflow:hidden;white-space:nowrap}
@@ -150,7 +150,7 @@ section.sec{padding-block:130px}
 
 /* reserva */
 .reserve .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}
-.reserve .book{max-width:520px}
+.reserve .book{max-width:340px;justify-self:center}
 .price{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .price b{font-size:clamp(44px,4.6vw,60px);font-weight:300;letter-spacing:.02em;line-height:1}
 .price s{color:var(--ink-3);font-size:18px}
@@ -178,6 +178,22 @@ section.sec{padding-block:130px}
 
 footer{border-top:1px solid var(--line)}
 footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
+
+/* hope e empresas */
+.hope{background:var(--white);border-block:1px solid var(--line)}
+.hope .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center;padding-block:110px}
+.hope-num{font-size:clamp(110px,14vw,190px);font-weight:300;line-height:.9;letter-spacing:-.01em;color:var(--teal)}
+.hope-num span{font-size:.45em;vertical-align:.9em;margin-left:4px}
+.hope-txt{display:grid;gap:22px}
+.b2b{background:var(--forest);color:var(--paper)}
+.b2b .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:48px;align-items:end;padding-block:100px}
+.b2b .label{color:#9FB0A3}
+.b2b .body{color:#C9D2CA}
+.b2b .rv{display:grid;gap:20px}
+.b2b .btn-ink{background:var(--paper);color:var(--forest)}
+.b2b .btn-ink::before{background:#fff}
+.btn-line{color:var(--ink);box-shadow:inset 0 0 0 1px rgba(22,34,28,.35);background:transparent}
+.btn-line:hover{box-shadow:inset 0 0 0 1px var(--ink)}
 
 /* revelar ao rolar */
 .rv{transition:opacity 1s var(--ease),transform 1s var(--ease)}
@@ -220,7 +236,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 .bar .fill{position:absolute;inset:0;background:var(--forest);transform-origin:left;transform:scaleX(0);transition:transform 1.3s var(--ease)}
 .bar.low .fill{background:var(--low)}
 .cta-box{margin-top:12px;padding:32px;background:var(--white);border:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:center}
-.cta-box img{border:1px solid var(--line)}
+.cta-box img{filter:drop-shadow(0 14px 18px rgba(22,34,28,.25));transform:rotate(-3deg);max-width:120px}
 .cta-box h3{font-size:24px;letter-spacing:.08em}
 .cta-box p{color:var(--ink-2);font-weight:300;font-size:16px}
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--forest);color:var(--paper);padding:13px 20px;font-size:15px;z-index:95;max-width:calc(100% - 32px)}
@@ -231,6 +247,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   .hero .inner{grid-template-columns:1fr;padding-block:120px 80px;gap:28px}
   .hero .book{display:none}
   .hero .inner{padding-block:110px 90px}
+  .hope .wrap,.b2b .wrap{grid-template-columns:1fr;gap:32px;padding-block:80px}
   .manifesto .wrap,.author .wrap,.reserve .grid,.event .wrap{grid-template-columns:1fr;gap:36px}
   .camps{grid-template-columns:1fr 1fr}
   .camp:nth-child(3){border-left:0;padding-left:0}
@@ -246,10 +263,10 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   .top .btn{padding:10px 14px;font-size:12px}
   .brand{font-size:13px;letter-spacing:.26em}
   .hero h1{font-size:40px}
-  .reserve .book{max-width:320px}
+  .reserve .book{max-width:240px}
   .cd div{padding-right:18px}.cd div+div{padding-left:18px}
   .cta-box{grid-template-columns:1fr;padding:24px}
-  .cta-box img{max-width:180px}
+  .cta-box img{max-width:110px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -268,6 +285,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
       <a href="#trilha">O diagnóstico</a>
       <a href="#autor">O autor</a>
       <a href="#reserva">Pré-venda</a>
+      <a href="empresas.html">Para empresas</a>
       <button class="btn btn-ink" data-start>Fazer diagnóstico</button>
     </nav>
   </div>
@@ -294,7 +312,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
         <a class="btn btn-text" href="#reserva">Reservar o livro</a>
       </div>
     </div>
-    <figure class="book plate fade"><div class="fr"><img src="assets/livro.jpg" alt="Livro Liderança Z: como o montanhismo nos ensina a liderar a Gen Z sem perder talentos" width="600" height="550"></div><figcaption><span>Liderança Z · Tiago Favaro</span><span>Lançamento 23/11</span></figcaption></figure>
+    <figure class="book cover fade"><img src="assets/capa.webp" alt="Capa do livro Liderança Z, de Tiago Favaro" width="560" height="894"><figcaption>Lançamento 23/11 · Livraria da Vila</figcaption></figure>
   </div>
 </section>
 
@@ -358,7 +376,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <section class="sec reserve" id="reserva">
   <div class="wrap grid">
-    <figure class="book plate rv"><div class="fr"><img src="assets/livro.jpg" alt="" loading="lazy"></div><figcaption><span>Livro físico</span><span>Com dedicatória</span></figcaption></figure>
+    <figure class="book cover rv"><img src="assets/capa.webp" alt="" loading="lazy" width="560" height="894"><figcaption>Livro físico · com dedicatória</figcaption></figure>
     <div class="rv" style="display:grid;gap:26px">
       <p class="label">Pré-venda</p>
       <h2 class="h2">Reserve o seu <b>exemplar</b></h2>
@@ -379,6 +397,31 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
       </form>
       <div class="ok" id="reserveOk" hidden><b>Reserva feita.</b><span class="small">A equipe do Liderança Z vai te chamar no WhatsApp para combinar o pagamento e a retirada.</span></div>
     </div>
+  </div>
+</section>
+
+<section class="hope" id="hope">
+  <div class="wrap">
+    <div class="rv">
+      <p class="label">Para onde vai o lucro</p>
+      <p class="hope-num">100<span>%</span></p>
+    </div>
+    <div class="rv hope-txt">
+      <h2 class="h2">Todo o lucro vai para o <b id="hopeNome">Hope</b></h2>
+      <p class="body" id="hopeDesc"></p>
+      <div class="actions" id="hopeLinks"></div>
+    </div>
+  </div>
+</section>
+
+<section class="b2b">
+  <div class="wrap">
+    <div class="rv">
+      <p class="label">Para empresas</p>
+      <h2 class="h2">Leve o Tiago para a <b>sua empresa</b></h2>
+      <p class="body">Palestras, mesas redondas e o Programa Líderes Z para quem lidera jovens talentos. Conte quantas pessoas a empresa tem e a equipe monta uma proposta.</p>
+    </div>
+    <div class="rv"><a class="btn btn-ink" href="empresas.html">Ver formatos e pedir proposta <span class="arr" aria-hidden="true">→</span></a></div>
   </div>
 </section>
 </main>
@@ -423,7 +466,7 @@ function writeQ(q){try{localStorage.setItem("lz_fila",JSON.stringify(q))}catch(e
 async function insertRows(rows){
   if(C.sheetsUrl){
     const r = await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"insert",rows})});
-    const j = await r.json(); if(!j.ok) throw new Error(j.error||"falha");
+    const j = await r.json(); if(!j.ok) throw new Error(j.error||"falha"); if(typeof j.n==="number" && j.n<rows.length) throw new Error("planilha recusou parte dos leads");
     return;
   }
   if(sb){ const {error} = await sb.from("lz_leads").insert(rows); if(error) throw error; return; }
@@ -486,6 +529,12 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll(".rv").forEach(el=>{const sib=[...el.parentElement.children].filter(x=>x.classList.contains("rv"));el.style.transitionDelay=(sib.indexOf(el)*90)+"ms";io.observe(el)});
 const prof=$("#profile");
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){prof.classList.add("draw");o.disconnect()}}),{threshold:.4}).observe(prof);
+
+/* ---------- hope ---------- */
+(function(){const h=C.hope||{};$("#hopeNome").textContent=h.nome||"Hope";$("#hopeDesc").textContent=h.descricao||"";
+  const L=[];if(h.instagram)L.push(`<a class="btn btn-ink" href="${esc(h.instagram)}" target="_blank" rel="noopener">Instagram do ${esc(h.nome||"Hope")}</a>`);
+  if(h.site)L.push(`<a class="btn btn-line" href="${esc(h.site)}" target="_blank" rel="noopener">Site do ${esc(h.nome||"Hope")}</a>`);
+  $("#hopeLinks").innerHTML=L.join("");$("#hopeLinks").hidden=!L.length;})();
 
 /* ---------- faixa, preço, contagem ---------- */
 $("#track").innerHTML=('<span>Lançamento <b>23/11</b> · 19h</span><span>Livraria da Vila</span><span>Diagnóstico gratuito</span><span>Pré-venda aberta</span>').repeat(8);
@@ -624,7 +673,7 @@ function renderResult(){
     <div class="bars">${order.map(k=>`<div class="bar ${sc.dims[k]<50?"low":""}"><div class="t"><span style="font-family:var(--sans);font-size:15px;color:var(--ink)">${DIMS[k]}</span><span>${sc.dims[k]}%</span></div><div class="track"><div class="fill" data-v="${sc.dims[k]}"></div></div></div>`).join("")}</div>
     <p style="color:var(--ink-2);font-weight:300">O trecho que mais pede atenção agora é <b style="color:var(--ink);font-weight:500">${DIMS[weakest].split(" · ")[0]}</b>. O livro dedica um capítulo inteiro a ele.</p>
     <div class="cta-box" style="margin-top:34px">
-      <img src="assets/livro.jpg" alt="">
+      <img src="assets/capa.webp" alt="">
       <div style="display:grid;gap:14px">
         <h3>Reserve o seu <b>exemplar</b></h3>
         <p>${esc(C.preco)} na pré-venda, com dedicatória e lugar garantido na noite de autógrafos. Sem pagamento agora: a equipe fala com você pelo WhatsApp.</p>

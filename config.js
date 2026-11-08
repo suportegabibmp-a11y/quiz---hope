@@ -19,5 +19,14 @@ window.LZ_CONFIG = {
   lancamento: "2026-11-23T19:00:00-03:00",
 
   // Modo evento (abra o site com #evento no final): segundos até voltar ao início
-  reinicioEventoSeg: 90
+  reinicioEventoSeg: 90,
+
+  // ---- Hope: para onde vai o lucro do livro ----
+  // Os botões de Instagram e site só aparecem quando o link estiver preenchido.
+  hope: {
+    nome: "Hope",
+    descricao: "Todo o lucro da venda de Liderança Z vai para o Hope, que investe na educação e no futuro de jovens. Cada exemplar comprado e cada palestra contratada viram oportunidade para quem está começando.",
+    instagram: "",   // ex.: "https://instagram.com/hope"
+    site: ""         // ex.: "https://hope.org.br"
+  }
 };

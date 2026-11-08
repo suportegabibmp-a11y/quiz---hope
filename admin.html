@@ -71,7 +71,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* kpis */
 main .wrap{padding-block:26px 60px;display:grid;gap:22px}
-.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .kpi{background:var(--night);padding:18px 20px;display:grid;gap:4px}
 .kpi .l{font-family:var(--mono);font-size:11px;color:var(--mist)}
 .kpi .v{font-family:var(--display);font-weight:300;font-size:42px;line-height:1.05;font-variant-numeric:tabular-nums}
@@ -112,6 +112,7 @@ td.num{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;
 .chip{display:inline-block;font-family:var(--mono);font-size:11px;padding:3px 8px;white-space:nowrap}
 .chip.diag{background:rgba(33,87,99,.1);color:var(--sky)}
 .chip.pre{background:rgba(184,139,74,.16);color:var(--gold)}
+.chip.emp{background:rgba(181,86,47,.12);color:var(--ember)}
 .chip.ev{background:rgba(31,58,47,.1);color:var(--lime)}
 .chip.dg{background:var(--night-3);color:var(--mist)}
 select.st{background:transparent;border:1px solid var(--line);padding:5px 8px;font-size:13px;border-radius:0}
@@ -177,6 +178,7 @@ textarea:focus{outline:none;border-color:var(--lime)}
       <div class="kpi"><span class="l">Leads no total</span><span class="v" id="kTotal">0</span><span class="s" id="kTotalS"></span></div>
       <div class="kpi"><span class="l">Hoje</span><span class="v" id="kHoje">0</span><span class="s" id="kHojeS"></span></div>
       <div class="kpi"><span class="l">Reservas do livro</span><span class="v" id="kPre">0</span><span class="s" id="kPreS"></span></div>
+      <div class="kpi"><span class="l">Empresas pedindo proposta</span><span class="v" id="kEmp">0</span><span class="s" id="kEmpS"></span></div>
       <div class="kpi"><span class="l">Compraram</span><span class="v" id="kBuy">0</span><span class="s" id="kBuyS"></span></div>
       <div class="kpi"><span class="l">Altitude média</span><span class="v" id="kAlt">0</span><span class="s">metros, de 8.848 m</span></div>
     </div>
@@ -189,7 +191,7 @@ textarea:focus{outline:none;border-color:var(--lime)}
 
     <div class="tools">
       <input type="search" id="q" placeholder="Buscar por nome, e-mail ou WhatsApp" aria-label="Buscar">
-      <select id="fTipo" aria-label="Tipo"><option value="">Todos os tipos</option><option value="diagnostico">Diagnóstico</option><option value="pre-venda">Reserva</option></select>
+      <select id="fTipo" aria-label="Tipo"><option value="">Todos os tipos</option><option value="diagnostico">Diagnóstico</option><option value="pre-venda">Reserva</option><option value="empresa">Empresa</option></select>
       <select id="fOrigem" aria-label="Origem"><option value="">Digital e evento</option><option value="digital">Digital</option><option value="evento">Evento</option></select>
       <select id="fStatus" aria-label="Status"><option value="">Todos os status</option><option value="novo">Novo</option><option value="contatado">Contatado</option><option value="comprou">Comprou</option><option value="descartado">Descartado</option></select>
       <select id="fCamp" aria-label="Acampamento"><option value="">Todos os acampamentos</option><option>Acampamento base</option><option>Campo 1</option><option>Campo 2</option><option>Ataque ao cume</option></select>
@@ -339,7 +341,9 @@ function rel(d){
 function waLink(l){
   const n=(l.whatsapp||"").replace(/\D/g,""); if(!n) return "";
   const first=(l.nome||"").split(" ")[0];
-  const msg = l.tipo==="pre-venda"
+  const msg = l.tipo==="empresa"
+    ? `Oi, ${first}! Aqui é da equipe do Tiago Favaro, autor de Liderança Z. Recebemos o pedido de proposta da ${l.empresa||"sua empresa"}. Podemos marcar uma conversa rápida para alinhar formato, data e valor?`
+    : l.tipo==="pre-venda"
     ? `Oi, ${first}! Aqui é da equipe do livro Liderança Z, do Tiago Favaro. Recebemos a sua reserva do livro. Posso te passar como fica o pagamento e a retirada no lançamento, dia 23/11?`
     : `Oi, ${first}! Aqui é da equipe do livro Liderança Z, do Tiago Favaro. Sua liderança ficou em ${fmtN(l.altitude)} m (${l.acampamento}). Quer saber como reservar o livro com dedicatória para o lançamento do dia 23/11?`;
   return `https://wa.me/${n}?text=${encodeURIComponent(msg)}`;
@@ -359,6 +363,9 @@ function render(){
   $("#kHojeS").textContent=`ontem: ${fmtN(ontem)}`;
   $("#kPre").textContent=fmtN(pre.length);
   $("#kPreS").innerHTML=leads.length?`<b>${Math.round(pre.length/leads.length*100)}%</b> dos leads`:"";
+  const emp=leads.filter(l=>l.tipo==="empresa");
+  $("#kEmp").textContent=fmtN(emp.length);
+  $("#kEmpS").textContent=emp.length?`${fmtN(emp.filter(l=>l.status==="novo").length)} aguardando contato`:"pela página Para empresas";
   $("#kBuy").textContent=fmtN(buy.length);
   $("#kBuyS").innerHTML=pre.length?`<b>${Math.round(buy.length/pre.length*100)}%</b> de quem reservou`:"marque no status";
   const alts=diag.map(l=>l.altitude).filter(Boolean);
@@ -377,7 +384,7 @@ function render(){
   $("#rows").innerHTML=rows.map(l=>`<tr data-id="${esc(l.id)}" class="${newIds.has(l.id)?"new":""}">
     <td class="num" title="${esc(new Date(l.created_at).toLocaleString("pt-BR"))}">${rel(l.created_at)}</td>
     <td class="who"><b>${esc(l.nome)}</b><span>${esc(l.email)}</span></td>
-    <td>${l.tipo==="pre-venda"?'<span class="chip pre">reserva</span>':'<span class="chip diag">diagnóstico</span>'}</td>
+    <td>${l.tipo==="empresa"?'<span class="chip emp">empresa</span>':l.tipo==="pre-venda"?'<span class="chip pre">reserva</span>':'<span class="chip diag">diagnóstico</span>'}</td>
     <td>${l.origem==="evento"?'<span class="chip ev">evento</span>':'<span class="chip dg">digital</span>'}</td>
     <td class="num">${l.altitude?fmtN(l.altitude)+" m":"—"}</td>
     <td style="font-size:13.5px;color:var(--mist)">${esc(l.lidera||"—")}</td>
@@ -434,13 +441,18 @@ function openDrawer(id){
   d.innerHTML=`<button class="x" id="dx" aria-label="Fechar">×</button>
     <div style="display:grid;gap:8px"><span class="mono muted">${esc(new Date(l.created_at).toLocaleString("pt-BR"))} · ${l.origem==="evento"?"evento":"digital"}</span><h2>${esc(l.nome)}</h2></div>
     ${l.altitude?`<div><div class="big">${fmtN(l.altitude)}<small>m · ${esc(l.acampamento)}</small></div></div>
-    <div class="hb">${Object.entries(DIMS).map(([k,n])=>`<div class="r"><div class="t">${n}<span>${l[k]??"—"}%</span></div><div class="tr"><div class="fl ${l[k]<50?"e":""}" style="width:${l[k]||0}%"></div></div></div>`).join("")}</div>`:`<span class="chip pre" style="justify-self:start">reservou o livro</span>`}
+    <div class="hb">${Object.entries(DIMS).map(([k,n])=>`<div class="r"><div class="t">${n}<span>${l[k]??"—"}%</span></div><div class="tr"><div class="fl ${l[k]<50?"e":""}" style="width:${l[k]||0}%"></div></div></div>`).join("")}</div>`:l.tipo==="empresa"?`<div><span class="chip emp">pedido de proposta</span><div class="big" style="font-size:40px;margin-top:12px">${esc(l.empresa||"")}</div></div>`:`<span class="chip pre" style="justify-self:start">reservou o livro</span>`}
     <dl class="kv">
       <dt>E-mail</dt><dd>${esc(l.email)}</dd>
       <dt>WhatsApp</dt><dd>${esc(l.whatsapp||"—")}</dd>
-      <dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
+      ${l.tipo==="empresa"?`<dt>Cargo</dt><dd>${esc(l.cargo||"—")}</dd>
+      <dt>Cidade</dt><dd>${esc(l.cidade||"—")}</dd>
+      <dt>Pessoas</dt><dd>${esc(l.colaboradores||"—")}</dd>
+      <dt>Líderes</dt><dd>${esc(l.lideres||"—")}</dd>
+      <dt>Jovens que saem/ano</dt><dd>${esc(l.saidas_ano||"—")}</dd>
+      <dt>Formatos</dt><dd>${esc(l.interesse||"—")}</dd>`:`<dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
       <dt>Equipe</dt><dd>${esc(l.equipe||"—")}</dd>
-      <dt>Respostas</dt><dd class="mono">${esc((l.respostas||"—").split("").join(" "))}</dd>
+      <dt>Respostas</dt><dd class="mono">${esc((l.respostas||"—").split("").join(" "))}</dd>`}
       <dt>Campanha</dt><dd>${esc([l.utm_source,l.utm_medium,l.utm_campaign].filter(Boolean).join(" / ")||"—")}</dd>
     </dl>
     <div style="display:flex;gap:10px;flex-wrap:wrap">${l.whatsapp?`<a class="btn btn-lime" href="${waLink(l)}" target="_blank" rel="noopener">${WA_ICON} Chamar no WhatsApp</a>`:""}<a class="btn btn-line" href="mailto:${esc(l.email)}">E-mail</a></div>
@@ -463,7 +475,7 @@ $("#shade").addEventListener("click",closeDrawer);
 addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
 
 $("#exportBtn").addEventListener("click",()=>{
-  const cols=["created_at","tipo","origem","status","nome","email","whatsapp","lidera","equipe","altitude","acampamento","pontuacao","dim_rota","dim_cordada","dim_radio","dim_acli","respostas","utm_source","utm_medium","utm_campaign","notas"];
+  const cols=["created_at","tipo","origem","status","nome","email","whatsapp","lidera","equipe","altitude","acampamento","pontuacao","dim_rota","dim_cordada","dim_radio","dim_acli","respostas","utm_source","utm_medium","utm_campaign","empresa","cargo","colaboradores","lideres","saidas_ano","interesse","cidade","notas"];
   const q=v=>{const s=String(v??"");return /[",;\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
   const csv="﻿"+cols.join(";")+"\n"+filtered().map(l=>cols.map(c=>q(c==="created_at"?new Date(l[c]).toLocaleString("pt-BR"):l[c])).join(";")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
@@ -477,7 +489,8 @@ function demoData(){
   const lid=["Equipe na empresa","Minha própria empresa","Ministério ou equipe na igreja","Escola ou projeto social"];
   const eq=["1 a 5 pessoas","6 a 15 pessoas","16 a 50 pessoas","Mais de 50"];
   let seed=7; const r=()=>(seed=(seed*16807)%2147483647)/2147483647;
-  return nomes.map((n,i)=>{
+  const emp=[["Carla Nogueira","Gerente de RH","Grupo Exemplo","201 a 500","21 a 50","16 a 40","Palestra presencial, Programa Líderes Z"],["Paulo Amaral","Diretor de Pessoas","Empresa Modelo","51 a 200","6 a 20","6 a 15","Mesa redonda com lideranças"]].map((e,k)=>({id:"demo-e"+k,created_at:new Date(Date.now()-k*7200000).toISOString(),tipo:"empresa",nome:e[0],cargo:e[1],empresa:e[2],colaboradores:e[3],lideres:e[4],saidas_ano:e[5],interesse:e[6],cidade:"São Paulo",email:"contato"+k+"@exemplo.com",whatsapp:"+5511988880000",lidera:"Empresa: "+e[2],equipe:e[3],origem:"digital",status:"novo",notas:null}));
+  return emp.concat(nomes.map((n,i)=>{
     const ans=Array.from({length:8},()=>Math.floor(r()*6)); const dims={};
     [["dim_rota",0],["dim_cordada",2],["dim_radio",4],["dim_acli",6]].forEach(([k,j])=>dims[k]=Math.round((ans[j]+ans[j+1])/10*100));
     const pct=Math.round(ans.reduce((a,b)=>a+b,0)/40*100), alt=Math.round((800+pct/100*8048)/10)*10;
@@ -486,7 +499,7 @@ function demoData(){
       email:n.split(" ")[0].toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")+"@exemplo.com",whatsapp:"+55119"+String(10000000+Math.floor(r()*89999999)),
       lidera:pre?null:lid[i%4],equipe:pre?null:eq[(i*3)%4],...(pre?{}:{altitude:alt,acampamento:CAMPS.find((c,ci)=>alt<=[2500,5000,7500,9000][ci]),pontuacao:pct,...dims,respostas:ans.map(a=>a+1).join("")}),
       origem:r()<.35?"evento":"digital",status:["novo","novo","contatado","comprou","novo"][i%5],notas:null};
-  });
+  }));
 }
 boot();
 </script>
