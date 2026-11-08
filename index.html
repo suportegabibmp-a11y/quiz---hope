@@ -443,16 +443,23 @@ const sb = (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? window.supa
 const UTM = (() => { const q = new URLSearchParams(location.search); return {utm_source:q.get("utm_source"), utm_medium:q.get("utm_medium"), utm_campaign:q.get("utm_campaign")}; })();
 function readQ(){try{return JSON.parse(localStorage.getItem("lz_fila")||"[]")}catch(e){return []}}
 function writeQ(q){try{localStorage.setItem("lz_fila",JSON.stringify(q))}catch(e){}}
+async function insertRows(rows){
+  if(C.sheetsUrl){
+    const r = await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"insert",rows})});
+    const j = await r.json(); if(!j.ok) throw new Error(j.error||"falha");
+    return;
+  }
+  if(sb){ const {error} = await sb.from("lz_leads").insert(rows); if(error) throw error; return; }
+  throw new Error("sem banco configurado");
+}
 async function sendLead(lead){
   const row = {...lead, ...UTM, origem: MODO_EVENTO ? "evento" : "digital"};
-  if(!sb){ writeQ([...readQ(), row]); return; }
-  const {error} = await sb.from("leads").insert(row);
-  if(error){ console.warn("Lead guardado para reenviar:", error.message); writeQ([...readQ(), row]); }
+  try{ await insertRows([row]); }
+  catch(e){ console.warn("Lead guardado para reenviar:", e.message); writeQ([...readQ(), row]); }
 }
 async function flushQ(){
-  if(!sb) return; const q = readQ(); if(!q.length) return;
-  const {error} = await sb.from("leads").insert(q);
-  if(!error) writeQ([]);
+  const q = readQ(); if(!q.length || !(C.sheetsUrl||sb)) return;
+  try{ await insertRows(q); writeQ([]); }catch(e){}
 }
 flushQ(); addEventListener("online", flushQ);
 

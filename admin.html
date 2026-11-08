@@ -152,8 +152,8 @@ textarea:focus{outline:none;border-color:var(--lime)}
   <canvas id="topo" aria-hidden="true"></canvas>
   <form class="card" id="loginForm" novalidate>
     <h1>Painel <b>Z</b></h1>
-    <p class="muted">Entre com o e-mail e a senha cadastrados no Supabase.</p>
-    <div class="field"><label for="lg-email">E-mail</label><input id="lg-email" type="email" autocomplete="username"></div>
+    <p class="muted" id="lg-help">Entre com o e-mail e a senha cadastrados no Supabase.</p>
+    <div class="field" id="lg-email-f"><label for="lg-email">E-mail</label><input id="lg-email" type="email" autocomplete="username"></div>
     <div class="field"><label for="lg-pass">Senha</label><input id="lg-pass" type="password" autocomplete="current-password"></div>
     <p class="err" id="lg-err" role="alert"></p>
     <button class="btn btn-lime" type="submit" style="justify-content:center;padding:13px">Entrar</button>
@@ -161,7 +161,7 @@ textarea:focus{outline:none;border-color:var(--lime)}
 </section>
 
 <div id="app" hidden>
-  <div class="demo" id="demoBar" hidden><div class="wrap"><span>Dados de exemplo. O Supabase ainda não foi configurado no arquivo config.js.</span><a href="supabase/schema.sql" target="_blank" rel="noopener">Ver o SQL do banco</a></div></div>
+  <div class="demo" id="demoBar" hidden><div class="wrap"><span>Dados de exemplo. Nenhum banco foi configurado ainda no arquivo config.js.</span><a href="https://github.com/suportegabibmp-a11y/quiz---hope#readme" target="_blank" rel="noopener">Como configurar</a></div></div>
   <header class="bar"><div class="wrap">
     <a class="brand" href="index.html" target="_blank" rel="noopener">Liderança <b>Z</b></a>
     <span class="live" id="live"><i></i><span id="liveTxt">offline</span></span>
@@ -226,8 +226,16 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtN = n => Number(n||0).toLocaleString("pt-BR");
 function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3000)}
-const DEMO = !(C.supabaseUrl && C.supabaseAnonKey && window.supabase);
-const sb = DEMO ? null : window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey);
+const MODE = C.sheetsUrl ? "sheets" : (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? "supabase" : "demo";
+const DEMO = MODE==="demo";
+const sb = MODE==="supabase" ? window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey) : null;
+let senha = null, pollTimer = null;
+function ssGet(){try{return sessionStorage.getItem("lz_senha")}catch(e){return null}}
+function ssSet(v){try{v?sessionStorage.setItem("lz_senha",v):sessionStorage.removeItem("lz_senha")}catch(e){}}
+async function sheets(body){
+  const r=await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...body,senha})});
+  return r.json();
+}
 const DIMS = {dim_rota:"Rota",dim_cordada:"Cordada",dim_radio:"Rádio",dim_acli:"Aclimatação"};
 const CAMPS = ["Acampamento base","Campo 1","Campo 2","Ataque ao cume"];
 let leads = [], sort = {k:"created_at", dir:-1}, newIds = new Set(), channel = null;
@@ -242,31 +250,60 @@ sz();addEventListener("resize",sz);f()})();
 /* ---------- auth ---------- */
 async function boot(){
   if(DEMO){ $("#demoBar").hidden=false; leads=demoData(); showApp("modo demonstração"); return; }
+  if(MODE==="sheets"){
+    $("#lg-email-f").hidden=true; $("#lg-help").textContent="Digite a senha do painel (a mesma que está no Apps Script da planilha).";
+    senha=ssGet();
+    if(senha){ try{ const j=await sheets({action:"login"}); if(j.ok){ await enterSheets(); return; } }catch(e){} }
+    $("#login").hidden=false; return;
+  }
   const {data:{session}} = await sb.auth.getSession();
   if(session) await enter(session); else $("#login").hidden=false;
 }
 $("#loginForm").addEventListener("submit", async e=>{
   e.preventDefault(); $("#lg-err").textContent="";
   const btn=e.submitter; btn.disabled=true; btn.textContent="Entrando...";
+  if(MODE==="sheets"){
+    senha=$("#lg-pass").value;
+    try{ const j=await sheets({action:"login"}); btn.disabled=false; btn.textContent="Entrar";
+      if(!j.ok){$("#lg-err").textContent="Senha incorreta.";return}
+      ssSet(senha); await enterSheets();
+    }catch(err){ btn.disabled=false; btn.textContent="Entrar"; $("#lg-err").textContent="Não consegui falar com a planilha. Confira o sheetsUrl no config.js e se o Apps Script foi implantado para Qualquer pessoa."; }
+    return;
+  }
   const {data,error} = await sb.auth.signInWithPassword({email:$("#lg-email").value.trim(), password:$("#lg-pass").value});
   btn.disabled=false; btn.textContent="Entrar";
   if(error){$("#lg-err").textContent = error.message.includes("Invalid") ? "E-mail ou senha incorretos." : error.message; return}
   await enter(data.session);
 });
 async function enter(session){
-  const {data:isAdm, error} = await sb.rpc("is_admin");
-  if(error || !isAdm){ $("#login").hidden=false; $("#lg-err").textContent="Este e-mail não está na lista de admins. Adicione-o na tabela admins do Supabase."; await sb.auth.signOut(); return; }
+  const {data:isAdm, error} = await sb.rpc("lz_is_admin");
+  if(error || !isAdm){ $("#login").hidden=false; $("#lg-err").textContent="Este e-mail não está na lista de admins. Adicione-o na tabela lz_admins do Supabase."; await sb.auth.signOut(); return; }
   $("#login").hidden=true; showApp(session.user.email);
   await load(); subscribe();
 }
-$("#logout").addEventListener("click", async()=>{ if(sb){ channel && sb.removeChannel(channel); await sb.auth.signOut(); } location.reload(); });
+async function enterSheets(){
+  $("#login").hidden=true; showApp("planilha Google");
+  await loadSheets(true);
+  $("#live").classList.add("on"); $("#liveTxt").textContent="atualiza a cada 20 s";
+  pollTimer=setInterval(()=>loadSheets(false),20000);
+}
+async function loadSheets(first){
+  try{
+    const j=await sheets({action:"list"});
+    if(!j.ok){ if(j.error==="senha"){ ssSet(null); location.reload(); } else toast("Erro da planilha: "+j.error); return; }
+    const rows=j.rows.filter(r=>r.id);
+    if(!first){ const old=new Set(leads.map(l=>l.id)); const fresh=rows.filter(r=>!old.has(r.id)); fresh.forEach(r=>newIds.add(r.id)); if(fresh.length) toast(fresh.length===1?`Novo lead: ${fresh[0].nome}`:`${fresh.length} leads novos`); }
+    leads=rows; if(!$("#drawer").classList.contains("on")) render();
+  }catch(e){ $("#live").classList.remove("on"); $("#liveTxt").textContent="sem conexão"; }
+}
+$("#logout").addEventListener("click", async()=>{ ssSet(null); if(sb){ channel && sb.removeChannel(channel); await sb.auth.signOut(); } location.reload(); });
 
 function showApp(who){ $("#app").hidden=false; $("#who").textContent=who; render(); }
 
 async function load(){
   const all=[]; let from=0;
   while(true){
-    const {data,error} = await sb.from("leads").select("*").order("created_at",{ascending:false}).range(from,from+999);
+    const {data,error} = await sb.from("lz_leads").select("*").order("created_at",{ascending:false}).range(from,from+999);
     if(error){toast("Não consegui carregar os leads: "+error.message);break}
     all.push(...data); if(data.length<1000)break; from+=1000;
   }
@@ -274,7 +311,7 @@ async function load(){
 }
 function subscribe(){
   channel = sb.channel("leads-live")
-    .on("postgres_changes",{event:"*",schema:"public",table:"leads"},p=>{
+    .on("postgres_changes",{event:"*",schema:"public",table:"lz_leads"},p=>{
       if(p.eventType==="INSERT"){ leads.unshift(p.new); newIds.add(p.new.id); toast(`Novo lead: ${p.new.nome}`); }
       if(p.eventType==="UPDATE"){ const i=leads.findIndex(l=>l.id===p.new.id); if(i>-1) leads[i]=p.new; }
       if(p.eventType==="DELETE"){ leads=leads.filter(l=>l.id!==p.old.id); }
@@ -385,7 +422,8 @@ $("#rows").addEventListener("click",e=>{
 });
 async function patch(id,obj){
   const l=leads.find(x=>x.id===id); Object.assign(l,obj);
-  if(sb){const {error}=await sb.from("leads").update(obj).eq("id",id); if(error) toast("Não salvou: "+error.message);}
+  if(sb){const {error}=await sb.from("lz_leads").update(obj).eq("id",id); if(error) toast("Não salvou: "+error.message);}
+  if(MODE==="sheets"){try{const j=await sheets({action:"update",id,fields:obj}); if(!j.ok) toast("Não salvou: "+j.error);}catch(e){toast("Não salvou: sem conexão")}}
   render();
 }
 
@@ -414,7 +452,8 @@ function openDrawer(id){
   $("#dDel").onclick=()=>{$("#dConfirm").hidden=false};
   $("#dNo").onclick=()=>{$("#dConfirm").hidden=true};
   $("#dYes").onclick=async()=>{
-    if(sb){const {error}=await sb.from("leads").delete().eq("id",id); if(error){toast("Não apagou: "+error.message);return}}
+    if(sb){const {error}=await sb.from("lz_leads").delete().eq("id",id); if(error){toast("Não apagou: "+error.message);return}}
+    if(MODE==="sheets"){try{const j=await sheets({action:"delete",id}); if(!j.ok){toast("Não apagou: "+j.error);return}}catch(e){toast("Não apagou: sem conexão");return}}
     leads=leads.filter(x=>x.id!==id); closeDrawer(); render(); toast("Lead apagado");
   };
 }
