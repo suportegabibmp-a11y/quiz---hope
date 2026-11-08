@@ -5,9 +5,9 @@ Lançamento: 23/11, 19h, Livraria da Vila.
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página pública com o quiz e a pré-venda |
+| `index.html` | Página pública com o quiz e a reserva do livro (pré-venda sem pagamento online) |
 | `admin.html` | Painel de leads (login, gráficos, lista, WhatsApp, CSV) |
-| `config.js` | **Único arquivo para editar**: Supabase, links, preço, data |
+| `config.js` | **Único arquivo para editar**: banco, preço, data |
 | `google-sheets/Code.gs` | Banco na planilha do Google (opção A) |
 | `supabase/schema.sql` | Banco no Supabase (opção B) |
 
@@ -49,7 +49,8 @@ Sem nenhuma das duas, o painel abre com **dados de exemplo** (faixa amarela no t
 - Leads novos aparecem sozinhos, sem recarregar a página.
 - Números do topo, gráfico por dia (digital × evento), acampamentos e trechos mais fracos.
 - Busca e filtros, status (novo, contatado, comprou, descartado), anotações.
-- Botão de WhatsApp com a mensagem já escrita, de acordo com o resultado da pessoa.
+- Botão de WhatsApp com a mensagem já escrita: para quem fez o diagnóstico e para quem reservou o livro.
+- Reservas aparecem com o tipo **reserva**. A equipe chama a pessoa no WhatsApp para combinar pagamento e retirada.
 - Exportar CSV (abre no Excel e no Google Planilhas).
 
 ## 4. Modo evento (tablet no estande)

@@ -11,11 +11,7 @@ window.LZ_CONFIG = {
   supabaseUrl: "",       // ex.: "https://abcdxyz.supabase.co"
   supabaseAnonKey: "",   // a chave "anon public"
 
-  // Link do checkout da pré-venda (Hotmart, Kiwify, Mercado Pago, editora...)
-  checkoutUrl: "https://exemplo.com/checkout-lideranca-z",
-  // Link público do PDF do capítulo 1
-  capitulo1Url: "https://exemplo.com/capitulo-1-lideranca-z.pdf",
-
+  // Preço mostrado na pré-venda (a reserva não cobra nada; a equipe chama a pessoa no WhatsApp)
   preco: "R$ 59,90",
   precoCheio: "R$ 79,90",
 

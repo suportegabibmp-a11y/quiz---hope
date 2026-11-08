@@ -8,255 +8,243 @@
 <meta property="og:title" content="Em que altitude está a sua liderança?">
 <meta property="og:description" content="Diagnóstico gratuito baseado no livro Liderança Z, de Tiago Favaro. Lançamento 23/11, 19h, Livraria da Vila.">
 <meta property="og:image" content="assets/livro.jpg">
-<meta name="theme-color" content="#0C1712">
+<meta name="theme-color" content="#EEECE2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Noite na montanha: verde-floresta profundo, curvas de nível, um só acento verde-limão.
-   A página é uma subida — o altímetro à esquerda vai de 800 m (topo) a 8.848 m (pré-venda). */
+/* Papel da capa, tinta verde-floresta, títulos finos e espaçados como "LIDERANÇA Z" na capa.
+   Um único acento: o teal do nome do autor na capa. A página é uma subida: o altímetro vai de 800 m a 8.848 m. */
 :root{
-  --night:#0C1712; --night-2:#132219; --night-3:#1B3025; --ridge:#22402F;
-  --snow:#EEF0E6; --mist:#A4B1A7; --fog:#6E7E73;
-  --lime:#8CC63F; --lime-hi:#A9DC5E; --ember:#E58A5C;
-  --paper:#E8E5DA; --paper-ink:#14201A;
-  --line:rgba(238,240,230,.13);
-  --display:"Anton","Oswald","Impact","Arial Narrow",sans-serif;
-  --body:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --paper:#EEECE2; --paper-2:#E5E3D7; --paper-3:#DAD8CB; --white:#F7F6F0;
+  --ink:#16221C; --ink-2:#3C4943; --ink-3:#6F7A73;
+  --forest:#1F3A2F; --teal:#215763; --sand:#B88B4A; --low:#B5562F;
+  --line:rgba(22,34,28,.14);
+  --sans:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --ease:cubic-bezier(.2,.7,.1,1);
-  color-scheme:dark;
+  color-scheme:light;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 img{max-width:100%;display:block}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--night);color:var(--snow);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.07;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
-::selection{background:var(--lime);color:var(--night)}
-.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;margin:0;text-wrap:balance;text-transform:uppercase}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--forest);color:var(--paper)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-weight:300;margin:0;text-transform:uppercase;letter-spacing:.08em;line-height:1.08;text-wrap:balance}
+h1 b,h2 b{font-weight:700}
 p{margin:0}
 a{color:inherit}
 button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
-.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
-.tag{font-family:var(--mono);font-size:12px;color:var(--lime);letter-spacing:.06em}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.rule{width:56px;height:1px;background:var(--ink);border:0;margin:0}
 
 /* botões */
-.btn{position:relative;display:inline-flex;align-items:center;gap:12px;border:0;padding:16px 26px;font-weight:500;font-size:16px;text-decoration:none;overflow:hidden;isolation:isolate;transition:color .3s var(--ease)}
-.btn .arr{display:inline-block;transition:transform .35s var(--ease)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;border:0;padding:17px 30px;font-weight:500;font-size:15px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;overflow:hidden;isolation:isolate;transition:color .35s var(--ease)}
+.btn .arr{transition:transform .35s var(--ease)}
 .btn:hover .arr{transform:translateX(5px)}
-.btn-lime{background:var(--lime);color:var(--night)}
-.btn-lime::before{content:"";position:absolute;inset:0;background:var(--snow);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}
-.btn-lime:hover::before{transform:none}
-.btn-line{color:var(--snow);box-shadow:inset 0 0 0 1px rgba(238,240,230,.4)}
-.btn-line::before{content:"";position:absolute;inset:0;background:var(--snow);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}
-.btn-line:hover{color:var(--night)}
-.btn-line:hover::before{transform:none}
+.btn-ink{background:var(--forest);color:var(--paper)}
+.btn-ink::before{content:"";position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:-1}
+.btn-ink:hover::before{transform:scaleX(1)}
+.btn-text{padding:17px 4px;color:var(--ink);background:none;border-bottom:1px solid var(--ink);padding-bottom:6px;padding-top:6px}
+.btn-text:hover{color:var(--teal);border-color:var(--teal)}
 
 /* topo */
-.top{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:env(safe-area-inset-top,0px);transition:background .3s,backdrop-filter .3s}
-.top.solid{background:rgba(12,23,18,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
-.brand{font-family:var(--display);font-size:22px;letter-spacing:.02em;text-decoration:none}
-.brand b{color:var(--lime);font-weight:400}
-.top nav{display:flex;align-items:center;gap:28px;font-size:15px}
-.top nav a{text-decoration:none;color:var(--mist);transition:color .2s}
-.top nav a:hover{color:var(--snow)}
-.top .btn{padding:11px 18px;font-size:14px}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:env(safe-area-inset-top,0px);transition:background .3s,box-shadow .3s}
+.top.solid{background:rgba(238,236,226,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.brand{font-size:15px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;text-decoration:none}
+.brand b{font-weight:700}
+.top nav{display:flex;align-items:center;gap:30px;font-size:14px;letter-spacing:.04em}
+.top nav a{text-decoration:none;color:var(--ink-2);transition:color .2s}
+.top nav a:hover{color:var(--ink)}
+.top .btn{padding:12px 18px;font-size:13px}
 
 /* altímetro */
-.alti{position:fixed;left:max(14px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%);z-index:30;display:flex;gap:10px;align-items:stretch;height:46vh;pointer-events:none}
-.alti .scale{width:9px;background:repeating-linear-gradient(to top,var(--fog) 0 1px,transparent 1px 10%);position:relative;border-left:1px solid var(--fog)}
-.alti .mark{position:absolute;left:-5px;width:15px;height:2px;background:var(--lime);bottom:0;transition:bottom .15s linear}
-.alti .read{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.12em;white-space:nowrap}
-.alti .read b{color:var(--lime);font-weight:500}
+.alti{position:fixed;left:max(16px,env(safe-area-inset-left,0px));top:50%;transform:translateY(-50%);z-index:30;display:flex;gap:10px;height:42vh;pointer-events:none}
+.alti .scale{width:8px;position:relative;border-left:1px solid var(--ink-3);background:repeating-linear-gradient(to top,var(--ink-3) 0 1px,transparent 1px 10%)}
+.alti .mark{position:absolute;left:-5px;width:14px;height:2px;background:var(--teal);bottom:0;transition:bottom .15s linear}
+.alti .read{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.12em;white-space:nowrap}
+.alti .read b{color:var(--teal);font-weight:500}
 
 /* hero */
-.hero{position:relative;min-height:min(920px,100svh);display:flex;align-items:flex-end;overflow:hidden;background:radial-gradient(120% 80% at 75% 10%,#1E3A2B 0%,var(--night) 60%)}
-.hero .photo{position:absolute;inset:0;background:url(assets/banner.jpg) center/cover no-repeat;opacity:.55}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.hero{position:relative;overflow:hidden;background:var(--paper)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
 .hero .layer{position:absolute;left:-2%;right:-2%;bottom:0;pointer-events:none;will-change:transform}
-.hero .l1{height:46%;background:#152A1F;clip-path:polygon(0 62%,9% 48%,17% 55%,29% 22%,38% 36%,47% 14%,56% 30%,66% 4%,75% 26%,86% 12%,94% 30%,100% 22%,100% 100%,0 100%)}
-.hero .l2{height:30%;background:#0F2018;clip-path:polygon(0 50%,13% 26%,24% 46%,37% 16%,52% 44%,63% 24%,77% 50%,89% 28%,100% 42%,100% 100%,0 100%)}
-.hero .l3{height:14%;background:var(--night);clip-path:polygon(0 60%,20% 30%,42% 66%,61% 36%,82% 62%,100% 40%,100% 100%,0 100%)}
-.hero .inner{position:relative;z-index:3;width:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:end;padding-block:140px 40px}
-.hero .copy{display:grid;gap:26px;padding-bottom:48px}
-.hero h1{font-size:clamp(50px,7.6vw,118px);letter-spacing:-.005em}
-.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
-.hero h1 .ln span{display:block;animation:rise 1s var(--ease) both}
+.hero .l1{height:34%;background:#E2E0D3;clip-path:polygon(0 64%,10% 50%,19% 57%,31% 26%,40% 40%,49% 18%,58% 34%,68% 8%,77% 30%,88% 16%,95% 32%,100% 26%,100% 100%,0 100%)}
+.hero .l2{height:20%;background:#D8D6C8;clip-path:polygon(0 56%,14% 30%,26% 50%,39% 20%,54% 48%,65% 28%,79% 54%,91% 32%,100% 46%,100% 100%,0 100%)}
+.hero .inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:48px;align-items:center;padding-block:150px 110px}
+.hero .copy{display:grid;gap:28px}
+.hero h1{font-size:clamp(40px,5.4vw,76px)}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln span{display:block;animation:rise 1.1s var(--ease) both}
 .hero h1 .ln:nth-child(2) span{animation-delay:.08s}
 .hero h1 .ln:nth-child(3) span{animation-delay:.16s}
-.hero h1 em{font-style:normal;color:var(--lime)}
 @keyframes rise{from{transform:translateY(105%)}}
-.fade{animation:fade 1s .35s var(--ease) both}
+.fade{animation:fade 1.1s .35s var(--ease) both}
 @keyframes fade{from{opacity:0;transform:translateY(14px)}}
-.hero .lead{font-size:clamp(17px,1.5vw,20px);font-weight:300;max-width:31em;color:#D5DCD3}
-.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--mono);font-size:12px;color:var(--mist)}
-.meta span::before{content:"▲ ";color:var(--lime);font-size:9px}
-.hero figure{margin:0;position:relative;justify-self:end;width:min(100%,380px)}
-.hero figure img{width:100%;aspect-ratio:369/560;object-fit:cover;object-position:top;filter:saturate(.85) contrast(1.05);
-  -webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 98%);mask-image:linear-gradient(to bottom,#000 62%,transparent 98%)}
-.hero figcaption{position:absolute;left:-18px;top:28%;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.14em}
+.hero .lead{font-size:clamp(18px,1.5vw,20px);font-weight:300;color:var(--ink-2);max-width:30em}
+.actions{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+.plate{margin:0;display:grid;gap:12px}
+.plate .fr{background:#EEECE2;border:1px solid var(--line);overflow:hidden}
+.plate img{width:100%;transition:transform 1.2s var(--ease)}
+.plate:hover img{transform:scale(1.03)}
+.plate figcaption{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.hero .book{position:relative;justify-self:end;width:min(100%,500px)}
 
-/* contagem */
-.count{border-block:1px solid var(--line);background:var(--night)}
-.count .wrap{display:grid;grid-template-columns:1.2fr repeat(4,auto) 1.1fr;align-items:center;gap:0}
-.count .cell{padding:22px 26px;border-left:1px solid var(--line)}
-.count .cell:first-child{border-left:0;padding-left:0}
-.count .num{font-family:var(--display);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
-.count .u{font-family:var(--mono);font-size:11px;color:var(--mist);margin-top:4px}
-.count .where{font-size:15px;color:var(--mist);line-height:1.45}
-.count .where b{color:var(--snow);font-weight:500;display:block;font-size:17px}
+/* faixa */
+.strip{background:var(--forest);color:var(--paper);overflow:hidden;white-space:nowrap}
+.strip .track{display:inline-flex;gap:56px;padding-block:13px;animation:roll 40s linear infinite;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:300}
+.strip .track b{font-weight:600}
+@keyframes roll{to{transform:translateX(-50%)}}
+
+/* seções */
+section.sec{padding-block:130px}
+.head{display:grid;gap:22px;max-width:760px;margin-bottom:70px}
+.h2{font-size:clamp(30px,3.6vw,48px)}
+.body{font-weight:300;font-size:19px;color:var(--ink-2);max-width:34em;display:grid;gap:16px}
+
+/* manifesto */
+.manifesto{background:var(--white);border-block:1px solid var(--line)}
+.manifesto .wrap{padding-block:120px;display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px}
+.manifesto p.big{font-size:clamp(24px,2.6vw,34px);font-weight:300;line-height:1.4;max-width:28em;color:var(--ink)}
+.manifesto p.big em{font-style:normal;color:var(--teal)}
 
 /* trilha */
-section.sec{padding-block:120px}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end;margin-bottom:64px}
-.h2{font-size:clamp(40px,5.4vw,76px)}
-.body-l{font-weight:300;font-size:19px;color:#CCD4CA;max-width:32em;display:grid;gap:14px}
-.profile{position:relative}
 .profile svg{width:100%;height:auto;display:block;overflow:visible}
-.profile .path{fill:none;stroke:var(--lime);stroke-width:2;vector-effect:non-scaling-stroke}
-.profile .area{fill:url(#pg)}
-.profile.draw .path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.2s var(--ease) forwards}
+.profile .path{fill:none;stroke:var(--forest);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.profile.draw .path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.4s var(--ease) forwards}
+.profile.draw .area{animation:fadeIn 1.6s .8s both}
 @keyframes draw{to{stroke-dashoffset:0}}
-.camps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-.camp{padding:26px 22px 0 0;display:grid;gap:8px;align-content:start}
-.camp+.camp{padding-left:22px;border-left:1px solid var(--line)}
-.camp .alt{font-family:var(--mono);font-size:12px;color:var(--lime)}
-.camp h3{font-family:var(--body);text-transform:none;font-weight:500;font-size:21px;line-height:1.2}
-.camp p{color:var(--mist);font-size:15.5px}
-.camp .q{font-style:italic;font-weight:300;color:#CCD4CA}
+@keyframes fadeIn{from{opacity:0}}
+.camps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
+.camp{padding:28px 24px 0 0;display:grid;gap:10px;align-content:start}
+.camp+.camp{padding-left:24px;border-left:1px solid var(--line)}
+.camp .alt{font-family:var(--mono);font-size:12px;color:var(--teal)}
+.camp h3{font-size:20px;font-weight:500;letter-spacing:.14em}
+.camp p{color:var(--ink-2);font-size:16px;font-weight:300}
+.camp .q{font-style:italic;color:var(--ink-3)}
 
-/* frase */
-.quote{background:var(--paper);color:var(--paper-ink)}
-.quote .wrap{padding-block:110px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
-.quote img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.1)}
-.quote blockquote{margin:0;font-family:var(--display);text-transform:uppercase;font-size:clamp(34px,4.6vw,64px);line-height:1}
-.quote blockquote em{font-style:normal;color:#4F8A1E}
-.quote .who{margin-top:26px;font-size:16px;color:#3E4A43;max-width:34em;display:grid;gap:12px}
-.quote .who b{color:var(--paper-ink);font-weight:600}
-.quote .btn-line{color:var(--paper-ink);box-shadow:inset 0 0 0 1px rgba(20,32,26,.5)}
-.quote .btn-line::before{background:var(--paper-ink)}
-.quote .btn-line:hover{color:var(--paper)}
+/* evento */
+.event .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:end;padding-block:0 130px}
+.cd{display:flex;gap:0;border-top:1px solid var(--ink)}
+.cd div{padding:22px 34px 0 0;display:grid}
+.cd div+div{padding-left:34px;border-left:1px solid var(--line)}
+.cd b{font-size:clamp(44px,5vw,68px);font-weight:300;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.cd span{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+.where{display:grid;gap:6px}
+.where .big{font-size:clamp(24px,2.4vw,32px);font-weight:300;letter-spacing:.06em;text-transform:uppercase}
 
-/* passe de subida (pré-venda) */
-.pass-sec .sec-head{margin-bottom:48px}
-.pass{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:var(--night-2);position:relative;
-  --notch:radial-gradient(circle at 0 50%,transparent 14px,#000 15px)}
-.pass .stub{position:relative;padding:36px;display:grid;gap:22px;align-content:space-between;border-right:2px dashed rgba(238,240,230,.18);background:linear-gradient(160deg,var(--ridge),var(--night-2))}
-.pass .stub::before,.pass .stub::after{content:"";position:absolute;right:-15px;width:28px;height:28px;border-radius:50%;background:var(--night)}
-.pass .stub::before{top:-14px}.pass .stub::after{bottom:-14px}
-.pass .stub img{width:78%;max-width:280px;margin:0 auto;transform:rotate(-4deg);box-shadow:0 30px 60px rgba(0,0,0,.45)}
-.pass dl{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin:0}
-.pass dt{font-family:var(--mono);font-size:11px;color:var(--mist)}
-.pass dd{margin:2px 0 0;font-family:var(--display);font-size:24px;line-height:1.05}
-.pass .main{padding:36px clamp(22px,4vw,48px);display:grid;gap:22px}
-.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px}
-.price b{font-family:var(--display);font-weight:400;font-size:clamp(52px,6vw,72px);line-height:1;color:var(--lime)}
-.price s{color:var(--fog);font-size:19px}
-.inc{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:16px}
-.inc li{position:relative;padding-left:24px}
-.inc li::before{content:"";position:absolute;left:0;top:8px;width:11px;height:11px;background:var(--lime);clip-path:polygon(50% 0,100% 100%,0 100%)}
+/* autor */
+.author{background:var(--forest);color:var(--paper)}
+.author .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;align-items:center;padding-block:120px}
+.author img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;filter:grayscale(1) contrast(1.05)}
+.author .label{color:#9FB0A3}
+.author blockquote{margin:0;font-size:clamp(26px,3vw,40px);font-weight:300;line-height:1.3;letter-spacing:.01em}
+.author .txt{display:grid;gap:26px}
+.author .txt p{color:#C9D2CA;font-weight:300;max-width:32em}
+.author .txt p b{color:var(--paper);font-weight:500}
+
+/* reserva */
+.reserve .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center}
+.reserve .book{max-width:520px}
+.price{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.price b{font-size:clamp(44px,4.6vw,60px);font-weight:300;letter-spacing:.02em;line-height:1}
+.price s{color:var(--ink-3);font-size:18px}
+.inc{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.inc li{padding:13px 0;border-bottom:1px solid var(--line);font-weight:300;display:grid;grid-template-columns:28px 1fr}
+.inc li::before{content:"";width:9px;height:9px;margin-top:9px;background:var(--teal);clip-path:polygon(50% 0,100% 100%,0 100%)}
 
 /* formulários */
-.form{display:grid;gap:16px}
-.field{display:grid;gap:6px}
-.field label{font-family:var(--mono);font-size:11px;color:var(--mist);letter-spacing:.06em}
-.field input,.field select{width:100%;font:inherit;font-size:16px;padding:12px 0;border:0;border-bottom:1px solid rgba(238,240,230,.28);background:transparent;color:var(--snow);border-radius:0;transition:border-color .2s}
-.field select{padding-right:20px;background:transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23A4B1A7'/></svg>") right center no-repeat;appearance:none}
-.field select option{background:var(--night-2)}
-.field input::placeholder{color:var(--fog)}
-.field input:focus,.field select:focus{outline:none;border-bottom-color:var(--lime)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form{display:grid;gap:18px}
+.field{display:grid;gap:4px}
+.field label{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.field input,.field select{width:100%;font:inherit;font-size:17px;padding:11px 0;border:0;border-bottom:1px solid rgba(22,34,28,.3);background:transparent;color:var(--ink);border-radius:0;transition:border-color .2s}
+.field select{appearance:none;background:transparent url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236F7A73'/></svg>") right center no-repeat;padding-right:20px}
+.field input::placeholder{color:#A3A99F}
+.field input:focus,.field select:focus{outline:none;border-bottom-color:var(--teal)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .phone{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
-.phone span{font-size:16px;color:var(--mist)}
-.err{color:var(--ember);font-size:14px;min-height:1.3em}
-.consent{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:13px;color:var(--mist);align-items:start}
-.consent input{margin-top:3px;accent-color:var(--lime)}
-.small{font-size:13px;color:var(--fog)}
+.phone span{color:var(--ink-3)}
+.err{color:var(--low);font-size:14px;min-height:1.3em}
+.consent{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:13px;color:var(--ink-3);align-items:start;line-height:1.5}
+.consent input{margin-top:2px;accent-color:var(--forest)}
+.small{font-size:14px;color:var(--ink-3);font-weight:300}
+.ok{display:grid;gap:10px;padding:24px;background:var(--white);border-left:2px solid var(--teal)}
+.ok b{font-weight:500;font-size:18px}
 
 footer{border-top:1px solid var(--line)}
-footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px;color:var(--fog)}
+footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
 
 /* revelar ao rolar */
-.rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.js .rv:not(.in){opacity:0;transform:translateY(28px)}
+.rv{transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .rv:not(.in){opacity:0;transform:translateY(26px)}
 
 /* ======= quiz ======= */
-.quiz{position:fixed;inset:0;z-index:60;background:var(--night);overflow-y:auto;display:flex;flex-direction:column}
-.quiz canvas{position:fixed;inset:0;width:100%;height:100%;opacity:.35;pointer-events:none}
-.quiz-top{position:sticky;top:0;z-index:2;background:linear-gradient(var(--night) 70%,transparent);padding-top:env(safe-area-inset-top,0px)}
-.quiz-top .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding-block:18px 26px}
-.x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1;transition:background .2s,border-color .2s}
-.x:hover{border-color:var(--snow)}
-.ridge{height:34px;width:100%}
-.ridge .climber{transition:transform .7s var(--ease)}
-.ridge .done{transition:width .7s var(--ease)}
-.quiz-body{position:relative;z-index:1;flex:1;display:flex;align-items:flex-start}
-.quiz-body .wrap{width:100%;max-width:820px;padding-block:20px 60px}
+.quiz{position:fixed;inset:0;z-index:60;background:var(--paper);overflow-y:auto;display:flex;flex-direction:column}
+.quiz canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.quiz-top{position:sticky;top:0;z-index:2;background:linear-gradient(var(--paper) 70%,rgba(238,236,226,0));padding-top:env(safe-area-inset-top,0px)}
+.quiz-top .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding-block:20px 28px}
+.x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1;transition:border-color .2s}
+.x:hover{border-color:var(--ink)}
+.ridge{height:30px;width:100%}
+.ridge rect{transition:width .7s var(--ease)}
+.quiz-body{position:relative;z-index:1;flex:1}
+.quiz-body .wrap{max-width:780px;padding-block:16px 70px}
 .stage{transition:opacity .35s var(--ease),transform .45s var(--ease)}
-.stage.out{opacity:0;transform:translateX(-40px)}
-.stage.pre{opacity:0;transform:translateX(40px);transition:none}
-.q-title{font-size:clamp(32px,4.6vw,54px);margin:14px 0 30px}
-.opts{display:grid;gap:8px;counter-reset:o}
-.opt{position:relative;display:grid;grid-template-columns:52px 1fr;align-items:center;text-align:left;width:100%;border:0;background:var(--night-2);padding:16px 18px 16px 0;font-size:16.5px;line-height:1.4;overflow:hidden;isolation:isolate;transition:color .25s}
-.opt::before{content:"";position:absolute;inset:0;background:var(--ridge);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:-1}
+.stage.out{opacity:0;transform:translateX(-36px)}
+.stage.pre{opacity:0;transform:translateX(36px);transition:none}
+.q-title{font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:.04em;margin:16px 0 30px;line-height:1.25}
+.opts{display:grid;gap:10px}
+.opt{position:relative;display:grid;grid-template-columns:56px 1fr;align-items:center;text-align:left;width:100%;border:1px solid var(--line);background:var(--white);padding:17px 20px 17px 0;font-size:17px;font-weight:300;line-height:1.45;overflow:hidden;isolation:isolate;transition:color .3s,border-color .3s}
+.opt::before{content:"";position:absolute;inset:0;background:var(--paper-2);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:-1}
+.opt:hover{border-color:var(--ink-3)}
 .opt:hover::before{transform:scaleX(1)}
-.opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--fog);transition:color .2s}
-.opt:hover .n{color:var(--lime)}
-.opt[aria-pressed="true"]{color:var(--night)}
-.opt[aria-pressed="true"]::before{background:var(--lime);transform:scaleX(1)}
-.opt[aria-pressed="true"] .n{color:var(--night)}
-.q-foot{display:flex;justify-content:space-between;gap:12px;margin-top:22px;align-items:center}
-.linkbtn{background:none;border:0;padding:8px 0;color:var(--mist);font-size:15px}
-.linkbtn:hover{color:var(--snow)}
-.altnum{font-family:var(--display);font-size:clamp(84px,15vw,170px);line-height:.85;color:var(--lime);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.altnum small{font-family:var(--body);font-size:20px;color:var(--mist);letter-spacing:0;margin-left:8px}
-.badge{display:inline-block;background:var(--lime);color:var(--night);font-family:var(--mono);font-size:12px;padding:5px 10px;font-weight:500}
-.bars{display:grid;gap:16px;margin:30px 0}
-.bar .t{display:flex;justify-content:space-between;font-size:15px;margin-bottom:7px}
-.bar .t span{font-family:var(--mono);font-size:13px;color:var(--mist);font-variant-numeric:tabular-nums}
-.bar .track{height:6px;background:var(--night-3);position:relative;overflow:hidden}
-.bar .fill{position:absolute;inset:0;background:var(--lime);transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease)}
-.bar.low .fill{background:var(--ember)}
-.next{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;margin-top:10px}
-.next>div{padding:24px;display:grid;gap:12px;align-content:start;background:var(--night-2)}
-.next .hot{background:var(--ridge)}
-.next h3{font-size:30px}
-.next p{font-size:15px;color:#CCD4CA}
-.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--snow);color:var(--night);padding:12px 18px;font-size:15px;z-index:95;max-width:calc(100% - 32px)}
+.opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--ink-3)}
+.opt[aria-pressed="true"]{color:var(--paper);border-color:var(--forest)}
+.opt[aria-pressed="true"]::before{background:var(--forest);transform:scaleX(1)}
+.opt[aria-pressed="true"] .n{color:#9FB0A3}
+.q-foot{display:flex;justify-content:space-between;gap:12px;margin-top:24px;align-items:center}
+.linkbtn{background:none;border:0;padding:6px 0;color:var(--ink-3);font-size:15px}
+.linkbtn:hover{color:var(--ink)}
+.altnum{font-size:clamp(80px,13vw,150px);font-weight:300;line-height:.9;letter-spacing:.01em;font-variant-numeric:tabular-nums;color:var(--forest)}
+.altnum small{font-size:22px;color:var(--ink-3);margin-left:10px;letter-spacing:.04em}
+.badge{display:inline-block;border:1px solid var(--forest);color:var(--forest);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px}
+.bars{display:grid;gap:18px;margin:34px 0}
+.bar .t{display:flex;justify-content:space-between;font-size:15px;margin-bottom:8px;letter-spacing:.02em}
+.bar .t span{font-family:var(--mono);font-size:13px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.bar .track{height:4px;background:var(--paper-3);position:relative;overflow:hidden}
+.bar .fill{position:absolute;inset:0;background:var(--forest);transform-origin:left;transform:scaleX(0);transition:transform 1.3s var(--ease)}
+.bar.low .fill{background:var(--low)}
+.cta-box{margin-top:12px;padding:32px;background:var(--white);border:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:28px;align-items:center}
+.cta-box img{border:1px solid var(--line)}
+.cta-box h3{font-size:24px;letter-spacing:.08em}
+.cta-box p{color:var(--ink-2);font-weight:300;font-size:16px}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--forest);color:var(--paper);padding:13px 20px;font-size:15px;z-index:95;max-width:calc(100% - 32px)}
 
 @media (max-width:1100px){.alti{display:none}}
 @media (max-width:900px){
   .top nav a{display:none}
-  .hero .inner{grid-template-columns:1fr;padding-block:110px 20px}
-  .hero .copy{padding-bottom:0}
-  .hero figure{justify-self:center;width:min(78%,320px);margin-top:-10px}
-  .hero figcaption{display:none}
-  .count .wrap{grid-template-columns:repeat(4,1fr)}
-  .count .cell{padding:16px 10px;text-align:center}
-  .count .cell:first-child,.count .cell:last-child{grid-column:1/-1;text-align:left;padding:18px 0;border-left:0}
-  .count .cell:nth-child(2){border-left:0}
-  .count .num{font-size:36px}
-  .sec-head,.quote .wrap,.pass{grid-template-columns:1fr}
+  .hero .inner{grid-template-columns:1fr;padding-block:120px 80px;gap:28px}
+  .hero .book{width:min(88%,420px);order:-1}
+  .manifesto .wrap,.author .wrap,.reserve .grid,.event .wrap{grid-template-columns:1fr;gap:36px}
   .camps{grid-template-columns:1fr 1fr}
   .camp:nth-child(3){border-left:0;padding-left:0}
-  .camp{padding-bottom:26px}
-  .pass .stub{border-right:0;border-bottom:2px dashed rgba(238,240,230,.18)}
-  .pass .stub::before,.pass .stub::after{top:auto;bottom:-15px}
-  .pass .stub::before{left:-14px;right:auto}.pass .stub::after{right:-14px}
-  section.sec{padding-block:84px}
+  .camp{padding-bottom:28px}
+  section.sec{padding-block:90px}
+  .author .wrap,.manifesto .wrap{padding-block:90px}
 }
 @media (max-width:560px){
-  body{font-size:16px}
-  .camps,.row2,.next{grid-template-columns:1fr}
+  body{font-size:17px}
+  .camps,.row2{grid-template-columns:1fr}
   .camp+.camp{border-left:0;padding-left:0;border-top:1px solid var(--line)}
   .profile{display:none}
+  .cd div{padding-right:18px}.cd div+div{padding-left:18px}
+  .cta-box{grid-template-columns:1fr;padding:24px}
+  .cta-box img{max-width:180px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -274,8 +262,8 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
     <nav>
       <a href="#trilha">O diagnóstico</a>
       <a href="#autor">O autor</a>
-      <a href="#pre-venda">Pré-venda</a>
-      <button class="btn btn-lime" data-start><span>Começar</span></button>
+      <a href="#reserva">Pré-venda</a>
+      <button class="btn btn-ink" data-start>Fazer diagnóstico</button>
     </nav>
   </div>
 </header>
@@ -287,120 +275,104 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <main>
 <section class="hero" id="hero">
-  <div class="photo" aria-hidden="true"></div>
   <canvas id="topo" aria-hidden="true"></canvas>
-  <div class="layer l1" data-depth=".12" aria-hidden="true"></div>
-  <div class="layer l2" data-depth=".22" aria-hidden="true"></div>
+  <div class="layer l1" data-depth=".1" aria-hidden="true"></div>
+  <div class="layer l2" data-depth=".2" aria-hidden="true"></div>
   <div class="wrap inner">
     <div class="copy">
-      <p class="tag fade">Diagnóstico do livro Liderança Z, de Tiago Favaro</p>
-      <h1><span class="ln"><span>Em que altitude</span></span><span class="ln"><span>está a sua</span></span><span class="ln"><span><em>liderança?</em></span></span></h1>
-      <p class="lead fade">Oito perguntas para quem lidera gente da Geração Z. Em três minutos você descobre onde a sua equipe sobe junto e em que trecho você está perdendo talentos.</p>
+      <p class="label fade">Baseado no livro Liderança Z, de Tiago Favaro</p>
+      <h1><span class="ln"><span>Em que altitude</span></span><span class="ln"><span>está a sua</span></span><span class="ln"><span><b>liderança?</b></span></span></h1>
+      <hr class="rule fade">
+      <p class="lead fade">Um diagnóstico de três minutos para quem lidera pessoas da Geração Z. Descubra onde a sua equipe sobe junto com você e em que trecho os talentos começam a ficar para trás.</p>
       <div class="actions fade">
-        <button class="btn btn-lime" data-start>Fazer o diagnóstico grátis <span class="arr" aria-hidden="true">→</span></button>
-        <a class="btn btn-line" href="#pre-venda">Garantir meu exemplar</a>
+        <button class="btn btn-ink" data-start>Fazer o diagnóstico gratuito <span class="arr" aria-hidden="true">→</span></button>
+        <a class="btn btn-text" href="#reserva">Reservar o livro</a>
       </div>
-      <div class="meta fade"><span>8 perguntas</span><span>resultado na hora</span><span>gratuito</span></div>
     </div>
-    <figure class="fade">
-      <img src="assets/autor.jpg" alt="Tiago Favaro, autor de Liderança Z" width="369" height="675">
-      <figcaption>TIAGO FAVARO · AUTOR</figcaption>
-    </figure>
+    <figure class="book plate fade"><div class="fr"><img src="assets/livro.jpg" alt="Livro Liderança Z: como o montanhismo nos ensina a liderar a Gen Z sem perder talentos" width="600" height="550"></div><figcaption><span>Liderança Z · Tiago Favaro</span><span>Lançamento 23/11</span></figcaption></figure>
   </div>
-  <div class="layer l3" data-depth=".32" aria-hidden="true"></div>
 </section>
 
-<section class="count" aria-label="Contagem para o lançamento">
+<div class="strip" aria-hidden="true"><div class="track" id="track"></div></div>
+
+<section class="manifesto">
   <div class="wrap">
-    <div class="cell"><div class="tag">Noite de lançamento</div><div class="where" style="margin-top:4px"><b>Segunda, 23/11 · 19h</b>Faltam</div></div>
-    <div class="cell"><div class="num" id="cdD">00</div><div class="u">dias</div></div>
-    <div class="cell"><div class="num" id="cdH">00</div><div class="u">horas</div></div>
-    <div class="cell"><div class="num" id="cdM">00</div><div class="u">min</div></div>
-    <div class="cell"><div class="num" id="cdS">00</div><div class="u">seg</div></div>
-    <div class="cell"><div class="where"><b>Livraria da Vila</b>Bate-papo e sessão de autógrafos com o autor</div></div>
+    <p class="label rv">O livro</p>
+    <p class="big rv">Na montanha, ninguém chega ao cume sozinho. A Geração Z também não abandona empresas. Ela abandona líderes que não explicam o porquê, não dão retorno e não mostram <em>para onde a trilha vai.</em></p>
   </div>
 </section>
 
 <section class="sec" id="trilha">
   <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2 rv">Ninguém chega<br>ao cume sozinho</h2>
-      <div class="body-l rv">
-        <p>Na montanha, a cordada depende de rota clara, confiança no parceiro e conversa franca em cada acampamento.</p>
-        <p>Com a Geração Z funciona igual. Eles não largam empresas. Largam líderes que não explicam o porquê, não dão retorno e não mostram para onde a trilha vai.</p>
-      </div>
+    <div class="head">
+      <p class="label rv">O diagnóstico</p>
+      <h2 class="h2 rv">Quatro trechos <b>da subida</b></h2>
+      <p class="body rv">Oito perguntas medem a sua liderança em quatro pontos. No fim, você vê a sua altitude, de 800 m a 8.848 m, e o trecho que mais precisa de atenção.</p>
     </div>
     <div class="profile" id="profile" aria-hidden="true">
-      <svg viewBox="0 0 1000 170" preserveAspectRatio="none">
-        <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CC63F" stop-opacity=".22"/><stop offset="1" stop-color="#8CC63F" stop-opacity="0"/></linearGradient></defs>
-        <path class="area" d="M0 160 L60 150 L125 128 L180 138 L250 112 L320 120 L375 90 L440 100 L500 70 L560 82 L625 52 L690 64 L760 34 L820 46 L875 14 L940 26 L1000 6 L1000 170 L0 170Z"/>
-        <path class="path" pathLength="1" d="M0 160 L60 150 L125 128 L180 138 L250 112 L320 120 L375 90 L440 100 L500 70 L560 82 L625 52 L690 64 L760 34 L820 46 L875 14 L940 26 L1000 6"/>
-        <g fill="#0C1712" stroke="#8CC63F" stroke-width="2">
-          <circle cx="125" cy="128" r="6" vector-effect="non-scaling-stroke"/><circle cx="375" cy="90" r="6"/><circle cx="625" cy="52" r="6"/><circle cx="875" cy="14" r="6"/>
-        </g>
+      <svg viewBox="0 0 1000 150" preserveAspectRatio="none">
+        <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F3A2F" stop-opacity=".10"/><stop offset="1" stop-color="#1F3A2F" stop-opacity="0"/></linearGradient></defs>
+        <path class="area" fill="url(#pg)" d="M0 145 L60 136 L125 114 L180 124 L250 100 L320 108 L375 80 L440 90 L500 62 L560 74 L625 46 L690 58 L760 30 L820 42 L875 12 L940 24 L1000 6 L1000 150 L0 150Z"/>
+        <path class="path" pathLength="1" d="M0 145 L60 136 L125 114 L180 124 L250 100 L320 108 L375 80 L440 90 L500 62 L560 74 L625 46 L690 58 L760 30 L820 42 L875 12 L940 24 L1000 6"/>
       </svg>
     </div>
     <div class="camps">
-      <div class="camp rv"><span class="alt">Acampamento base · 2.000 m</span><h3>Rota</h3><p>Propósito e clareza. A equipe sabe por que faz o que faz?</p><p class="q">“Por que a gente está fazendo isso?”</p></div>
-      <div class="camp rv"><span class="alt">Campo 1 · 4.400 m</span><h3>Cordada</h3><p>Confiança e autonomia. Você delega de verdade ou segura a corda sozinho?</p><p class="q">“Posso resolver do meu jeito?”</p></div>
-      <div class="camp rv"><span class="alt">Campo 2 · 6.600 m</span><h3>Rádio</h3><p>Feedback e conversa. O retorno chega na hora ou só na avaliação anual?</p><p class="q">“Como eu estou indo?”</p></div>
-      <div class="camp rv"><span class="alt">Cume · 8.848 m</span><h3>Aclimatação</h3><p>Crescimento e retenção. Seus talentos veem um caminho para crescer com você?</p><p class="q">“Onde eu chego aqui?”</p></div>
+      <div class="camp rv"><span class="alt">2.000 m</span><h3>Rota</h3><p>Propósito e clareza. A equipe sabe por que faz o que faz?</p><p class="q">“Por que a gente está fazendo isso?”</p></div>
+      <div class="camp rv"><span class="alt">4.400 m</span><h3>Cordada</h3><p>Confiança e autonomia. Você delega de verdade ou segura a corda sozinho?</p><p class="q">“Posso resolver do meu jeito?”</p></div>
+      <div class="camp rv"><span class="alt">6.600 m</span><h3>Rádio</h3><p>Feedback e conversa. O retorno chega na hora ou só na avaliação anual?</p><p class="q">“Como eu estou indo?”</p></div>
+      <div class="camp rv"><span class="alt">8.848 m</span><h3>Aclimatação</h3><p>Crescimento e retenção. Seus talentos veem um caminho para crescer com você?</p><p class="q">“Aonde eu chego aqui?”</p></div>
     </div>
-    <div class="actions rv" style="margin-top:56px">
-      <button class="btn btn-lime" data-start>Medir a minha altitude <span class="arr" aria-hidden="true">→</span></button>
-      <span class="small">As quatro perguntas acima são as que a Gen Z faz, mesmo quando não diz em voz alta.</span>
+    <div class="actions rv" style="margin-top:60px"><button class="btn btn-ink" data-start>Medir a minha altitude <span class="arr" aria-hidden="true">→</span></button></div>
+  </div>
+</section>
+
+<section class="event" aria-label="Lançamento">
+  <div class="wrap">
+    <div class="rv">
+      <p class="label" style="margin-bottom:18px">Faltam para o lançamento</p>
+      <div class="cd"><div><b id="cdD">00</b><span>dias</span></div><div><b id="cdH">00</b><span>horas</span></div><div><b id="cdM">00</b><span>min</span></div><div><b id="cdS">00</b><span>seg</span></div></div>
+    </div>
+    <div class="where rv">
+      <p class="label">Noite de autógrafos</p>
+      <p class="big">Segunda, 23/11 · 19h</p>
+      <p class="small">Livraria da Vila, com bate-papo com o autor</p>
     </div>
   </div>
 </section>
 
-<section class="quote" id="autor">
+<section class="author" id="autor">
   <div class="wrap">
     <img class="rv" src="assets/autor.jpg" alt="Tiago Favaro" loading="lazy">
-    <div class="rv">
-      <blockquote>Como parar de perder talentos da Geração Z e começar a transformá-los em <em>alta performance.</em></blockquote>
-      <div class="who">
-        <p><b>Tiago Favaro</b> escreveu Liderança Z para líderes que estão cansados de ver gente boa ir embora.</p>
-        <p>O livro usa o que o montanhismo ensina sobre rota, cordada e aclimatação para mostrar como conduzir uma equipe jovem montanha acima, sem deixar ninguém no caminho.</p>
-      </div>
-      <div class="actions" style="margin-top:28px"><a class="btn btn-line" href="#pre-venda">Quero o livro</a></div>
+    <div class="txt rv">
+      <p class="label">O autor</p>
+      <blockquote>Como parar de perder talentos da Geração Z e começar a transformá-los em alta performance.</blockquote>
+      <p><b>Tiago Favaro</b> escreveu Liderança Z para líderes que estão cansados de ver gente boa ir embora. O livro usa o que o montanhismo ensina sobre rota, cordada e aclimatação para mostrar como conduzir uma equipe jovem montanha acima, sem deixar ninguém no caminho.</p>
     </div>
   </div>
 </section>
 
-<section class="sec pass-sec" id="pre-venda">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2 rv">Seu passe<br>de subida</h2>
-      <div class="body-l rv"><p>Compre na pré-venda e receba o livro com dedicatória, o capítulo 1 hoje mesmo e lugar garantido na noite de autógrafos. Os bônus valem até 23/11.</p></div>
-    </div>
-    <div class="pass rv">
-      <div class="stub">
-        <img src="assets/livro.jpg" alt="Livro Liderança Z" loading="lazy">
-        <dl>
-          <div><dt>Data</dt><dd>23/11</dd></div>
-          <div><dt>Horário</dt><dd>19:00</dd></div>
-          <div><dt>Local</dt><dd>Livraria da Vila</dd></div>
-          <div><dt>Passe nº</dt><dd id="passNo">0001</dd></div>
-        </dl>
-      </div>
-      <div class="main">
-        <div class="price"><b id="pPrice"></b><s id="pFull"></s></div>
-        <ul class="inc">
-          <li>Livro físico Liderança Z com dedicatória do autor</li>
-          <li>Capítulo 1 em PDF para começar a ler hoje</li>
-          <li>Lugar garantido na noite de autógrafos</li>
-        </ul>
-        <form class="form" id="presaleForm" novalidate>
-          <div class="field"><label for="ps-nome">Nome completo</label><input id="ps-nome" autocomplete="name" placeholder="Como você se chama"></div>
-          <div class="row2">
-            <div class="field"><label for="ps-email">E-mail</label><input id="ps-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
-            <div class="field"><label for="ps-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="ps-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
-          </div>
-          <p class="err" id="ps-err" role="alert"></p>
-          <button class="btn btn-lime" type="submit" style="justify-content:center">Continuar para o pagamento <span class="arr" aria-hidden="true">→</span></button>
-          <p class="small">O pagamento é feito no checkout seguro, em outra aba.</p>
-        </form>
-      </div>
+<section class="sec reserve" id="reserva">
+  <div class="wrap grid">
+    <figure class="book plate rv"><div class="fr"><img src="assets/livro.jpg" alt="" loading="lazy"></div><figcaption><span>Livro físico</span><span>Com dedicatória</span></figcaption></figure>
+    <div class="rv" style="display:grid;gap:26px">
+      <p class="label">Pré-venda</p>
+      <h2 class="h2">Reserve o seu <b>exemplar</b></h2>
+      <div class="price"><b id="pPrice"></b><s id="pFull"></s></div>
+      <ul class="inc">
+        <li>Livro físico com dedicatória do autor</li>
+        <li>Lugar garantido na noite de autógrafos, 23/11</li>
+        <li>Sem pagamento agora: a equipe fala com você pelo WhatsApp</li>
+      </ul>
+      <form class="form" id="reserveForm" novalidate>
+        <div class="field"><label for="rs-nome">Nome completo</label><input id="rs-nome" autocomplete="name" placeholder="Como você se chama"></div>
+        <div class="row2">
+          <div class="field"><label for="rs-email">E-mail</label><input id="rs-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+          <div class="field"><label for="rs-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="rs-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+        </div>
+        <p class="err" id="rs-err" role="alert"></p>
+        <div><button class="btn btn-ink" type="submit">Reservar meu exemplar <span class="arr" aria-hidden="true">→</span></button></div>
+      </form>
+      <div class="ok" id="reserveOk" hidden><b>Reserva feita.</b><span class="small">A equipe do Liderança Z vai te chamar no WhatsApp para combinar o pagamento e a retirada.</span></div>
     </div>
   </div>
 </section>
@@ -408,19 +380,19 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <footer>
   <div class="wrap">
-    <span>Liderança Z · Tiago Favaro</span>
-    <span>23/11 · 19h · Livraria da Vila</span>
+    <span>LIDERANÇA Z · TIAGO FAVARO</span>
+    <span>23/11 · 19H · LIVRARIA DA VILA</span>
   </div>
 </footer>
 
 <div class="quiz" id="quiz" hidden role="dialog" aria-modal="true" aria-label="Diagnóstico Liderança Z">
   <canvas id="topo2" aria-hidden="true"></canvas>
   <div class="quiz-top"><div class="wrap">
-    <span class="mono" id="qCount" style="color:var(--mist)">01 / 08</span>
-    <svg class="ridge" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true">
-      <defs><clipPath id="rc"><rect class="done" id="rDone" x="0" y="0" width="0" height="34"/></clipPath></defs>
-      <path d="M0 34 L40 26 L70 29 L110 18 L150 22 L190 12 L230 16 L270 7 L310 11 L350 3 L400 6 L400 34Z" fill="#1B3025"/>
-      <path d="M0 34 L40 26 L70 29 L110 18 L150 22 L190 12 L230 16 L270 7 L310 11 L350 3 L400 6 L400 34Z" fill="#8CC63F" clip-path="url(#rc)"/>
+    <span class="label" id="qCount">01 / 08</span>
+    <svg class="ridge" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true">
+      <defs><clipPath id="rc"><rect id="rDone" x="0" y="0" width="0" height="30"/></clipPath></defs>
+      <path d="M0 30 L40 23 L70 26 L110 16 L150 20 L190 11 L230 14 L270 6 L310 10 L350 2 L400 5 L400 30Z" fill="#DAD8CB"/>
+      <path d="M0 30 L40 23 L70 26 L110 16 L150 20 L190 11 L230 14 L270 6 L310 10 L350 2 L400 5 L400 30Z" fill="#1F3A2F" clip-path="url(#rc)"/>
     </svg>
     <button class="x" id="qClose" aria-label="Fechar diagnóstico">×</button>
   </div></div>
@@ -436,7 +408,7 @@ const MODO_EVENTO = location.hash === "#evento";
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3400)}
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3600)}
 
 /* ---------- envio de leads (Supabase + fila offline) ---------- */
 const sb = (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey, {auth:{persistSession:false}}) : null;
@@ -466,64 +438,60 @@ flushQ(); addEventListener("online", flushQ);
 /* ---------- curvas de nível ---------- */
 function topo(canvas, opts){
   const ctx = canvas.getContext("2d"); let w, h, dpr, t = Math.random()*100, raf;
-  const peaks = opts.peaks;
   function size(){dpr=Math.min(devicePixelRatio||1,2);w=canvas.clientWidth;h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
   function frame(){
     ctx.clearRect(0,0,w,h);
-    const base = Math.max(w,h);
-    peaks.forEach((p,pi)=>{
+    const base=Math.max(w,h);
+    opts.peaks.forEach((p,pi)=>{
       const cx=p.x*w, cy=p.y*h;
       for(let k=1;k<=p.rings;k++){
-        const r0 = k*base*p.step;
+        const r0=k*base*p.step;
         ctx.beginPath();
         for(let a=0;a<=Math.PI*2+.01;a+=Math.PI/90){
-          const n = Math.sin(a*3+t*.6+k*.35+pi)*.07 + Math.sin(a*5-t*.4+k*.2)*.045 + Math.sin(a*2+k*.5+pi*2)*.09;
-          const r = r0*(1+n);
-          const x=cx+Math.cos(a)*r*1.35, y=cy+Math.sin(a)*r*.8;
+          const n=Math.sin(a*3+t*.6+k*.35+pi)*.07+Math.sin(a*5-t*.4+k*.2)*.045+Math.sin(a*2+k*.5+pi*2)*.09;
+          const r=r0*(1+n), x=cx+Math.cos(a)*r*1.35, y=cy+Math.sin(a)*r*.8;
           a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
         }
-        const major = k%5===0;
-        ctx.strokeStyle = major ? `rgba(140,198,63,${opts.alpha*1.6})` : `rgba(238,240,230,${opts.alpha*(1-k/p.rings*.6)})`;
-        ctx.lineWidth = major?1.1:.7; ctx.stroke();
+        const major=k%5===0;
+        ctx.strokeStyle=major?`rgba(33,87,99,${opts.alpha*2})`:`rgba(31,58,47,${opts.alpha*(1-k/p.rings*.6)})`;
+        ctx.lineWidth=major?1:.6; ctx.stroke();
       }
     });
-    t += .0035;
+    t+=.0032;
     if(!reduce) raf=requestAnimationFrame(frame);
   }
   size(); addEventListener("resize",()=>{size(); if(reduce) frame();}); frame();
   return {stop:()=>cancelAnimationFrame(raf), start:()=>{cancelAnimationFrame(raf);frame()}};
 }
-const heroTopo = topo($("#topo"), {alpha:.09, peaks:[{x:.72,y:.18,rings:26,step:.022},{x:.12,y:.95,rings:16,step:.028}]});
-let quizTopo = null;
+const heroTopo=topo($("#topo"),{alpha:.11,peaks:[{x:.78,y:.3,rings:24,step:.022},{x:.08,y:.98,rings:14,step:.03}]});
+let quizTopo=null;
 
-/* ---------- topo, parallax, altímetro ---------- */
+/* ---------- topo, parallax, altímetro, revelar ---------- */
 const layers=[...document.querySelectorAll(".layer")];
 function onScroll(){
   const y=scrollY, max=document.documentElement.scrollHeight-innerHeight;
-  $("#top").classList.toggle("solid", y>40);
+  $("#top").classList.toggle("solid",y>40);
   if(!reduce) layers.forEach(l=>l.style.transform=`translateY(${y*+l.dataset.depth}px)`);
   const p=Math.min(1,Math.max(0,y/max));
   $("#altMark").style.bottom=(p*100)+"%";
   $("#altRead").textContent=Math.round(800+p*8048).toLocaleString("pt-BR");
 }
 addEventListener("scroll",onScroll,{passive:true}); onScroll();
-
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15,rootMargin:"0px 0px -40px"});
-document.querySelectorAll(".rv").forEach((el,i)=>{el.style.transitionDelay=(el.parentElement.classList.contains("camps")?[...el.parentElement.children].indexOf(el)*90:0)+"ms";io.observe(el)});
+document.querySelectorAll(".rv").forEach(el=>{const sib=[...el.parentElement.children].filter(x=>x.classList.contains("rv"));el.style.transitionDelay=(sib.indexOf(el)*90)+"ms";io.observe(el)});
 const prof=$("#profile");
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){prof.classList.add("draw");o.disconnect()}}),{threshold:.4}).observe(prof);
 
-/* ---------- contagem regressiva ---------- */
+/* ---------- faixa, preço, contagem ---------- */
+$("#track").innerHTML=('<span>Lançamento <b>23/11</b> · 19h</span><span>Livraria da Vila</span><span>Diagnóstico gratuito</span><span>Pré-venda aberta</span>').repeat(8);
+$("#pPrice").textContent=C.preco||""; $("#pFull").textContent=C.precoCheio?("de "+C.precoCheio):"";
 const alvo=new Date(C.lancamento||"2026-11-23T19:00:00-03:00").getTime();
 function tick(){
   let s=Math.max(0,Math.floor((alvo-Date.now())/1000));
-  const d=Math.floor(s/86400); s%=86400; const h=Math.floor(s/3600); s%=3600; const m=Math.floor(s/60); s%=60;
+  const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
   [["#cdD",d],["#cdH",h],["#cdM",m],["#cdS",s]].forEach(([id,v])=>$(id).textContent=String(v).padStart(2,"0"));
 }
 tick(); setInterval(tick,1000);
-
-$("#pPrice").textContent=C.preco||""; $("#pFull").textContent=C.precoCheio?("de "+C.precoCheio):"";
-$("#passNo").textContent=String(Math.floor(Date.now()/1000)%9000+1000);
 
 /* ---------- quiz ---------- */
 const DIMS={rota:"Rota · propósito e clareza",cordada:"Cordada · confiança e autonomia",radio:"Rádio · feedback e conversa",acli:"Aclimatação · crescimento e retenção"};
@@ -552,14 +520,14 @@ const CAMPS=[
   {max:9000,nome:"Ataque ao cume",txt:"Sua liderança está entre as mais preparadas para a Gen Z. O desafio agora é sustentar essa cultura e formar novos líderes na cordada."}
 ];
 const CUME=8848;
-const st={step:0,answers:[],lead:null,busy:false};
+const st={step:0,answers:[],lead:null,busy:false,reserved:false};
 const quiz=$("#quiz"), stage=$("#stage");
 let resetTimer=null;
 
 function openQuiz(){
-  clearTimeout(resetTimer); Object.assign(st,{step:0,answers:[],lead:null,busy:false});
+  clearTimeout(resetTimer); Object.assign(st,{step:0,answers:[],lead:null,busy:false,reserved:false});
   quiz.hidden=false; document.body.style.overflow="hidden";
-  if(!quizTopo) quizTopo=topo($("#topo2"),{alpha:.07,peaks:[{x:.85,y:.1,rings:22,step:.025},{x:.05,y:.9,rings:14,step:.03}]}); else quizTopo.start();
+  if(!quizTopo) quizTopo=topo($("#topo2"),{alpha:.06,peaks:[{x:.9,y:.12,rings:22,step:.025},{x:.04,y:.92,rings:14,step:.03}]}); else quizTopo.start();
   heroTopo.stop(); paint(false);
 }
 function closeQuiz(){quiz.hidden=true;document.body.style.overflow="";clearTimeout(resetTimer);quizTopo&&quizTopo.stop();heroTopo.start()}
@@ -568,49 +536,38 @@ $("#qClose").addEventListener("click",closeQuiz);
 addEventListener("keydown",e=>{
   if(quiz.hidden)return;
   if(e.key==="Escape")closeQuiz();
-  if(st.step<QUESTIONS.length && /^[1-6]$/.test(e.key) && !e.target.matches("input,select"))choose(+e.key-1);
+  if(st.step<QUESTIONS.length&&/^[1-6]$/.test(e.key)&&!e.target.matches("input,select"))choose(+e.key-1);
 });
-
 function setProgress(p,label){$("#rDone").setAttribute("width",400*p);$("#qCount").textContent=label}
-
 function paint(animate=true){
-  const go=()=>{
-    render();
-    if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>{requestAnimationFrame(()=>stage.classList.remove("pre"))})}
-    quiz.scrollTop=0;
-  };
-  if(animate&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)} else go();
+  const go=()=>{render();if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}quiz.scrollTop=0};
+  if(animate&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
 }
-
 function render(){
   const total=QUESTIONS.length;
   if(st.step<total){
     const q=QUESTIONS[st.step], sel=st.answers[st.step];
     setProgress(st.step/total,`${String(st.step+1).padStart(2,"0")} / ${String(total).padStart(2,"0")}`);
-    stage.innerHTML=`<p class="tag">${DIMS[q.d]}</p>
+    stage.innerHTML=`<p class="label">${DIMS[q.d]}</p>
       <h2 class="q-title">${q.q}</h2>
       <div class="opts">${q.o.map((t,i)=>`<button class="opt" aria-pressed="${sel===i}" data-i="${i}"><span class="n">${i+1}</span><span>${t}</span></button>`).join("")}</div>
-      <div class="q-foot">${st.step>0?'<button class="linkbtn" id="back">← Voltar</button>':'<span></span>'}<span class="small">Teclas 1 a 6 também funcionam</span></div>`;
+      <div class="q-foot">${st.step>0?'<button class="linkbtn" id="back">← Voltar</button>':'<span></span>'}<span class="small">Escolha a opção mais parecida com a sua realidade hoje</span></div>`;
     stage.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>choose(+b.dataset.i)));
     $("#back")?.addEventListener("click",()=>{st.step--;paint()});
-  } else if(!st.lead){ renderLead(); }
-  else { renderResult(); }
+  } else if(!st.lead) renderLead();
+  else renderResult();
 }
-
 function choose(i){
-  if(st.busy)return; st.busy=true;
-  st.answers[st.step]=i;
+  if(st.busy)return; st.busy=true; st.answers[st.step]=i;
   stage.querySelectorAll(".opt").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.i===i));
   setTimeout(()=>{st.step++;st.busy=false;paint()},380);
 }
-
 function validate(nome,email,tel){
   if(nome.length<2)return "Digite seu nome.";
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))return "Confira o e-mail, parece estar incompleto.";
   if(tel.length<10||tel.length>11)return "Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
   return "";
 }
-
 function score(){
   const s={},c={};
   QUESTIONS.forEach((q,i)=>{s[q.d]=(s[q.d]||0)+st.answers[i];c[q.d]=(c[q.d]||0)+5});
@@ -619,12 +576,11 @@ function score(){
   const alt=Math.round((800+pct/100*(CUME-800))/10)*10;
   return {dims,pct,alt,camp:CAMPS.find(x=>alt<=x.max)||CAMPS[3]};
 }
-
 function renderLead(){
-  setProgress(1,"✓ 08 / 08");
-  stage.innerHTML=`<p class="tag">Última parada antes do resultado</p>
-    <h2 class="q-title">Para onde mandamos<br>o seu diagnóstico?</h2>
-    <p style="color:#CCD4CA;margin:-12px 0 28px;max-width:34em">Você vê o resultado agora e recebe o diagnóstico completo e o capítulo 1 grátis no WhatsApp e no e-mail.</p>
+  setProgress(1,"08 / 08");
+  stage.innerHTML=`<p class="label">Última parada</p>
+    <h2 class="q-title">Para onde mandamos o seu resultado?</h2>
+    <p class="small" style="margin:-14px 0 30px;max-width:34em;font-size:16px">Você vê a sua altitude agora e recebe o diagnóstico completo no WhatsApp.</p>
     <form class="form" id="leadForm" novalidate>
       <div class="field"><label for="ld-nome">Nome</label><input id="ld-nome" autocomplete="name" placeholder="Como você se chama"></div>
       <div class="row2">
@@ -637,7 +593,7 @@ function renderLead(){
       </div>
       <label class="consent"><input type="checkbox" id="ld-ok" checked><span>Aceito receber o diagnóstico e novidades do livro Liderança Z por WhatsApp e e-mail.</span></label>
       <p class="err" id="ld-err" role="alert"></p>
-      <div><button class="btn btn-lime" type="submit">Ver minha altitude <span class="arr" aria-hidden="true">→</span></button></div>
+      <div><button class="btn btn-ink" type="submit">Ver minha altitude <span class="arr" aria-hidden="true">→</span></button></div>
     </form>`;
   $("#ld-nome").focus({preventScroll:true});
   $("#leadForm").addEventListener("submit",e=>{
@@ -649,47 +605,46 @@ function renderLead(){
     st.lead={tipo:"diagnostico",nome,email,whatsapp:"+55"+tel,lidera:$("#ld-cargo").value||null,equipe:$("#ld-time").value||null,
       altitude:sc.alt,acampamento:sc.camp.nome,pontuacao:sc.pct,dim_rota:sc.dims.rota,dim_cordada:sc.dims.cordada,dim_radio:sc.dims.radio,dim_acli:sc.dims.acli,
       respostas:st.answers.map(a=>a+1).join("")};
-    sendLead(st.lead);
-    paint();
+    sendLead(st.lead); paint();
   });
 }
-
 function renderResult(){
   const sc=score(), first=esc(st.lead.nome.split(" ")[0]);
   const order=Object.keys(DIMS), weakest=Object.entries(sc.dims).sort((a,b)=>a[1]-b[1])[0][0];
-  setProgress(sc.alt/CUME,"CUME 8.848 M");
-  stage.innerHTML=`<p class="tag">${first}, a sua liderança está a</p>
-    <div class="altnum" style="margin:12px 0 18px"><span id="altCount">800</span><small>m</small></div>
+  setProgress(sc.alt/CUME,"Resultado");
+  stage.innerHTML=`<p class="label">${first}, a sua liderança está a</p>
+    <div class="altnum" style="margin:14px 0 22px"><span id="altCount">800</span><small>m</small></div>
     <span class="badge">${sc.camp.nome}</span>
-    <p style="margin-top:18px;max-width:38em;color:#D5DCD3;font-size:18px;font-weight:300">${sc.camp.txt}</p>
-    <div class="bars">${order.map(k=>`<div class="bar ${sc.dims[k]<50?"low":""}"><div class="t"><b style="font-weight:500">${DIMS[k]}</b><span>${sc.dims[k]}%</span></div><div class="track"><div class="fill" data-v="${sc.dims[k]}"></div></div></div>`).join("")}</div>
-    <p style="margin-bottom:24px;color:#CCD4CA">O trecho mais difícil para você hoje é <b style="color:var(--snow);font-weight:500">${DIMS[weakest].split(" · ")[0]}</b>. O livro dedica um capítulo inteiro a ele.</p>
-    <div class="next">
-      <div class="hot"><span class="tag">Pré-venda</span><h3>Leve o livro e os bônus</h3><p>${esc(C.preco)} com dedicatória e lugar garantido na noite de autógrafos.</p><div><button class="btn btn-lime" id="buy">Garantir meu exemplar <span class="arr" aria-hidden="true">→</span></button></div></div>
-      <div><span class="tag">Grátis</span><h3>Capítulo 1</h3><p>Comece a leitura hoje e veja como a rota muda tudo.</p><div><a class="btn btn-line" href="${esc(C.capitulo1Url)}" target="_blank" rel="noopener">Baixar o PDF</a></div></div>
+    <p style="margin-top:22px;max-width:36em;color:var(--ink-2);font-weight:300;font-size:19px">${sc.camp.txt}</p>
+    <div class="bars">${order.map(k=>`<div class="bar ${sc.dims[k]<50?"low":""}"><div class="t"><span style="font-family:var(--sans);font-size:15px;color:var(--ink)">${DIMS[k]}</span><span>${sc.dims[k]}%</span></div><div class="track"><div class="fill" data-v="${sc.dims[k]}"></div></div></div>`).join("")}</div>
+    <p style="color:var(--ink-2);font-weight:300">O trecho que mais pede atenção agora é <b style="color:var(--ink);font-weight:500">${DIMS[weakest].split(" · ")[0]}</b>. O livro dedica um capítulo inteiro a ele.</p>
+    <div class="cta-box" style="margin-top:34px">
+      <img src="assets/livro.jpg" alt="">
+      <div style="display:grid;gap:14px">
+        <h3>Reserve o seu <b>exemplar</b></h3>
+        <p>${esc(C.preco)} na pré-venda, com dedicatória e lugar garantido na noite de autógrafos. Sem pagamento agora: a equipe fala com você pelo WhatsApp.</p>
+        <div id="resBox"><button class="btn btn-ink" id="reserveBtn">Quero reservar <span class="arr" aria-hidden="true">→</span></button></div>
+      </div>
     </div>
-    ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-line" id="again">Próxima pessoa</button></div>`:""}`;
-  const el=$("#altCount"), t0=performance.now(), dur=reduce?0:1600;
-  (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1, e=1-Math.pow(1-p,3);el.textContent=Math.round(800+(sc.alt-800)*e).toLocaleString("pt-BR");if(p<1)requestAnimationFrame(step)})(t0);
+    ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-text" id="again">Próxima pessoa</button></div>`:""}`;
+  const el=$("#altCount"), t0=performance.now(), dur=reduce?0:1700;
+  (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1,e=1-Math.pow(1-p,3);el.textContent=Math.round(800+(sc.alt-800)*e).toLocaleString("pt-BR");if(p<1)requestAnimationFrame(step)})(t0);
   setTimeout(()=>stage.querySelectorAll(".fill").forEach((f,i)=>{f.style.transitionDelay=(i*120)+"ms";f.style.transform=`scaleX(${Math.max(.03,f.dataset.v/100)})`}),300);
-  $("#buy").addEventListener("click",()=>goCheckout(st.lead));
+  $("#reserveBtn").addEventListener("click",()=>{
+    if(st.reserved)return; st.reserved=true;
+    const {nome,email,whatsapp,lidera,equipe}=st.lead;
+    sendLead({tipo:"pre-venda",nome,email,whatsapp,lidera,equipe});
+    $("#resBox").innerHTML=`<div class="ok"><b>Reserva feita.</b><span class="small">Vamos te chamar no WhatsApp ${esc(whatsapp)} para combinar o pagamento e a retirada.</span></div>`;
+  });
   const again=$("#again"); if(again){again.addEventListener("click",()=>{closeQuiz();scrollTo(0,0)});resetTimer=setTimeout(()=>{closeQuiz();scrollTo(0,0)},(C.reinicioEventoSeg||90)*1000)}
 }
 
-function goCheckout(lead){
-  let u; try{u=new URL(C.checkoutUrl)}catch(e){toast("O link de pagamento ainda não foi configurado.");return}
-  if(lead){u.searchParams.set("name",lead.nome);u.searchParams.set("email",lead.email);u.searchParams.set("phone",lead.whatsapp)}
-  Object.entries(UTM).forEach(([k,v])=>v&&u.searchParams.set(k,v));
-  window.open(u.toString(),"_blank","noopener");
-  toast("Abrindo o checkout em outra aba.");
-}
-
-$("#presaleForm").addEventListener("submit",e=>{
+$("#reserveForm").addEventListener("submit",e=>{
   e.preventDefault();
-  const nome=$("#ps-nome").value.trim(), email=$("#ps-email").value.trim(), tel=$("#ps-tel").value.replace(/\D/g,"");
-  const err=validate(nome,email,tel); $("#ps-err").textContent=err; if(err)return;
-  const lead={tipo:"pre-venda",nome,email,whatsapp:"+55"+tel};
-  sendLead(lead); goCheckout(lead);
+  const nome=$("#rs-nome").value.trim(), email=$("#rs-email").value.trim(), tel=$("#rs-tel").value.replace(/\D/g,"");
+  const err=validate(nome,email,tel); $("#rs-err").textContent=err; if(err)return;
+  sendLead({tipo:"pre-venda",nome,email,whatsapp:"+55"+tel});
+  $("#reserveForm").hidden=true; $("#reserveOk").hidden=false;
 });
 </script>
 </body>
