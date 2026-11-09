@@ -5,7 +5,7 @@ Lançamento: 23/11, 19h, Livraria da Vila.
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Página pública com o quiz e a reserva do livro (pré-venda sem pagamento online) |
+| `index.html` | Site com duas abas: **O livro** (quiz e reserva) e **Para empresas** (calculadora e pedido de proposta). Link direto da aba: `index.html#empresas` |
 | `admin.html` | Painel de leads (login, gráficos, lista, WhatsApp, CSV) |
 | `config.js` | **Único arquivo para editar**: banco, preço, data |
 | `google-sheets/Code.gs` | Banco na planilha do Google (opção A) |

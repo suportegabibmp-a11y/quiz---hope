@@ -273,6 +273,178 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   html{scroll-behavior:auto}
   .js .rv:not(.in){opacity:1;transform:none}
 }
+
+/* abas */
+.tabs{display:flex;gap:2px;padding:3px;border:1px solid var(--line);background:var(--paper-2)}
+.tab{border:0;background:transparent;padding:9px 18px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;color:var(--ink-2);transition:background .25s,color .25s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--forest);color:var(--paper)}
+@media (max-width:900px){
+  .top .wrap{flex-wrap:wrap;row-gap:12px}
+  .tabs{order:3;width:100%}
+  .tab{flex:1;padding:10px 8px}
+  .hero .inner{padding-top:170px!important}
+}
+
+/* ===== aba Para empresas ===== */
+#view-empresas .src{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-3);line-height:1.5}
+#view-empresas .hero{position:relative;overflow:hidden}
+#view-empresas .hero canvas{position:absolute;inset:0;width:100%;height:100%}
+#view-empresas .hero .inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center;padding-block:150px 100px}
+#view-empresas .hero .copy{display:grid;gap:28px}
+#view-empresas .hero h1{font-size:clamp(34px,4.4vw,62px)}
+#view-empresas .hero h1 .ln{display:block;overflow:hidden}
+#view-empresas .hero h1 .ln span{display:block;animation:rise 1.1s var(--ease) both}
+#view-empresas .hero h1 .ln:nth-child(2) span{animation-delay:.08s}
+#view-empresas .hero h1 .ln:nth-child(3) span{animation-delay:.16s}
+#view-empresas .fade{animation:fade 1.1s .35s var(--ease) both}
+#view-empresas .lead{font-size:clamp(18px,1.5vw,20px);font-weight:300;color:var(--ink-2);max-width:31em}
+#view-empresas .stat-hero{display:grid;gap:14px;padding:34px;background:var(--white);border:1px solid var(--line)}
+#view-empresas .stat-hero .num{font-size:clamp(76px,9vw,128px);font-weight:300;line-height:.9;letter-spacing:-.01em;color:var(--teal);font-variant-numeric:tabular-nums}
+#view-empresas .stat-hero .num small{font-size:.5em}
+#view-empresas .stat-hero p{font-weight:300;color:var(--ink-2)}
+#view-empresas .stat-hero .row{display:flex;gap:28px;border-top:1px solid var(--line);padding-top:16px;margin-top:6px}
+#view-empresas .stat-hero .row b{display:block;font-size:30px;font-weight:300;line-height:1.1}
+#view-empresas .stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+#view-empresas .stat{padding:28px 26px 0 0;display:grid;gap:10px;align-content:start}
+#view-empresas .stat+.stat{padding-left:26px;border-left:1px solid var(--line)}
+#view-empresas .stat .n{font-size:clamp(48px,5vw,68px);font-weight:300;line-height:1;color:var(--forest);font-variant-numeric:tabular-nums}
+#view-empresas .stat p{font-weight:300;color:var(--ink-2);font-size:17px}
+#view-empresas .calc{background:var(--white);border-block:1px solid var(--line)}
+#view-empresas .calc .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start}
+#view-empresas .ctl{display:grid;gap:10px;padding-block:18px;border-bottom:1px solid var(--line)}
+#view-empresas .ctl .t{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+#view-empresas .ctl .t span{font-weight:400}
+#view-empresas .ctl .t output{font-size:28px;font-weight:300;font-variant-numeric:tabular-nums}
+#view-empresas input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent}
+#view-empresas input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,var(--forest) var(--p,50%),var(--paper-3) var(--p,50%))}
+#view-empresas input[type=range]::-moz-range-track{height:2px;background:var(--paper-3)}
+#view-empresas input[type=range]::-moz-range-progress{height:2px;background:var(--forest)}
+#view-empresas input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-9px;background:var(--paper);border:2px solid var(--forest);border-radius:50%;transition:transform .2s}
+#view-empresas input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--paper);border:2px solid var(--forest);border-radius:50%}
+#view-empresas input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2)}
+#view-empresas .calc-out{display:grid;gap:16px;align-content:start}
+#view-empresas .calc-out .eq{font-family:var(--mono);font-size:14px;color:var(--ink-3)}
+#view-empresas .calc-out .total{font-size:clamp(56px,7vw,96px);font-weight:300;line-height:.95;color:var(--low);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+#view-empresas .calc-out .total small{display:block;font-size:16px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-top:12px;font-family:var(--mono)}
+#view-empresas .leader .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:72px;align-items:center}
+#view-empresas .donut{position:relative;width:min(100%,360px);justify-self:center}
+#view-empresas .donut svg{width:100%;height:auto;transform:rotate(-90deg)}
+#view-empresas .donut .arc{stroke-dasharray:0 100;transition:stroke-dasharray 1.8s var(--ease)}
+#view-empresas .donut.in .arc{stroke-dasharray:70 100}
+#view-empresas .donut .mid{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+#view-empresas .donut .mid b{display:block;font-size:72px;font-weight:300;line-height:1;color:var(--forest)}
+#view-empresas .donut .mid span{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+#view-empresas .good{margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+#view-empresas .good p{font-size:clamp(24px,2.4vw,32px);font-weight:300;line-height:1.3}
+#view-empresas .good p b{font-weight:600;color:var(--teal)}
+#view-empresas .formats{display:grid;border-top:1px solid var(--ink)}
+#view-empresas .fmt{display:grid;grid-template-columns:80px minmax(0,1fr) minmax(0,1.2fr);gap:24px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:background .3s}
+#view-empresas .fmt:hover{background:var(--white)}
+#view-empresas .fmt .i{font-family:var(--mono);font-size:13px;color:var(--teal)}
+#view-empresas .fmt h3{font-size:19px;font-weight:500;letter-spacing:.12em}
+#view-empresas .fmt p{font-weight:300;color:var(--ink-2);font-size:17px}
+#view-empresas .book-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;align-items:center;margin-top:70px;padding:40px;background:var(--white);border:1px solid var(--line)}
+#view-empresas .book-row img{filter:drop-shadow(0 24px 28px rgba(22,34,28,.28));transform:rotate(-3deg)}
+#view-empresas .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+#view-empresas .pills span{border:1px solid var(--line);padding:6px 12px;font-size:14px;font-weight:300;background:var(--paper)}
+#view-empresas .author{background:var(--forest);color:var(--paper)}
+#view-empresas .author .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:72px;align-items:center;padding-block:120px}
+#view-empresas .author img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%}
+#view-empresas .author .label{color:#9FB0A3}
+#view-empresas .author .txt{display:grid;gap:26px}
+#view-empresas .author .roles{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9FB0A3;line-height:1.8}
+#view-empresas .nums{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(238,236,226,.25)}
+#view-empresas .nums div{padding:18px 18px 18px 0;border-bottom:1px solid rgba(238,236,226,.15)}
+#view-empresas .nums div:nth-child(even){padding-left:18px;border-left:1px solid rgba(238,236,226,.15)}
+#view-empresas .nums b{display:block;font-size:clamp(30px,3vw,42px);font-weight:300;line-height:1.05}
+#view-empresas .nums span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9FB0A3}
+#view-empresas .author blockquote{margin:0;font-size:clamp(22px,2.2vw,28px);font-weight:300;line-height:1.35;border-left:2px solid #9FB0A3;padding-left:22px}
+#view-empresas .partners{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+#view-empresas .partners div{padding:26px 20px 26px 0;border-bottom:1px solid var(--line);font-size:20px;font-weight:300;letter-spacing:.06em;text-transform:uppercase}
+#view-empresas .partners div:nth-child(3n+2),#view-empresas .partners div:nth-child(3n){padding-left:20px;border-left:1px solid var(--line)}
+#view-empresas .hope{background:var(--white);border-block:1px solid var(--line)}
+#view-empresas .hope .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px;align-items:center;padding-block:110px}
+#view-empresas .hope-num{font-size:clamp(110px,14vw,190px);font-weight:300;line-height:.9;color:var(--teal)}
+#view-empresas .hope-num span{font-size:.45em;vertical-align:.9em;margin-left:4px}
+#view-empresas .hope-txt{display:grid;gap:22px}
+#view-empresas .ask .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start}
+#view-empresas .steps{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--ink);counter-reset:s}
+#view-empresas .steps li{display:grid;grid-template-columns:44px 1fr;padding:16px 0;border-bottom:1px solid var(--line);font-weight:300;counter-increment:s}
+#view-empresas .steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--teal);padding-top:3px}
+#view-empresas .founder{padding:26px;background:var(--forest);color:var(--paper);display:grid;gap:8px}
+#view-empresas .founder b{font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:15px}
+#view-empresas .founder span{color:#C9D2CA;font-weight:300;font-size:16px}
+#view-empresas footer{border-top:1px solid var(--line)}
+#view-empresas footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:13px;color:var(--ink-3);letter-spacing:.06em}
+#view-empresas .rv{transition:opacity 1s var(--ease),transform 1s var(--ease)}
+#view-empresas .js .rv:not(.in){opacity:0;transform:translateY(26px)}
+#view-empresas .wiz{position:fixed;inset:0;z-index:60;background:var(--paper);overflow-y:auto;display:flex;flex-direction:column}
+#view-empresas .wiz canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+#view-empresas .wiz-top{position:sticky;top:0;z-index:2;background:linear-gradient(var(--paper) 70%,rgba(238,236,226,0));padding-top:env(safe-area-inset-top,0px)}
+#view-empresas .wiz-top .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding-block:20px 28px}
+#view-empresas .wbar{height:2px;background:var(--paper-3);position:relative;overflow:hidden}
+#view-empresas .wbar i{position:absolute;inset:0 auto 0 0;background:var(--forest);transition:width .6s var(--ease)}
+#view-empresas .x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1}
+#view-empresas .x:hover{border-color:var(--ink)}
+#view-empresas .wiz-body{position:relative;z-index:1;flex:1}
+#view-empresas .wiz-body .wrap{max-width:780px;padding-block:16px 70px}
+#view-empresas .stage{transition:opacity .35s var(--ease),transform .45s var(--ease)}
+#view-empresas .stage.out{opacity:0;transform:translateX(-36px)}
+#view-empresas .stage.pre{opacity:0;transform:translateX(36px);transition:none}
+#view-empresas .q-title{font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:.04em;margin:16px 0 30px;line-height:1.25}
+#view-empresas .opts{display:grid;gap:10px}
+#view-empresas .opts.two{grid-template-columns:1fr 1fr}
+#view-empresas .opt{position:relative;display:grid;grid-template-columns:52px 1fr;align-items:center;text-align:left;width:100%;border:1px solid var(--line);background:var(--white);padding:17px 20px 17px 0;font-size:17px;font-weight:300;line-height:1.45;overflow:hidden;isolation:isolate;transition:color .3s,border-color .3s}
+#view-empresas .opt::before{content:"";position:absolute;inset:0;background:var(--paper-2);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:-1}
+#view-empresas .opt:hover{border-color:var(--ink-3)}
+#view-empresas .opt:hover::before{transform:scaleX(1)}
+#view-empresas .opt .n{font-family:var(--mono);font-size:13px;text-align:center;color:var(--ink-3)}
+#view-empresas .opt[aria-pressed="true"]{color:var(--paper);border-color:var(--forest)}
+#view-empresas .opt[aria-pressed="true"]::before{background:var(--forest);transform:scaleX(1)}
+#view-empresas .opt[aria-pressed="true"] .n{color:#9FB0A3}
+#view-empresas .foot{display:flex;justify-content:space-between;gap:12px;margin-top:24px;align-items:center;flex-wrap:wrap}
+#view-empresas .linkbtn{background:none;border:0;padding:6px 0;color:var(--ink-3);font-size:15px}
+#view-empresas .linkbtn:hover{color:var(--ink)}
+#view-empresas .small{font-size:14px;color:var(--ink-3);font-weight:300}
+#view-empresas .form{display:grid;gap:18px}
+#view-empresas .field{display:grid;gap:4px}
+#view-empresas .field label{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+#view-empresas .field input{width:100%;font:inherit;font-size:17px;padding:11px 0;border:0;border-bottom:1px solid rgba(22,34,28,.3);background:transparent;color:var(--ink);border-radius:0}
+#view-empresas .field input::placeholder{color:#A3A99F}
+#view-empresas .field input:focus{outline:none;border-bottom-color:var(--teal)}
+#view-empresas .row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+#view-empresas .phone{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+#view-empresas .phone span{color:var(--ink-3)}
+#view-empresas .err{color:var(--low);font-size:14px;min-height:1.3em}
+#view-empresas .done{display:grid;gap:22px}
+#view-empresas .done .big{font-size:clamp(34px,4.4vw,56px);font-weight:300;letter-spacing:.06em;text-transform:uppercase;line-height:1.1}
+#view-empresas .sum{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;padding:24px;background:var(--white);border:1px solid var(--line);font-size:16px}
+#view-empresas .sum dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+#view-empresas .sum dd{margin:0;font-weight:300}
+@media (max-width:900px){
+#view-empresas .hero .inner,#view-empresas .calc .grid,#view-empresas .leader .grid,#view-empresas .author .wrap,#view-empresas .hope .wrap,#view-empresas .ask .grid{grid-template-columns:1fr;gap:40px}
+#view-empresas .hero .inner{padding-block:110px 70px}
+#view-empresas section.sec{padding-block:84px}
+#view-empresas .author .wrap,#view-empresas .hope .wrap{padding-block:84px}
+#view-empresas .stats{grid-template-columns:1fr}
+#view-empresas .stat+.stat{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:24px}
+#view-empresas .fmt{grid-template-columns:50px 1fr}
+#view-empresas .fmt p{grid-column:2}
+#view-empresas .book-row{grid-template-columns:1fr;padding:28px}
+#view-empresas .book-row img{max-width:160px}
+#view-empresas .partners{grid-template-columns:1fr 1fr}
+#view-empresas .partners div:nth-child(3n+2),#view-empresas .partners div:nth-child(3n){padding-left:0;border-left:0}
+#view-empresas .partners div:nth-child(even){padding-left:20px;border-left:1px solid var(--line)}
+}
+@media (max-width:560px){
+#view-empresas body{font-size:17px}
+#view-empresas .row2,#view-empresas .opts.two{grid-template-columns:1fr}
+#view-empresas .stat-hero{padding:24px}
+#view-empresas .partners div{font-size:16px}
+}
+#view-empresas .author img{filter:none}
+#view-empresas .hero{background:var(--paper)}
 </style>
 </head>
 <body>
@@ -280,14 +452,12 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#">Liderança <b>Z</b></a>
-    <nav>
-      <a href="#trilha">O diagnóstico</a>
-      <a href="#autor">O autor</a>
-      <a href="#reserva">Pré-venda</a>
-      <a href="empresas.html">Para empresas</a>
-      <button class="btn btn-ink" data-start>Fazer diagnóstico</button>
-    </nav>
+    <a class="brand" href="#" data-home>Liderança <b>Z</b></a>
+    <div class="tabs" role="tablist" aria-label="Seções do site">
+      <button class="tab" role="tab" data-tab="livro" aria-selected="true">O livro</button>
+      <button class="tab" role="tab" data-tab="empresas" aria-selected="false">Para empresas</button>
+    </div>
+    <button class="btn btn-ink cta-top" id="ctaTop">Fazer diagnóstico</button>
   </div>
 </header>
 
@@ -297,6 +467,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 </div>
 
 <main>
+<div id="view-livro">
 <section class="hero" id="hero">
   <canvas id="topo" aria-hidden="true"></canvas>
   <div class="layer l1" data-depth=".1" aria-hidden="true"></div>
@@ -400,6 +571,197 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   </div>
 </section>
 
+
+
+<section class="b2b">
+  <div class="wrap">
+    <div class="rv">
+      <p class="label">Para empresas</p>
+      <h2 class="h2">Leve o Tiago para a <b>sua empresa</b></h2>
+      <p class="body">Palestras, mesas redondas e o Programa Líderes Z para quem lidera jovens talentos. Conte quantas pessoas a empresa tem e a equipe monta uma proposta.</p>
+    </div>
+    <div class="rv"><a class="btn btn-ink" href="#empresas">Ver formatos e pedir proposta <span class="arr" aria-hidden="true">→</span></a></div>
+  </div>
+</section>
+</div>
+<div id="view-empresas" hidden>
+<section class="hero">
+  <canvas id="topoE" aria-hidden="true"></canvas>
+  <div class="wrap inner">
+    <div class="copy">
+      <p class="label fade">Liderança Z · Para empresas</p>
+      <h1><span class="ln"><span>Sua empresa contrata</span></span><span class="ln"><span>jovens talentos e os perde</span></span><span class="ln"><span><b>antes de um ano?</b></span></span></h1>
+      <hr class="rule fade">
+      <p class="lead fade">Tiago Favaro leva o método de Liderança Z para dentro da sua empresa, com palestras, mesas redondas e um programa para os seus líderes. Conte o tamanho do seu time e a equipe monta uma proposta.</p>
+      <div class="actions fade">
+        <button class="btn btn-ink" data-ask>Pedir uma proposta <span class="arr" aria-hidden="true">→</span></button>
+        <a class="btn btn-text" href="#custo">Calcular quanto isso custa</a>
+      </div>
+    </div>
+    <div class="stat-hero fade">
+      <p class="label">Retenção em 12 meses</p>
+      <div class="num" data-count="38.2" data-dec="1"><span>0</span><small>%</small></div>
+      <p>dos jovens de 18 a 24 anos deixam o emprego antes de completar 12 meses.</p>
+      <div class="row"><div><b>1 em 4</b><span class="small">entre 25 e 29 anos</span></div></div>
+      <p class="src">Fonte: Ministério do Trabalho e Emprego, Diagnóstico da Juventude Brasileira, Pnad Contínua, Rais e eSocial (jun/2026)</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <p class="label rv">O problema</p>
+      <h2 class="h2 rv">Eles não saem por preguiça. Saem por <b>falta de horizonte.</b></h2>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><span class="n" data-count="47">0%</span><p>dizem que não ser reconhecido é o segundo maior fator de estresse da Geração Z no trabalho.</p></div>
+      <div class="stat rv"><span class="n" data-count="38">0%</span><p>dos profissionais pretendem deixar o emprego no próximo ano.</p></div>
+      <div class="stat rv"><span class="n" data-count="6">0%</span><p>da Geração Z e dos millennials têm a liderança como principal objetivo de carreira.</p></div>
+    </div>
+    <p class="src rv" style="margin-top:34px">Fonte: Ministério do Trabalho e Emprego, Diagnóstico da Juventude Brasileira, Pnad Contínua, Rais e eSocial (jun/2026)</p>
+  </div>
+</section>
+
+<section class="sec calc" id="custo">
+  <div class="wrap grid">
+    <div>
+      <div class="head" style="margin-bottom:34px">
+        <p class="label rv">Faça a conta</p>
+        <h2 class="h2 rv">Quanto custa um jovem que <b>vai embora?</b></h2>
+        <p class="body rv">Ajuste para a realidade da sua empresa. O custo de repor uma pessoa fica perto de metade do salário anual dela.</p>
+      </div>
+      <div class="rv">
+        <div class="ctl">
+          <div class="t"><label for="cSaidas">Jovens que saem por ano</label><output id="oSaidas">15</output></div>
+          <input type="range" id="cSaidas" min="1" max="100" step="1" value="15">
+        </div>
+        <div class="ctl">
+          <div class="t"><label for="cSal">Salário mensal médio</label><output id="oSal">R$ 2.500</output></div>
+          <input type="range" id="cSal" min="1500" max="15000" step="100" value="2500">
+        </div>
+      </div>
+    </div>
+    <div class="calc-out rv">
+      <p class="label">Custo de reposição estimado</p>
+      <p class="eq" id="cEq">15 saídas × R$ 15.000</p>
+      <p class="total"><span id="cTotal">R$ 225.000</span><small>por ano</small></p>
+      <p class="src">Custo de reposição estimado em 50% do salário anual. Referência: Gallup.</p>
+      <div><button class="btn btn-ink" data-ask>Quero reduzir esse número <span class="arr" aria-hidden="true">→</span></button></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec leader">
+  <div class="wrap grid">
+    <div>
+      <div class="head" style="margin-bottom:0">
+        <p class="label rv">A causa</p>
+        <h2 class="h2 rv">O jovem não pede demissão da empresa. <b>Pede do líder.</b></h2>
+        <p class="body rv">70% da variação no engajamento das equipes vem dos gestores.</p>
+      </div>
+      <div class="good rv"><p>A boa notícia: <b>liderança se desenvolve.</b></p></div>
+    </div>
+    <div class="donut rv" id="donut" aria-label="70% da variação no engajamento vem dos gestores">
+      <svg viewBox="0 0 42 42" aria-hidden="true">
+        <circle cx="21" cy="21" r="15.915" fill="none" stroke="#DAD8CB" stroke-width="5"/>
+        <circle class="arc" cx="21" cy="21" r="15.915" fill="none" stroke="#1F3A2F" stroke-width="5" pathLength="100"/>
+      </svg>
+      <div class="mid"><div><b>70%</b><span>vem dos gestores</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="formatos" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="label rv">O que levamos para a sua empresa</p>
+      <h2 class="h2 rv">Mais que livros. Um <b>movimento de liderança.</b></h2>
+    </div>
+    <div class="formats">
+      <div class="fmt rv"><span class="i">01</span><h3>Palestra presencial</h3><p>Liderança Z no palco da sua empresa. Duração e capacidade combinadas com vocês.</p></div>
+      <div class="fmt rv"><span class="i">02</span><h3>Palestra online</h3><p>60 minutos ao vivo, com perguntas da equipe no final.</p></div>
+      <div class="fmt rv"><span class="i">03</span><h3>Mesa redonda</h3><p>De 2 a 3 horas com as suas lideranças, olhando para os desafios reais do time.</p></div>
+      <div class="fmt rv"><span class="i">04</span><h3>Programa Líderes Z</h3><p>4 encontros semanais e um plano de desenvolvimento de 90 dias para os seus líderes.</p></div>
+      <div class="fmt rv"><span class="i">05</span><h3>Livros para os líderes</h3><p>Exemplares de Liderança Z de presente para quem lidera, uma ferramenta pronta para a conversa começar.</p></div>
+    </div>
+    <div class="book-row rv">
+      <img src="assets/capa.webp" alt="Capa do livro Liderança Z" loading="lazy" width="560" height="894">
+      <div style="display:grid;gap:16px">
+        <p class="label">O método</p>
+        <p style="font-size:clamp(20px,2vw,26px);font-weight:300;line-height:1.35">Como parar de perder talentos da Geração Z e começar a transformá-los em alta performance.</p>
+        <div><p class="label" style="margin-bottom:6px">5 pilares</p><div class="pills"><span>Autoconhecimento</span><span>Escuta ativa</span><span>Empatia prática</span><span>Transparência</span><span>Aprendizado contínuo</span></div></div>
+        <div><p class="label" style="margin-bottom:6px">Ferramentas</p><div class="pills"><span>Montanha da Carreira</span><span>Mapa do Eu</span><span>Ciclo de 7 dias</span></div></div>
+        <p class="small">Método testado com 150 pessoas, a maioria da Geração Z, antes de virar livro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="author">
+  <div class="wrap">
+    <img class="rv" src="assets/tiago-palco.jpg" alt="Tiago Favaro palestrando" loading="lazy">
+    <div class="txt rv">
+      <p class="label">Quem conduz</p>
+      <h2 class="h2">Ele não fala <b>de longe do campo.</b></h2>
+      <p class="roles">Tiago Favaro · CEO do Grupo Feel Alive · Empreendedor desde 2003 · Biólogo · Montanhista</p>
+      <div class="nums">
+        <div><b data-count="150" data-pre="+">+150</b><span>colaboradores</span></div>
+        <div><b>3.000+</b><span>eventos</span></div>
+        <div><b>10 milhões</b><span>de pessoas impactadas</span></div>
+        <div><b>7</b><span>operações</span></div>
+      </div>
+      <blockquote>“Não existe gente ruim. Existe gente que ainda não encontrou seu lugar de potência.”</blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <p class="label rv">Quem já viveu essa conversa</p>
+      <h2 class="h2 rv">Líderes, RHs e marcas <b>parceiras do lançamento</b></h2>
+    </div>
+    <div class="partners rv">
+      <div>The Customer Summit</div><div>Customer Summit Awards</div><div>Conafor 2027</div>
+      <div>Abeform</div><div>Feel Alive Co.</div><div>Formō</div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sec ask" id="proposta">
+  <div class="wrap grid">
+    <div class="head rv" style="margin-bottom:0">
+      <p class="label">Proposta para a sua empresa</p>
+      <h2 class="h2">Conte sobre o seu time. <b>A gente volta com um orçamento.</b></h2>
+      <p class="body">Leva menos de dois minutos. Com essas respostas a equipe do Tiago monta o formato e o valor certos para o tamanho da sua empresa.</p>
+      <div><button class="btn btn-ink" data-ask>Começar <span class="arr" aria-hidden="true">→</span></button></div>
+    </div>
+    <div class="rv" style="display:grid;gap:22px">
+      <ol class="steps">
+        <li>Quantas pessoas trabalham na empresa</li>
+        <li>Quantos líderes e gestores vocês têm</li>
+        <li>Quantos jovens saem por ano, mais ou menos</li>
+        <li>Quais formatos fazem sentido</li>
+        <li>Seus dados de contato</li>
+      </ol>
+      <div class="founder"><b>Parceiros fundadores até 23/11</b><span>Empresas que fecharem até o lançamento entram como parceiras fundadoras, com agradecimento público no evento e nas redes.</span></div>
+      <p class="small">Fora da Grande São Paulo, deslocamento e hospedagem ficam por conta da empresa contratante.</p>
+    </div>
+  </div>
+</section>
+<div class="wiz" id="wiz" hidden role="dialog" aria-modal="true" aria-label="Pedido de proposta">
+  <canvas id="topoW" aria-hidden="true"></canvas>
+  <div class="wiz-top"><div class="wrap">
+    <span class="label" id="wCount">01 / 05</span>
+    <div class="wbar"><i id="wBar" style="width:0"></i></div>
+    <button class="x" id="wClose" aria-label="Fechar">×</button>
+  </div></div>
+  <div class="wiz-body"><div class="wrap"><div class="stage" id="wStage"></div></div></div>
+</div>
+</div>
 <section class="hope" id="hope">
   <div class="wrap">
     <div class="rv">
@@ -414,16 +776,6 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   </div>
 </section>
 
-<section class="b2b">
-  <div class="wrap">
-    <div class="rv">
-      <p class="label">Para empresas</p>
-      <h2 class="h2">Leve o Tiago para a <b>sua empresa</b></h2>
-      <p class="body">Palestras, mesas redondas e o Programa Líderes Z para quem lidera jovens talentos. Conte quantas pessoas a empresa tem e a equipe monta uma proposta.</p>
-    </div>
-    <div class="rv"><a class="btn btn-ink" href="empresas.html">Ver formatos e pedir proposta <span class="arr" aria-hidden="true">→</span></a></div>
-  </div>
-</section>
 </main>
 
 <footer>
@@ -700,6 +1052,149 @@ $("#reserveForm").addEventListener("submit",e=>{
   sendLead({tipo:"pre-venda",nome,email,whatsapp:"+55"+tel});
   $("#reserveForm").hidden=true; $("#reserveOk").hidden=false;
 });
+
+/* ===================== ABA PARA EMPRESAS ===================== */
+const Emp=(function(){
+  let ready=false, heroE=null, wizT=null;
+  const brl=n=>"R$ "+Math.round(n).toLocaleString("pt-BR");
+  function countUp(el){
+    if(el._done)return; el._done=true;
+    const target=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0), pre=el.dataset.pre||"", span=el.querySelector("span")||el, suf=span===el?(el.textContent.includes("%")?"%":""):"";
+    const t0=performance.now(), dur=reduce?0:1400;
+    (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1,e=1-Math.pow(1-p,3);span.textContent=pre+(target*e).toFixed(dec).replace(".",",")+suf;if(p<1)requestAnimationFrame(step)})(t0);
+  }
+  function calc(){
+    const s=+$("#cSaidas").value, sal=+$("#cSal").value, rep=sal*12*.5;
+    $("#oSaidas").textContent=s; $("#oSal").textContent=brl(sal);
+    $("#cEq").textContent=`${s} ${s===1?"saída":"saídas"} × ${brl(rep)} por reposição`;
+    $("#cTotal").textContent=brl(s*rep);
+    [["#cSaidas",1,100],["#cSal",1500,15000]].forEach(([id,a,b])=>{const v=+$(id).value;$(id).style.setProperty("--p",((v-a)/(b-a)*100)+"%")});
+  }
+  function init(){
+    if(ready){heroE&&heroE.start();return} ready=true;
+    heroE=topo($("#topoE"),{alpha:.11,peaks:[{x:.85,y:.25,rings:24,step:.022},{x:.05,y:1,rings:14,step:.03}]});
+    const ioC=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);ioC.unobserve(e.target)}}),{threshold:.4});
+    document.querySelectorAll("#view-empresas [data-count]").forEach(el=>ioC.observe(el));
+    ["#cSaidas","#cSal"].forEach(id=>$(id).addEventListener("input",calc)); calc();
+    document.querySelectorAll("#view-empresas [data-ask]").forEach(b=>b.addEventListener("click",open));
+    $("#wClose").addEventListener("click",close);
+  }
+  function stop(){heroE&&heroE.stop()}
+
+  const STEPS=[
+    {k:"colaboradores",q:"Quantas pessoas trabalham na empresa?",o:["Até 50","51 a 200","201 a 500","501 a 1.000","Mais de 1.000"]},
+    {k:"lideres",q:"Quantos líderes e gestores vocês têm?",o:["Até 5","6 a 20","21 a 50","51 a 100","Mais de 100"]},
+    {k:"saidas_ano",q:"Mais ou menos quantos jovens de até 29 anos saem da empresa por ano?",o:["Até 5","6 a 15","16 a 40","Mais de 40","Não sei dizer"]},
+    {k:"interesse",multi:true,q:"Quais formatos fazem sentido para vocês?",sub:"Pode marcar mais de um.",o:["Palestra presencial","Palestra online","Mesa redonda com lideranças","Programa Líderes Z","Livros para os líderes","Ainda não sei, quero conversar"]}
+  ];
+  const W={step:0,a:{interesse:[]},busy:false};
+  const wiz=$("#wiz"), stage=$("#wStage");
+  function open(){Object.assign(W,{step:0,a:{interesse:[]},busy:false,lead:null});wiz.hidden=false;document.body.style.overflow="hidden";
+    if(!wizT)wizT=topo($("#topoW"),{alpha:.06,peaks:[{x:.9,y:.12,rings:22,step:.025},{x:.04,y:.92,rings:14,step:.03}]});else wizT.start();stop();paint(false)}
+  function close(){wiz.hidden=true;document.body.style.overflow="";wizT&&wizT.stop();heroE&&heroE.start()}
+  addEventListener("keydown",e=>{if(!wiz.hidden&&e.key==="Escape")close()});
+  function prog(i){$("#wBar").style.width=(i/5*100)+"%";$("#wCount").textContent=i<5?`${String(i+1).padStart(2,"0")} / 05`:"Enviado"}
+  function paint(anim=true){
+    const go=()=>{render();if(anim&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}wiz.scrollTop=0};
+    if(anim&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
+  }
+  function render(){
+    if(W.step<STEPS.length){
+      const s=STEPS[W.step]; prog(W.step);
+      const sel=v=>s.multi?W.a.interesse.includes(v):W.a[s.k]===v;
+      stage.innerHTML=`<p class="label">Proposta para a sua empresa</p>
+        <h2 class="q-title">${s.q}</h2>${s.sub?`<p class="small" style="margin:-18px 0 24px">${s.sub}</p>`:""}
+        <div class="opts${s.multi?" two":""}">${s.o.map((t,i)=>`<button class="opt" aria-pressed="${sel(t)}" data-v="${esc(t)}"><span class="n">${s.multi?(sel(t)?"✓":"+"):i+1}</span><span>${t}</span></button>`).join("")}</div>
+        <div class="foot">${W.step>0?'<button class="linkbtn" id="wBack">← Voltar</button>':'<span></span>'}${s.multi?'<button class="btn btn-ink" id="wNext">Continuar <span class="arr" aria-hidden="true">→</span></button>':'<span class="small">Escolha uma opção</span>'}</div>`;
+      stage.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+        const v=b.dataset.v;
+        if(s.multi){const L=W.a.interesse,i=L.indexOf(v);i>-1?L.splice(i,1):L.push(v);b.setAttribute("aria-pressed",i<0);b.querySelector(".n").textContent=i<0?"✓":"+";return}
+        if(W.busy)return;W.busy=true;W.a[s.k]=v;stage.querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed",x===b));
+        setTimeout(()=>{W.step++;W.busy=false;paint()},360);
+      }));
+      $("#wBack")?.addEventListener("click",()=>{W.step--;paint()});
+      $("#wNext")?.addEventListener("click",()=>{if(!W.a.interesse.length)W.a.interesse.push("Ainda não sei, quero conversar");W.step++;paint()});
+    } else if(W.step===STEPS.length){
+      prog(4);
+      stage.innerHTML=`<p class="label">Última etapa</p>
+        <h2 class="q-title">Para quem a equipe manda a proposta?</h2>
+        <form class="form" id="cForm" novalidate>
+          <div class="row2">
+            <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" autocomplete="name" placeholder="Nome e sobrenome"></div>
+            <div class="field"><label for="f-cargo">Cargo</label><input id="f-cargo" autocomplete="organization-title" placeholder="Ex.: Gerente de RH"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-emp">Empresa</label><input id="f-emp" autocomplete="organization" placeholder="Nome da empresa"></div>
+            <div class="field"><label for="f-cid">Cidade</label><input id="f-cid" autocomplete="address-level2" placeholder="Onde fica o time"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-email">E-mail</label><input id="f-email" type="email" autocomplete="email" placeholder="voce@empresa.com"></div>
+            <div class="field"><label for="f-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="f-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+          </div>
+          <p class="err" id="f-err" role="alert"></p>
+          <div class="foot"><button type="button" class="linkbtn" id="wBack">← Voltar</button><button class="btn btn-ink" type="submit">Pedir proposta <span class="arr" aria-hidden="true">→</span></button></div>
+        </form>`;
+      $("#f-nome").focus({preventScroll:true});
+      $("#wBack").addEventListener("click",()=>{W.step--;paint()});
+      $("#cForm").addEventListener("submit",e=>{
+        e.preventDefault();
+        const v=id=>$(id).value.trim(), tel=$("#f-tel").value.replace(/\D/g,"");
+        const nome=v("#f-nome"), email=v("#f-email"), empresa=v("#f-emp");
+        let err="";
+        if(nome.length<2)err="Digite seu nome.";
+        else if(empresa.length<2)err="Digite o nome da empresa.";
+        else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))err="Confira o e-mail, parece estar incompleto.";
+        else if(tel.length<10||tel.length>11)err="Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
+        $("#f-err").textContent=err; if(err)return;
+        W.lead={tipo:"empresa",nome,email,whatsapp:"+55"+tel,cargo:v("#f-cargo")||null,empresa,cidade:v("#f-cid")||null,
+          colaboradores:W.a.colaboradores,lideres:W.a.lideres,saidas_ano:W.a.saidas_ano,interesse:W.a.interesse.join(", "),
+          lidera:"Empresa: "+empresa,equipe:W.a.colaboradores};
+        sendLead(W.lead); W.step++; paint();
+      });
+    } else {
+      prog(5); const L=W.lead;
+      stage.innerHTML=`<div class="done">
+        <p class="label">Pedido recebido</p>
+        <p class="big">Obrigado, ${esc(L.nome.split(" ")[0])}.</p>
+        <p class="body">A equipe do Tiago vai montar uma proposta para a ${esc(L.empresa)} e falar com você pelo WhatsApp ${esc(L.whatsapp)}.</p>
+        <dl class="sum"><dt>Pessoas</dt><dd>${esc(L.colaboradores)}</dd><dt>Líderes</dt><dd>${esc(L.lideres)}</dd><dt>Saídas por ano</dt><dd>${esc(L.saidas_ano)}</dd><dt>Formatos</dt><dd>${esc(L.interesse)}</dd></dl>
+        <div class="actions"><button class="btn btn-ink" id="wFim">Voltar para a página</button></div>
+      </div>`;
+      $("#wFim").addEventListener("click",close);
+    }
+  }
+  return {init,stop,open};
+})();
+
+/* ===================== ABAS ===================== */
+let VIEW="livro";
+function showView(v,keepScroll){
+  if(v===VIEW&&keepScroll)return;
+  VIEW=v; const e=v==="empresas";
+  $("#view-livro").hidden=e; $("#view-empresas").hidden=!e;
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.tab===v));
+  document.querySelector(".alti").hidden=e;
+  $("#ctaTop").textContent=e?"Pedir proposta":"Fazer diagnóstico";
+  if(e){heroTopo.stop();Emp.init()}else{Emp.stop();heroTopo.start()}
+  if(!keepScroll)scrollTo({top:0,behavior:"instant"});
+  onScroll();
+}
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(h==="empresas"){showView("empresas");return}
+  const el=h&&document.getElementById(h);
+  if(el){const v=el.closest("#view-empresas")?"empresas":"livro";if(v!==VIEW){showView(v,true);requestAnimationFrame(()=>el.scrollIntoView())}return}
+  if(VIEW!=="livro")showView("livro");
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  const v=t.dataset.tab;
+  history.replaceState(null,"",v==="empresas"?"#empresas":location.pathname+location.search);
+  showView(v);
+}));
+$("[data-home]").addEventListener("click",e=>{e.preventDefault();history.replaceState(null,"",location.pathname+location.search);showView("livro")});
+$("#ctaTop").addEventListener("click",()=>VIEW==="empresas"?Emp.open():openQuiz());
+addEventListener("hashchange",route);
+route();
 </script>
 </body>
 </html>
