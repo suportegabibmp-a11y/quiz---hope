@@ -231,6 +231,16 @@ const fmtN = n => Number(n||0).toLocaleString("pt-BR");
 function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3000)}
 const MODE = C.sheetsUrl ? "sheets" : (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? "supabase" : "demo";
 const DEMO = MODE==="demo";
+function normLead(l){
+  if(l && l.tipo==="diagnostico" && l.acampamento==="EMPRESA"){
+    const g=k=>{const m=String(l.lidera||"").match(new RegExp(k+": ([^|]*)"));return m?m[1].trim()||null:null};
+    const tira=(v,k)=>v?String(v).replace(k+": ","").trim()||null:null;
+    return {...l,tipo:"empresa",empresa:g("Empresa"),cargo:g("Cargo"),cidade:g("Cidade"),colaboradores:l.equipe,
+      lideres:tira(l.utm_source,"Líderes"),saidas_ano:tira(l.utm_medium,"Saídas/ano"),interesse:tira(l.utm_campaign,"Formatos"),
+      lidera:"Empresa: "+(g("Empresa")||""),acampamento:null,altitude:null,pontuacao:null,utm_source:null,utm_medium:null,utm_campaign:null};
+  }
+  return l;
+}
 const sb = MODE==="supabase" ? window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey) : null;
 let senha = null, pollTimer = null;
 function ssGet(){try{return sessionStorage.getItem("lz_senha")}catch(e){return null}}
@@ -294,7 +304,7 @@ async function loadSheets(first){
   try{
     const j=await sheets({action:"list"});
     if(!j.ok){ if(j.error==="senha"){ ssSet(null); location.reload(); } else toast("Erro da planilha: "+j.error); return; }
-    const rows=j.rows.filter(r=>r.id);
+    const rows=j.rows.filter(r=>r.id).map(normLead);
     if(!first){ const old=new Set(leads.map(l=>l.id)); const fresh=rows.filter(r=>!old.has(r.id)); fresh.forEach(r=>newIds.add(r.id)); if(fresh.length) toast(fresh.length===1?`Novo lead: ${fresh[0].nome}`:`${fresh.length} leads novos`); }
     leads=rows; if(!$("#drawer").classList.contains("on")) render();
   }catch(e){ $("#live").classList.remove("on"); $("#liveTxt").textContent="sem conexão"; }
@@ -308,7 +318,7 @@ async function load(){
   while(true){
     const {data,error} = await sb.from("lz_leads").select("*").order("created_at",{ascending:false}).range(from,from+999);
     if(error){toast("Não consegui carregar os leads: "+error.message);break}
-    all.push(...data); if(data.length<1000)break; from+=1000;
+    all.push(...data.map(normLead)); if(data.length<1000)break; from+=1000;
   }
   leads=all; render();
 }

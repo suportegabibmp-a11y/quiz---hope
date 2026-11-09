@@ -815,11 +815,20 @@ const sb = (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? window.supa
 const UTM = (() => { const q = new URLSearchParams(location.search); return {utm_source:q.get("utm_source"), utm_medium:q.get("utm_medium"), utm_campaign:q.get("utm_campaign")}; })();
 function readQ(){try{return JSON.parse(localStorage.getItem("lz_fila")||"[]")}catch(e){return []}}
 function writeQ(q){try{localStorage.setItem("lz_fila",JSON.stringify(q))}catch(e){}}
+function legacyEmpresa(x){
+  return {...x, tipo:"diagnostico", acampamento:"EMPRESA",
+    lidera:("Empresa: "+(x.empresa||"")+" | Cargo: "+(x.cargo||"")+" | Cidade: "+(x.cidade||"")).slice(0,160),
+    equipe:x.colaboradores, utm_source:"Líderes: "+(x.lideres||""), utm_medium:"Saídas/ano: "+(x.saidas_ano||""), utm_campaign:"Formatos: "+(x.interesse||"")};
+}
 async function insertRows(rows){
   if(C.sheetsUrl){
-    const r = await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"insert",rows})});
-    const j = await r.json(); if(!j.ok) throw new Error(j.error||"falha"); if(typeof j.n==="number" && j.n<rows.length) throw new Error("planilha recusou parte dos leads");
-    return;
+    const post = async list => { const r = await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"insert",rows:list})}); const j = await r.json(); if(!j.ok) throw new Error(j.error||"falha"); return typeof j.n==="number" ? j.n : list.length; };
+    const n = await post(rows);
+    if(n >= rows.length) return;
+    // Código antigo da planilha recusa "empresa": reenvia esses pedidos num formato que ele aceita
+    const emp = rows.filter(x=>x.tipo==="empresa");
+    if(emp.length && n === rows.length-emp.length && await post(emp.map(legacyEmpresa)) >= emp.length) return;
+    throw new Error("planilha recusou parte dos leads");
   }
   if(sb){ const {error} = await sb.from("lz_leads").insert(rows); if(error) throw error; return; }
   throw new Error("sem banco configurado");
