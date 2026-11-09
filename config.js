@@ -24,9 +24,14 @@ window.LZ_CONFIG = {
   // ---- Hope: para onde vai o lucro do livro ----
   // Os botões de Instagram e site só aparecem quando o link estiver preenchido.
   hope: {
-    nome: "Hope",
-    descricao: "Todo o lucro da venda de Liderança Z vai para o Hope, que investe na educação e no futuro de jovens. Cada exemplar comprado e cada palestra contratada viram oportunidade para quem está começando.",
-    instagram: "",   // ex.: "https://instagram.com/hope"
-    site: ""         // ex.: "https://hope.org.br"
+    nome: "Hope House",
+    // Cada item vira um parágrafo
+    descricao: [
+      "Este livro nasceu com o propósito de contribuir para a formação da nova geração. E esse propósito também se transforma em ação.",
+      "100% do lucro das vendas deste livro será destinado ao Hope House, instituição que atua na transformação de crianças e adolescentes por meio da educação, do esporte e da cultura.",
+      "Ao adquirir este livro, você não está apenas investindo em conhecimento. Está contribuindo para construir oportunidades e fortalecer o futuro de uma nova geração."
+    ],
+    instagram: "https://www.instagram.com/hopehouse.sp",
+    site: ""         // ex.: "https://hopehouse.org.br"
   }
 };

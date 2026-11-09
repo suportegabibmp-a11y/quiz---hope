@@ -58,6 +58,10 @@ button{font:inherit;cursor:pointer;color:inherit}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
 .brand{font-size:15px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;text-decoration:none}
 .brand b{font-weight:700}
+.brand{display:inline-flex;align-items:center;gap:14px;color:var(--forest)}
+.tf-logo{height:38px;width:auto;flex:none;text-transform:none;letter-spacing:0}
+.brand-txt{color:var(--ink);padding-left:14px;border-left:1px solid var(--line)}
+@media (max-width:560px){.brand-txt{display:none}.tf-logo{height:34px}}
 .top nav{display:flex;align-items:center;gap:30px;font-size:14px;letter-spacing:.04em}
 .top nav a{text-decoration:none;color:var(--ink-2);transition:color .2s}
 .top nav a:hover{color:var(--ink)}
@@ -185,6 +189,8 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 .hope-num{font-size:clamp(110px,14vw,190px);font-weight:300;line-height:.9;letter-spacing:-.01em;color:var(--teal)}
 .hope-num span{font-size:.45em;vertical-align:.9em;margin-left:4px}
 .hope-txt{display:grid;gap:22px}
+.hope-logo{width:110px;margin-top:28px}
+.hope .wrap>div:first-child{display:grid;justify-items:start}
 .b2b{background:var(--forest);color:var(--paper)}
 .b2b .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:48px;align-items:end;padding-block:100px}
 .b2b .label{color:#9FB0A3}
@@ -273,6 +279,8 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   html{scroll-behavior:auto}
   .js .rv:not(.in){opacity:1;transform:none}
 }
+
+.author img.author-photo{filter:none;object-position:center 25%}
 
 /* abas */
 .tabs{display:flex;gap:2px;padding:3px;border:1px solid var(--line);background:var(--paper-2)}
@@ -452,7 +460,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#" data-home>Liderança <b>Z</b></a>
+    <a class="brand" href="#" data-home aria-label="Início"><svg class="tf-logo" viewBox="0 0 1060 420" role="img" aria-label="Tiago Favaro"><path d="M30 196 L214 24 H1000 a30 30 0 0 1 30 30 V366 a30 30 0 0 1 -30 30 H60 a30 30 0 0 1 -30 -30 Z" fill="none" stroke="currentColor" stroke-width="26" stroke-linejoin="round"/><path d="M30 318 L132 236 L170 244 L246 140 L318 214 L345 205 L392 252 L392 280 L344 238 L318 250 L254 178 L233 236 L246 196 L196 280 L240 262 L150 396 L104 396 L172 300 L140 300 L30 382 Z" fill="currentColor"/><text x="452" y="196" font-family="Jost, Futura, sans-serif" font-weight="700" font-size="158" fill="currentColor">Tiago</text><text x="452" y="356" font-family="Jost, Futura, sans-serif" font-weight="700" font-size="158" fill="currentColor">Favaro</text></svg><span class="brand-txt">Liderança <b>Z</b></span></a>
     <div class="tabs" role="tablist" aria-label="Seções do site">
       <button class="tab" role="tab" data-tab="livro" aria-selected="true">O livro</button>
       <button class="tab" role="tab" data-tab="empresas" aria-selected="false">Para empresas</button>
@@ -536,7 +544,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <section class="author" id="autor">
   <div class="wrap">
-    <img class="rv" src="assets/autor.jpg" alt="Tiago Favaro" loading="lazy">
+    <img class="rv author-photo" src="assets/tiago-montanha.jpg" alt="Tiago Favaro sentado no alto de uma montanha" loading="lazy" width="752" height="941">
     <div class="txt rv">
       <p class="label">O autor</p>
       <blockquote>Como parar de perder talentos da Geração Z e começar a transformá-los em alta performance.</blockquote>
@@ -716,18 +724,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
   </div>
 </section>
 
-<section class="sec">
-  <div class="wrap">
-    <div class="head">
-      <p class="label rv">Quem já viveu essa conversa</p>
-      <h2 class="h2 rv">Líderes, RHs e marcas <b>parceiras do lançamento</b></h2>
-    </div>
-    <div class="partners rv">
-      <div>The Customer Summit</div><div>Customer Summit Awards</div><div>Conafor 2027</div>
-      <div>Abeform</div><div>Feel Alive Co.</div><div>Formō</div>
-    </div>
-  </div>
-</section>
+
 
 
 
@@ -767,10 +764,11 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
     <div class="rv">
       <p class="label">Para onde vai o lucro</p>
       <p class="hope-num">100<span>%</span></p>
+      <img class="hope-logo" src="assets/hope-house.png" alt="Logo do Hope House" width="289" height="385" loading="lazy">
     </div>
     <div class="rv hope-txt">
-      <h2 class="h2">Todo o lucro vai para o <b id="hopeNome">Hope</b></h2>
-      <p class="body" id="hopeDesc"></p>
+      <h2 class="h2">100% do lucro vai para o <b id="hopeNome">Hope House</b></h2>
+      <div class="body" id="hopeDesc"></div>
       <div class="actions" id="hopeLinks"></div>
     </div>
   </div>
@@ -780,7 +778,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 
 <footer>
   <div class="wrap">
-    <span>LIDERANÇA Z · TIAGO FAVARO</span>
+    <span style="display:inline-flex;align-items:center;gap:14px;color:var(--forest)"><svg class="tf-logo" style="height:30px" viewBox="0 0 1060 420" role="img" aria-label="Tiago Favaro"><path d="M30 196 L214 24 H1000 a30 30 0 0 1 30 30 V366 a30 30 0 0 1 -30 30 H60 a30 30 0 0 1 -30 -30 Z" fill="none" stroke="currentColor" stroke-width="26" stroke-linejoin="round"/><path d="M30 318 L132 236 L170 244 L246 140 L318 214 L345 205 L392 252 L392 280 L344 238 L318 250 L254 178 L233 236 L246 196 L196 280 L240 262 L150 396 L104 396 L172 300 L140 300 L30 382 Z" fill="currentColor"/><text x="452" y="196" font-family="Jost, Futura, sans-serif" font-weight="700" font-size="158" fill="currentColor">Tiago</text><text x="452" y="356" font-family="Jost, Futura, sans-serif" font-weight="700" font-size="158" fill="currentColor">Favaro</text></svg><span>LIDERANÇA Z</span></span>
     <span>23/11 · 19H · LIVRARIA DA VILA</span>
   </div>
 </footer>
@@ -892,8 +890,8 @@ const prof=$("#profile");
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){prof.classList.add("draw");o.disconnect()}}),{threshold:.4}).observe(prof);
 
 /* ---------- hope ---------- */
-(function(){const h=C.hope||{};$("#hopeNome").textContent=h.nome||"Hope";$("#hopeDesc").textContent=h.descricao||"";
-  const L=[];if(h.instagram)L.push(`<a class="btn btn-ink" href="${esc(h.instagram)}" target="_blank" rel="noopener">Instagram do ${esc(h.nome||"Hope")}</a>`);
+(function(){const h=C.hope||{};$("#hopeNome").textContent=h.nome||"Hope House";$("#hopeDesc").innerHTML=[].concat(h.descricao||[]).map(t=>`<p>${esc(t)}</p>`).join("");
+  const L=[];if(h.instagram)L.push(`<a class="btn btn-ink" href="${esc(h.instagram)}" target="_blank" rel="noopener">Conheça o ${esc(h.nome||"Hope")} no Instagram <span class="arr" aria-hidden="true">→</span></a>`);
   if(h.site)L.push(`<a class="btn btn-line" href="${esc(h.site)}" target="_blank" rel="noopener">Site do ${esc(h.nome||"Hope")}</a>`);
   $("#hopeLinks").innerHTML=L.join("");$("#hopeLinks").hidden=!L.length;})();
 
@@ -1091,7 +1089,7 @@ const Emp=(function(){
   function stop(){heroE&&heroE.stop()}
 
   const STEPS=[
-    {k:"colaboradores",q:"Quantas pessoas trabalham na empresa?",o:["Até 50","51 a 200","201 a 500","501 a 1.000","Mais de 1.000"]},
+    {k:"colaboradores",q:"Quantas pessoas trabalham na empresa?",o:["1 a 19 funcionários","20 a 99 funcionários","100 a 500 funcionários","501 a 1.000 funcionários","Mais de 1.000 funcionários"]},
     {k:"lideres",q:"Quantos líderes e gestores vocês têm?",o:["Até 5","6 a 20","21 a 50","51 a 100","Mais de 100"]},
     {k:"saidas_ano",q:"Mais ou menos quantos jovens de até 29 anos saem da empresa por ano?",o:["Até 5","6 a 15","16 a 40","Mais de 40","Não sei dizer"]},
     {k:"interesse",multi:true,q:"Quais formatos fazem sentido para vocês?",sub:"Pode marcar mais de um.",o:["Palestra presencial","Palestra online","Mesa redonda com lideranças","Programa Líderes Z","Livros para os líderes","Ainda não sei, quero conversar"]}
