@@ -121,6 +121,17 @@ select.st[data-v="novo"]{color:var(--snow)}
 select.st[data-v="contatado"]{color:var(--sky);border-color:rgba(33,87,99,.4)}
 select.st[data-v="comprou"]{color:var(--lime);border-color:rgba(31,58,47,.5)}
 select.st[data-v="descartado"]{color:var(--fog)}
+.selbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--snow);color:var(--night);position:sticky;top:70px;z-index:15}
+.selbar b{font-weight:500}
+.selbar .btn-line{color:var(--night);box-shadow:inset 0 0 0 1px rgba(238,236,226,.4)}
+.selbar .btn-danger{color:#F3B79A;box-shadow:inset 0 0 0 1px rgba(243,183,154,.5)}
+.selbar .btn-danger:hover{background:var(--ember);color:#fff}
+td.ck,th.ck{width:44px;padding-right:0}
+.ck input{width:17px;height:17px;accent-color:var(--lime);cursor:pointer}
+tr.sel{background:rgba(33,87,99,.07)}
+.acts{display:flex;gap:8px;justify-content:flex-end}
+.trash{display:inline-grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);background:transparent;color:var(--fog);transition:color .2s,border-color .2s,background .2s}
+.trash:hover{color:var(--ember);border-color:var(--ember);background:rgba(181,86,47,.06)}
 .wa{display:inline-grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);text-decoration:none;transition:border-color .2s,background .2s}
 .wa:hover{border-color:var(--lime);background:rgba(31,58,47,.07)}
 .empty{padding:50px 20px;text-align:center;color:var(--mist)}
@@ -197,9 +208,17 @@ textarea:focus{outline:none;border-color:var(--lime)}
       <select id="fCamp" aria-label="Acampamento"><option value="">Todos os acampamentos</option><option>Acampamento base</option><option>Campo 1</option><option>Campo 2</option><option>Ataque ao cume</option></select>
     </div>
 
+    <div class="selbar" id="selbar" hidden>
+      <span id="selTxt"><b>0</b> selecionados</span>
+      <div class="acts" id="selActs">
+        <button class="btn btn-line" id="selClear">Cancelar</button>
+        <button class="btn btn-danger" id="selDel">Apagar selecionados</button>
+      </div>
+    </div>
     <div class="tablebox">
       <table>
         <thead><tr>
+          <th class="ck"><input type="checkbox" id="ckAll" aria-label="Selecionar todos os leads da lista"></th>
           <th data-sort="created_at" class="desc">Quando</th>
           <th data-sort="nome">Pessoa</th>
           <th data-sort="tipo">Tipo</th>
@@ -207,13 +226,13 @@ textarea:focus{outline:none;border-color:var(--lime)}
           <th data-sort="altitude">Altitude</th>
           <th data-sort="lidera">Lidera</th>
           <th data-sort="status">Status</th>
-          <th aria-label="WhatsApp"></th>
+          <th aria-label="Ações"></th>
         </tr></thead>
         <tbody id="rows"></tbody>
       </table>
       <div class="empty" id="empty" hidden>Nenhum lead com esses filtros.</div>
     </div>
-    <div class="foot"><span id="count"></span><span>Clique numa linha para ver o diagnóstico completo.</span></div>
+    <div class="foot"><span id="count"></span><span>Clique numa linha para ver os detalhes. Use as caixinhas ou a lixeira para apagar leads.</span></div>
   </div></main>
 </div>
 
@@ -391,7 +410,8 @@ function render(){
 
   // tabela
   const rows=filtered();
-  $("#rows").innerHTML=rows.map(l=>`<tr data-id="${esc(l.id)}" class="${newIds.has(l.id)?"new":""}">
+  $("#rows").innerHTML=rows.map(l=>`<tr data-id="${esc(l.id)}" class="${newIds.has(l.id)?"new":""} ${SEL.has(l.id)?"sel":""}">
+    <td class="ck"><input type="checkbox" class="rowck" ${SEL.has(l.id)?"checked":""} aria-label="Selecionar ${esc(l.nome)}"></td>
     <td class="num" title="${esc(new Date(l.created_at).toLocaleString("pt-BR"))}">${rel(l.created_at)}</td>
     <td class="who"><b>${esc(l.nome)}</b><span>${esc(l.email)}</span></td>
     <td>${l.tipo==="empresa"?'<span class="chip emp">empresa</span>':l.tipo==="pre-venda"?'<span class="chip pre">reserva</span>':'<span class="chip diag">diagnóstico</span>'}</td>
@@ -399,11 +419,15 @@ function render(){
     <td class="num">${l.altitude?fmtN(l.altitude)+" m":"—"}</td>
     <td style="font-size:13.5px;color:var(--mist)">${esc(l.lidera||"—")}</td>
     <td><select class="st" data-v="${esc(l.status)}" aria-label="Status de ${esc(l.nome)}">${["novo","contatado","comprou","descartado"].map(s=>`<option value="${s}" ${s===l.status?"selected":""}>${s}</option>`).join("")}</select></td>
-    <td>${l.whatsapp?`<a class="wa" href="${waLink(l)}" target="_blank" rel="noopener" title="Chamar no WhatsApp" aria-label="Chamar ${esc(l.nome)} no WhatsApp">${WA_ICON}</a>`:""}</td>
+    <td><div class="acts">${l.whatsapp?`<a class="wa" href="${waLink(l)}" target="_blank" rel="noopener" title="Chamar no WhatsApp" aria-label="Chamar ${esc(l.nome)} no WhatsApp">${WA_ICON}</a>`:""}<button class="trash" title="Apagar lead" aria-label="Apagar ${esc(l.nome)}">${TRASH_ICON}</button></div></td>
   </tr>`).join("");
   $("#empty").hidden=rows.length>0;
   $("#count").textContent=`${fmtN(rows.length)} de ${fmtN(leads.length)} leads`;
   newIds.clear();
+  [...SEL].forEach(id=>{if(!leads.some(l=>l.id===id))SEL.delete(id)});
+  const vis=rows.map(l=>l.id), nSel=vis.filter(id=>SEL.has(id)).length;
+  $("#ckAll").checked=vis.length>0&&nSel===vis.length; $("#ckAll").indeterminate=nSel>0&&nSel<vis.length;
+  updSel();
 }
 
 function drawChart(){
@@ -435,9 +459,52 @@ $("#rows").addEventListener("change",async e=>{
   await patch(id,{status:v}); toast(`Status: ${v}`);
 });
 $("#rows").addEventListener("click",e=>{
+  const tr0=e.target.closest("tr");
+  if(e.target.closest(".trash")){SEL.clear();SEL.add(tr0.dataset.id);render();askDelete();return}
+  if(e.target.closest(".ck")){const c=tr0.querySelector(".rowck");if(e.target!==c)c.checked=!c.checked;c.checked?SEL.add(tr0.dataset.id):SEL.delete(tr0.dataset.id);tr0.classList.toggle("sel",c.checked);render();return}
   if(e.target.closest("select,a"))return;
   const tr=e.target.closest("tr"); if(tr) openDrawer(tr.dataset.id);
 });
+/* ---------- apagar leads ---------- */
+const SEL=new Set();
+const TRASH_ICON='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>';
+function updSel(){
+  const n=SEL.size; $("#selbar").hidden=!n;
+  if(!n){resetSelBar();return}
+  if(!$("#selbar").dataset.ask) $("#selTxt").innerHTML=`<b>${fmtN(n)}</b> ${n===1?"lead selecionado":"leads selecionados"}`;
+}
+function resetSelBar(){
+  delete $("#selbar").dataset.ask;
+  $("#selActs").innerHTML='<button class="btn btn-line" id="selClear">Cancelar</button><button class="btn btn-danger" id="selDel">Apagar selecionados</button>';
+  $("#selClear").onclick=()=>{SEL.clear();render()};
+  $("#selDel").onclick=askDelete;
+  if(SEL.size) $("#selTxt").innerHTML=`<b>${fmtN(SEL.size)}</b> ${SEL.size===1?"lead selecionado":"leads selecionados"}`;
+}
+function askDelete(){
+  const n=SEL.size; if(!n)return;
+  const nome=n===1?(leads.find(l=>l.id===[...SEL][0])||{}).nome:"";
+  $("#selbar").dataset.ask="1";
+  $("#selTxt").innerHTML=n===1?`Apagar <b>${esc(nome)}</b> de vez? Não dá para desfazer.`:`Apagar <b>${fmtN(n)} leads</b> de vez? Não dá para desfazer.`;
+  $("#selActs").innerHTML='<button class="btn btn-line" id="selNo">Cancelar</button><button class="btn btn-danger" id="selYes">Sim, apagar</button>';
+  $("#selNo").onclick=()=>{if(n===1)SEL.clear();resetSelBar();render()};
+  $("#selYes").onclick=doDelete;
+  $("#selbar").scrollIntoView({block:"nearest"});
+}
+async function removeLead(id){
+  if(sb){const {error}=await sb.from("lz_leads").delete().eq("id",id); if(error) throw new Error(error.message);}
+  if(MODE==="sheets"){const j=await sheets({action:"delete",id}); if(!j.ok) throw new Error(j.error||"falha");}
+  leads=leads.filter(x=>x.id!==id);
+}
+async function doDelete(){
+  const ids=[...SEL]; let ok=0, fail=0;
+  $("#selActs").innerHTML='<span>Apagando...</span>';
+  for(const id of ids){ try{await removeLead(id);ok++;SEL.delete(id)}catch(e){fail++} }
+  resetSelBar(); render();
+  toast(fail?`${ok} apagado(s). ${fail} não foram apagados, tente de novo.`:(ok===1?"Lead apagado":`${ok} leads apagados`));
+}
+$("#ckAll").addEventListener("change",e=>{const vis=filtered().map(l=>l.id);vis.forEach(id=>e.target.checked?SEL.add(id):SEL.delete(id));render()});
+resetSelBar();
+
 async function patch(id,obj){
   const l=leads.find(x=>x.id===id); Object.assign(l,obj);
   if(sb){const {error}=await sb.from("lz_leads").update(obj).eq("id",id); if(error) toast("Não salvou: "+error.message);}
@@ -475,9 +542,8 @@ function openDrawer(id){
   $("#dDel").onclick=()=>{$("#dConfirm").hidden=false};
   $("#dNo").onclick=()=>{$("#dConfirm").hidden=true};
   $("#dYes").onclick=async()=>{
-    if(sb){const {error}=await sb.from("lz_leads").delete().eq("id",id); if(error){toast("Não apagou: "+error.message);return}}
-    if(MODE==="sheets"){try{const j=await sheets({action:"delete",id}); if(!j.ok){toast("Não apagou: "+j.error);return}}catch(e){toast("Não apagou: sem conexão");return}}
-    leads=leads.filter(x=>x.id!==id); closeDrawer(); render(); toast("Lead apagado");
+    try{await removeLead(id)}catch(e){toast("Não apagou: "+e.message);return}
+    SEL.delete(id); closeDrawer(); render(); toast("Lead apagado");
   };
 }
 function closeDrawer(){$("#drawer").classList.remove("on");$("#shade").classList.remove("on")}
