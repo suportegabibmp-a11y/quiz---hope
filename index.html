@@ -213,6 +213,14 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 .x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1;transition:border-color .2s}
 .x:hover{border-color:var(--ink)}
 .ridge{height:30px;width:100%}
+.qc{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:baseline;line-height:1;font-variant-numeric:tabular-nums}
+.qc b{font-size:40px;font-weight:300;color:var(--forest)}
+.qc span{font-size:16px;color:var(--ink-2);letter-spacing:.04em}
+.qc small{grid-column:1/-1;margin-top:6px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.segs{grid-column:1/-1;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.segs i{height:5px;background:var(--paper-3);transition:background .4s}
+.segs i.on{background:var(--forest)}
+.segs i.now{background:var(--teal)}
 .ridge rect{transition:width .7s var(--ease)}
 .quiz-body{position:relative;z-index:1;flex:1}
 .quiz-body .wrap{max-width:780px;padding-block:16px 70px}
@@ -391,7 +399,7 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 #view-empresas .wiz canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
 #view-empresas .wiz-top{position:sticky;top:0;z-index:2;background:linear-gradient(var(--paper) 70%,rgba(238,236,226,0));padding-top:env(safe-area-inset-top,0px)}
 #view-empresas .wiz-top .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding-block:20px 28px}
-#view-empresas .wbar{height:2px;background:var(--paper-3);position:relative;overflow:hidden}
+#view-empresas .wbar{height:5px;background:var(--paper-3);position:relative;overflow:hidden}
 #view-empresas .wbar i{position:absolute;inset:0 auto 0 0;background:var(--forest);transition:width .6s var(--ease)}
 #view-empresas .x{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:20px;line-height:1}
 #view-empresas .x:hover{border-color:var(--ink)}
@@ -745,14 +753,13 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
         <li>Seus dados de contato</li>
       </ol>
       <div class="founder"><b>Parceiros fundadores até 23/11</b><span>Empresas que fecharem até o lançamento entram como parceiras fundadoras, com agradecimento público no evento e nas redes.</span></div>
-      <p class="small">Fora da Grande São Paulo, deslocamento e hospedagem ficam por conta da empresa contratante.</p>
     </div>
   </div>
 </section>
 <div class="wiz" id="wiz" hidden role="dialog" aria-modal="true" aria-label="Pedido de proposta">
   <canvas id="topoW" aria-hidden="true"></canvas>
   <div class="wiz-top"><div class="wrap">
-    <span class="label" id="wCount">01 / 05</span>
+    <span class="label" id="wCount" style="color:var(--teal)">Etapa 1 de 5 · faltam 4</span>
     <div class="wbar"><i id="wBar" style="width:0"></i></div>
     <button class="x" id="wClose" aria-label="Fechar">×</button>
   </div></div>
@@ -786,13 +793,14 @@ footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px;justify-con
 <div class="quiz" id="quiz" hidden role="dialog" aria-modal="true" aria-label="Diagnóstico Liderança Z">
   <canvas id="topo2" aria-hidden="true"></canvas>
   <div class="quiz-top"><div class="wrap">
-    <span class="label" id="qCount">01 / 08</span>
+    <div class="qc" id="qCount" aria-live="polite"><b id="qNum">1</b><span id="qTot">de 8</span><small id="qLeft">faltam 7 perguntas</small></div>
     <svg class="ridge" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true">
       <defs><clipPath id="rc"><rect id="rDone" x="0" y="0" width="0" height="30"/></clipPath></defs>
       <path d="M0 30 L40 23 L70 26 L110 16 L150 20 L190 11 L230 14 L270 6 L310 10 L350 2 L400 5 L400 30Z" fill="#DAD8CB"/>
       <path d="M0 30 L40 23 L70 26 L110 16 L150 20 L190 11 L230 14 L270 6 L310 10 L350 2 L400 5 L400 30Z" fill="#1F3A2F" clip-path="url(#rc)"/>
     </svg>
     <button class="x" id="qClose" aria-label="Fechar diagnóstico">×</button>
+    <div class="segs" id="qSegs" aria-hidden="true"></div>
   </div></div>
   <div class="quiz-body"><div class="wrap"><div class="stage" id="stage"></div></div></div>
 </div>
@@ -951,7 +959,14 @@ addEventListener("keydown",e=>{
   if(e.key==="Escape")closeQuiz();
   if(st.step<QUESTIONS.length&&/^[1-6]$/.test(e.key)&&!e.target.matches("input,select"))choose(+e.key-1);
 });
-function setProgress(p,label){$("#rDone").setAttribute("width",400*p);$("#qCount").textContent=label}
+function setProgress(p,label){
+  $("#rDone").setAttribute("width",400*p);
+  const T=QUESTIONS.length, m=/^(\d+) \/ (\d+)$/.exec(label), cur=m?+m[1]:null;
+  const done=label==="Resultado"||label.startsWith(String(T).padStart(2,"0")+" / ")&&st.step>=T;
+  if(st.step>=T){$("#qNum").textContent="✓";$("#qTot").textContent=label==="Resultado"?"Resultado":"8 de 8 respondidas";$("#qLeft").textContent=label==="Resultado"?"diagnóstico completo":"falta só o seu contato"}
+  else{$("#qNum").textContent=cur;$("#qTot").textContent="de "+T;const f=T-cur;$("#qLeft").textContent=f===0?"última pergunta":`faltam ${f} ${f===1?"pergunta":"perguntas"}`}
+  $("#qSegs").innerHTML=Array.from({length:T},(_,i)=>`<i class="${i<st.step?"on":i===st.step&&st.step<T?"now":""}"></i>`).join("");
+}
 function paint(animate=true){
   const go=()=>{render();if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}quiz.scrollTop=0};
   if(animate&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
@@ -1100,7 +1115,7 @@ const Emp=(function(){
     if(!wizT)wizT=topo($("#topoW"),{alpha:.06,peaks:[{x:.9,y:.12,rings:22,step:.025},{x:.04,y:.92,rings:14,step:.03}]});else wizT.start();stop();paint(false)}
   function close(){wiz.hidden=true;document.body.style.overflow="";wizT&&wizT.stop();heroE&&heroE.start()}
   addEventListener("keydown",e=>{if(!wiz.hidden&&e.key==="Escape")close()});
-  function prog(i){$("#wBar").style.width=(i/5*100)+"%";$("#wCount").textContent=i<5?`${String(i+1).padStart(2,"0")} / 05`:"Enviado"}
+  function prog(i){$("#wBar").style.width=(i/5*100)+"%";$("#wCount").textContent=i<5?`Etapa ${i+1} de 5 · ${4-i===0?"última etapa":"faltam "+(4-i)}`:"Enviado"}
   function paint(anim=true){
     const go=()=>{render();if(anim&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}wiz.scrollTop=0};
     if(anim&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
