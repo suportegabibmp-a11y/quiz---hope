@@ -62,5 +62,5 @@ Suba a foto do banner como `assets/banner.jpg` e ela aparece no fundo do topo.
 
 ## 6. Publicar
 Settings → Pages → Branch `main` / pasta raiz.
-Site: `https://suportegabibmp-a11y.github.io/quiz---hope/`
-Painel: `https://suportegabibmp-a11y.github.io/quiz---hope/admin.html`
+Site: `https://liderancaz.com.br/` (antes: `https://suportegabibmp-a11y.github.io/quiz---hope/`)
+Painel: `https://liderancaz.com.br/admin.html`
