@@ -84,7 +84,7 @@ function doPost(e) {
           if (c === "notas") return "";
           if (NUMS.indexOf(c) > -1) { const n = Number(r[c]); return (r[c] === null || r[c] === undefined || r[c] === "" || isNaN(n)) ? "" : Math.max(0, Math.min(9000, Math.round(n))); }
           if (c === "origem") return r[c] === "evento" ? "evento" : "digital";
-          return txt_(r[c], c === "utm_campaign" ? 300 : 160);
+          return txt_(r[c], (c === "utm_campaign" || c === "interesse") ? 800 : 160);
         }));
       if (rows.length) {
         lock.waitLock(10000);

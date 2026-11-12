@@ -526,11 +526,12 @@ function openDrawer(id){
       <dt>E-mail</dt><dd>${esc(l.email)}</dd>
       <dt>WhatsApp</dt><dd>${esc(l.whatsapp||"—")}</dd>
       ${l.tipo==="empresa"?`<dt>Cargo</dt><dd>${esc(l.cargo||"—")}</dd>
-      <dt>Cidade</dt><dd>${esc(l.cidade||"—")}</dd>
+      ${l.cidade?`<dt>Cidade</dt><dd>${esc(l.cidade)}</dd>`:""}
       <dt>Pessoas</dt><dd>${esc(l.colaboradores||"—")}</dd>
       <dt>Líderes</dt><dd>${esc(l.lideres||"—")}</dd>
       <dt>Jovens que saem/ano</dt><dd>${esc(l.saidas_ano||"—")}</dd>
-      <dt>Formatos</dt><dd>${esc(l.interesse||"—")}</dd>`:`<dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
+      <dt>Desafios</dt><dd>${esc(String(l.interesse||"").split(" | Desafios: ")[1]||"—")}</dd>
+      <dt>Formatos</dt><dd>${esc(String(l.interesse||"").split(" | Desafios: ")[0]||"—")}</dd>`:`<dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
       <dt>Equipe</dt><dd>${esc(l.equipe||"—")}</dd>
       <dt>Respostas</dt><dd class="mono">${esc((l.respostas||"—").split("").join(" "))}</dd>`}
       <dt>Campanha</dt><dd>${esc([l.utm_source,l.utm_medium,l.utm_campaign].filter(Boolean).join(" / ")||"—")}</dd>

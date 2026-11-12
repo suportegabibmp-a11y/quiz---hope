@@ -13,7 +13,10 @@ window.LZ_CONFIG = {
 
   // Preço mostrado na pré-venda (a reserva não cobra nada; a equipe chama a pessoa no WhatsApp)
   preco: "R$ 59,90",
-  precoCheio: "R$ 79,90",
+  precoCheio: "R$ 69,90",
+
+  // PDF do 1º capítulo, liberado no fim do diagnóstico
+  capitulo1Url: "assets/Lideranca-Z-1o-capitulo.pdf",
 
   // Data e hora do lançamento (horário de Brasília)
   lancamento: "2026-11-23T19:00:00-03:00",
