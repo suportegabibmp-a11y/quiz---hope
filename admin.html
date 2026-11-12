@@ -250,7 +250,7 @@ textarea:focus{outline:none;border-color:var(--lime)}
 <div class="toast" id="toast" hidden></div>
 
 <script src="config.js?v=20261112b"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>if(window.LZ_CONFIG&&LZ_CONFIG.supabaseUrl&&LZ_CONFIG.supabaseAnonKey)document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"><\/script>')</script>
 <script>
 const C = window.LZ_CONFIG || {};
 const $ = s => document.querySelector(s);
@@ -271,8 +271,12 @@ function normLead(l){
 }
 const sb = MODE==="supabase" ? window.supabase.createClient(C.supabaseUrl, C.supabaseAnonKey) : null;
 let senha = null, pollTimer = null;
-function ssGet(){try{return sessionStorage.getItem("lz_senha")}catch(e){return null}}
-function ssSet(v){try{v?sessionStorage.setItem("lz_senha",v):sessionStorage.removeItem("lz_senha")}catch(e){}}
+function ssGet(){try{return localStorage.getItem("lz_senha")}catch(e){return null}}
+function ssSet(v){try{if(v)localStorage.setItem("lz_senha",v);else{localStorage.removeItem("lz_senha");localStorage.removeItem("lz_cache")}}catch(e){}}
+function cacheGet(){try{return JSON.parse(localStorage.getItem("lz_cache")||"null")}catch(e){return null}}
+function cacheSet(rows){try{localStorage.setItem("lz_cache",JSON.stringify(rows))}catch(e){}}
+// acorda o Apps Script enquanto a pessoa digita a senha (a 1ª chamada do Google costuma ser lenta)
+function warm(){try{if(C.sheetsUrl)fetch(C.sheetsUrl,{method:"GET",mode:"no-cors",cache:"no-store"}).catch(()=>{})}catch(e){}}
 async function sheets(body){
   const r=await fetch(C.sheetsUrl,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...body,senha})});
   return r.json();
@@ -294,8 +298,8 @@ async function boot(){
   if(MODE==="sheets"){
     $("#lg-email-f").hidden=true; $("#lg-help").textContent="Digite a senha do painel (a mesma que está no Apps Script da planilha).";
     senha=ssGet();
-    if(senha){ try{ const j=await sheets({action:"login"}); if(j.ok){ await enterSheets(); return; } }catch(e){} }
-    $("#login").hidden=false; return;
+    if(senha){ const c=cacheGet(); if(c) leads=c.map(normLead); enterSheets(true,!c); return; }
+    warm(); $("#login").hidden=false; $("#lg-pass").focus(); return;
   }
   const {data:{session}} = await sb.auth.getSession();
   if(session) await enter(session); else $("#login").hidden=false;
@@ -306,10 +310,10 @@ $("#loginForm").addEventListener("submit", async e=>{
   const btn=e.submitter; btn.disabled=true; btn.textContent="Entrando...";
   if(MODE==="sheets"){
     senha=$("#lg-pass").value;
-    try{ const j=await sheets({action:"login"}); btn.disabled=false; btn.textContent="Entrar";
-      if(!j.ok){$("#lg-err").textContent="Senha incorreta. (planilha: …"+String(C.sheetsUrl).split("/s/")[1].slice(-12,-5)+")";return}
-      ssSet(senha); await enterSheets();
-    }catch(err){ btn.disabled=false; btn.textContent="Entrar"; $("#lg-err").textContent="Não consegui falar com a planilha. Confira o sheetsUrl no config.js e se o Apps Script foi implantado para Qualquer pessoa."; }
+    try{ const j=await sheets({action:"list"}); btn.disabled=false; btn.textContent="Entrar";
+      if(!j.ok){$("#lg-err").textContent=j.error==="senha"?"Senha incorreta.":"Erro da planilha: "+j.error;return}
+      ssSet(senha); applyRows(j.rows,true); enterSheets(false);
+    }catch(err){ btn.disabled=false; btn.textContent="Entrar"; $("#lg-err").textContent="Não consegui falar com a planilha. Confira a internet e tente de novo."; }
     return;
   }
   const {data,error} = await sb.auth.signInWithPassword({email:$("#lg-email").value.trim(), password:$("#lg-pass").value});
@@ -323,19 +327,24 @@ async function enter(session){
   $("#login").hidden=true; showApp(session.user.email);
   await load(); subscribe();
 }
-async function enterSheets(){
+function applyRows(raw,first){
+  const rows=raw.filter(r=>r.id).map(normLead);
+  if(!first){ const old=new Set(leads.map(l=>l.id)); const fresh=rows.filter(r=>!old.has(r.id)); fresh.forEach(r=>newIds.add(r.id)); if(fresh.length) toast(fresh.length===1?`Novo lead: ${fresh[0].nome}`:`${fresh.length} leads novos`); }
+  leads=rows; cacheSet(raw.filter(r=>r.id));
+  if(!$("#drawer").classList.contains("on")) render();
+}
+async function enterSheets(fetchNow,first){
   $("#login").hidden=true; showApp("planilha Google");
-  await loadSheets(true);
-  $("#live").classList.add("on"); $("#liveTxt").textContent="atualiza a cada 20 s";
+  if(fetchNow){ $("#liveTxt").textContent="atualizando…"; loadSheets(!!first); }
+  else { $("#live").classList.add("on"); $("#liveTxt").textContent="atualiza a cada 20 s"; }
   pollTimer=setInterval(()=>loadSheets(false),20000);
 }
 async function loadSheets(first){
   try{
     const j=await sheets({action:"list"});
-    if(!j.ok){ if(j.error==="senha"){ ssSet(null); location.reload(); } else toast("Erro da planilha: "+j.error); return; }
-    const rows=j.rows.filter(r=>r.id).map(normLead);
-    if(!first){ const old=new Set(leads.map(l=>l.id)); const fresh=rows.filter(r=>!old.has(r.id)); fresh.forEach(r=>newIds.add(r.id)); if(fresh.length) toast(fresh.length===1?`Novo lead: ${fresh[0].nome}`:`${fresh.length} leads novos`); }
-    leads=rows; if(!$("#drawer").classList.contains("on")) render();
+    if(!j.ok){ if(j.error==="senha"){ ssSet(null); clearInterval(pollTimer); $("#app").hidden=true; $("#login").hidden=false; $("#lg-err").textContent="A senha mudou. Entre de novo."; return; } else toast("Erro da planilha: "+j.error); return; }
+    applyRows(j.rows,first);
+    $("#live").classList.add("on"); $("#liveTxt").textContent="atualiza a cada 20 s";
   }catch(e){ $("#live").classList.remove("on"); $("#liveTxt").textContent="sem conexão"; }
 }
 $("#logout").addEventListener("click", async()=>{ ssSet(null); if(sb){ channel && sb.removeChannel(channel); await sb.auth.signOut(); } location.reload(); });
