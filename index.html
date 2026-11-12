@@ -1000,7 +1000,8 @@ function setProgress(p,label){
   $("#qSegs").innerHTML=Array.from({length:T},(_,i)=>`<i class="${i<st.step?"on":i===st.step&&st.step<T?"now":""}"></i>`).join("");
 }
 function paint(animate=true){
-  const go=()=>{render();if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}quiz.scrollTop=0};
+  stage.style.pointerEvents="none";
+  const go=()=>{render();stage.style.pointerEvents="";if(animate&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}quiz.scrollTop=0};
   if(animate&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
 }
 function render(){
@@ -1061,6 +1062,7 @@ function renderLead(){
     const nome=$("#ld-nome").value.trim(), email=$("#ld-email").value.trim(), tel=$("#ld-tel").value.replace(/\D/g,"");
     const err=validate(nome,email,tel); if(err){$("#ld-err").textContent=err;return}
     if(!$("#ld-ok").checked){$("#ld-err").textContent="Marque o aceite para receber o diagnóstico completo.";return}
+    if(st.lead)return;
     const sc=score();
     st.lead={tipo:"diagnostico",nome,email,whatsapp:"+55"+tel,lidera:$("#ld-cargo").value||null,equipe:$("#ld-time").value||null,
       altitude:sc.alt,acampamento:sc.camp.nome,pontuacao:sc.pct,dim_rota:sc.dims.rota,dim_cordada:sc.dims.cordada,dim_radio:sc.dims.radio,dim_acli:sc.dims.acli,
@@ -1150,13 +1152,14 @@ const Emp=(function(){
   const fresh=()=>({desafios:[],interesse:[]});
   const W={step:0,a:fresh(),busy:false};
   const wiz=$("#wiz"), stage=$("#wStage");
-  function open(){Object.assign(W,{step:0,a:fresh(),busy:false,lead:null});wiz.hidden=false;document.body.style.overflow="hidden";
+  function open(){Object.assign(W,{step:0,a:fresh(),busy:false,lead:null,sent:false});wiz.hidden=false;document.body.style.overflow="hidden";
     if(!wizT)wizT=topo($("#topoW"),{alpha:.06,peaks:[{x:.9,y:.12,rings:22,step:.025},{x:.04,y:.92,rings:14,step:.03}]});else wizT.start();stop();paint(false)}
   function close(){wiz.hidden=true;document.body.style.overflow="";wizT&&wizT.stop();heroE&&heroE.start()}
   addEventListener("keydown",e=>{if(!wiz.hidden&&e.key==="Escape")close()});
   function prog(i){$("#wBar").style.width=(i/TOT*100)+"%";const f=TOT-1-i;$("#wCount").textContent=i<TOT?`Etapa ${i+1} de ${TOT} · ${f===0?"última etapa":"faltam "+f}`:"Enviado"}
   function paint(anim=true){
-    const go=()=>{render();if(anim&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}wiz.scrollTop=0};
+    stage.style.pointerEvents="none";
+    const go=()=>{render();stage.style.pointerEvents="";if(anim&&!reduce){stage.classList.add("pre");requestAnimationFrame(()=>requestAnimationFrame(()=>stage.classList.remove("pre")))}wiz.scrollTop=0};
     if(anim&&!reduce){stage.classList.add("out");setTimeout(()=>{stage.classList.remove("out");go()},260)}else go();
   }
   function render(){
@@ -1204,6 +1207,7 @@ const Emp=(function(){
         else if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))err="Confira o e-mail, parece estar incompleto.";
         else if(tel.length<10||tel.length>11)err="Digite o WhatsApp com DDD, por exemplo 11 99999-9999.";
         $("#f-err").textContent=err; if(err)return;
+        if(W.sent)return; W.sent=true;
         W.lead={tipo:"empresa",nome,email,whatsapp:"+55"+tel,cargo:v("#f-cargo")||null,empresa,
           colaboradores:W.a.colaboradores,lideres:W.a.lideres,saidas_ano:W.a.saidas_ano,
           interesse:(W.a.interesse.join(", ")+" | Desafios: "+W.a.desafios.join(", ")).slice(0,600),
