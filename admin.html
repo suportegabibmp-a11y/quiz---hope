@@ -160,6 +160,12 @@ textarea:focus{outline:none;border-color:var(--lime)}
 @media (max-width:1000px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.panels{grid-template-columns:1fr 1fr}.panels .panel:first-child{grid-column:1/-1}}
 @media (max-width:600px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.panels{grid-template-columns:1fr}.kpi .v{font-size:32px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.pw{position:relative}
+.pw input{padding-right:44px!important}
+.eye{position:absolute;right:0;top:50%;transform:translateY(-50%);width:40px;height:40px;border:0;background:transparent;color:var(--mist);display:grid;place-items:center}
+.eye:hover{color:var(--snow)}
+.eye .slash{display:none}
+.eye.on .slash{display:inline}
 </style>
 </head>
 <body>
@@ -170,7 +176,7 @@ textarea:focus{outline:none;border-color:var(--lime)}
     <h1>Painel<br>Liderança <b>Z</b></h1>
     <p class="muted" id="lg-help">Entre com o e-mail e a senha cadastrados no Supabase.</p>
     <div class="field" id="lg-email-f"><label for="lg-email">E-mail</label><input id="lg-email" type="email" autocomplete="username"></div>
-    <div class="field"><label for="lg-pass">Senha</label><input id="lg-pass" type="password" autocomplete="current-password"></div>
+    <div class="field"><label for="lg-pass">Senha</label><div class="pw"><input id="lg-pass" type="password" autocomplete="current-password"><button type="button" class="eye" id="lg-eye" aria-label="Mostrar senha" title="Mostrar senha"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M4 4l16 16"/></svg></button></div></div>
     <p class="err" id="lg-err" role="alert"></p>
     <button class="btn btn-lime" type="submit" style="justify-content:center;padding:13px">Entrar</button>
   </form>
@@ -294,6 +300,7 @@ async function boot(){
   const {data:{session}} = await sb.auth.getSession();
   if(session) await enter(session); else $("#login").hidden=false;
 }
+$("#lg-eye").addEventListener("click",()=>{const i=$("#lg-pass"),show=i.type==="password";i.type=show?"text":"password";const e=$("#lg-eye");e.classList.toggle("on",show);e.setAttribute("aria-label",show?"Esconder senha":"Mostrar senha");e.title=e.getAttribute("aria-label");i.focus()});
 $("#loginForm").addEventListener("submit", async e=>{
   e.preventDefault(); $("#lg-err").textContent="";
   const btn=e.submitter; btn.disabled=true; btn.textContent="Entrando...";
