@@ -646,7 +646,7 @@ setInterval(()=>{ if(!$("#app").hidden && !$("#drawer").classList.contains("on")
 /* ---------- dados de exemplo (só sem Supabase) ---------- */
 function demoData(){
   const nomes=["Ana Paula Ribeiro","Bruno Carvalho","Camila Teixeira","Daniel Moura","Eduarda Lima","Felipe Andrade","Gabriela Rocha","Henrique Souza","Isabela Martins","João Pedro Alves","Larissa Gomes","Marcos Vieira","Natália Freitas","Otávio Nunes","Paula Castro","Rafael Pires","Sabrina Melo","Thiago Barros","Vanessa Duarte","William Costa","Yasmin Farias","Lucas Mendes","Juliana Prado","Ricardo Lopes"];
-  const lid=["Equipe na empresa","Minha própria empresa","Ministério ou equipe na igreja","Escola ou projeto social"];
+  const lid=["CEO / Sócio(a) / Proprietário(a)","Diretor(a)","Gerente","Coordenador(a)"];
   const eq=["1 a 5 pessoas","6 a 15 pessoas","16 a 50 pessoas","Mais de 50"];
   let seed=7; const r=()=>(seed=(seed*16807)%2147483647)/2147483647;
   const emp=[["Carla Nogueira","Gerente de RH","Grupo Exemplo","201 a 500","21 a 50","16 a 40","Palestra presencial, Programa Líderes Z"],["Paulo Amaral","Diretor de Pessoas","Empresa Modelo","51 a 200","6 a 20","6 a 15","Mesa redonda com lideranças"]].map((e,k)=>({id:"demo-e"+k,created_at:new Date(Date.now()-k*7200000).toISOString(),tipo:"empresa",nome:e[0],cargo:e[1],empresa:e[2],colaboradores:e[3],lideres:e[4],saidas_ano:e[5],interesse:e[6],cidade:"São Paulo",email:"contato"+k+"@exemplo.com",whatsapp:"+5511988880000",lidera:"Empresa: "+e[2],equipe:e[3],origem:"digital",status:"novo",notas:null}));
