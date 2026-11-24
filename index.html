@@ -676,8 +676,8 @@ canvas{contain:strict}
         <li>E-book (livro digital) na Amazon Kindle</li>
       </ul>
       <div class="buy">
-        <a class="btn btn-ink" id="buyVila" href="#" target="_blank" rel="noopener">Comprar na Livraria da Vila <span class="arr" aria-hidden="true">→</span></a>
-        <a class="btn btn-line" id="buyKindle" href="#" target="_blank" rel="noopener">E-book na Amazon Kindle <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ink" id="buyVila" href="#" target="_blank" rel="noopener">Livro físico <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" id="buyKindle" href="#" target="_blank" rel="noopener">E-book na Amazon <span class="arr" aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -1152,7 +1152,7 @@ function renderResult(){
       <div style="display:grid;gap:14px">
         <h3>Garanta o seu <b>exemplar</b></h3>
         <p>${esc(C.preco)} o livro físico na Livraria da Vila, ou o e-book na Amazon Kindle.</p>
-        <div class="buy"><a class="btn btn-ink" href="${esc(C.linkLivrariaVila)}" target="_blank" rel="noopener" data-buy="vila">Livraria da Vila <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-line" href="${esc(C.linkKindle)}" target="_blank" rel="noopener" data-buy="kindle">E-book Kindle <span class="arr" aria-hidden="true">→</span></a></div>
+        <div class="buy"><a class="btn btn-ink" href="${esc(C.linkLivrariaVila)}" target="_blank" rel="noopener" data-buy="vila">Livro físico <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-line" href="${esc(C.linkKindle)}" target="_blank" rel="noopener" data-buy="kindle">E-book na Amazon <span class="arr" aria-hidden="true">→</span></a></div>
       </div>
     </div>
     ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-text" id="again">Próxima pessoa</button></div>`:""}`;
