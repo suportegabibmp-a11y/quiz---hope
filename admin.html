@@ -453,6 +453,7 @@ function rel(d){
 function waLink(l){
   const n=(l.whatsapp||"").replace(/\D/g,""); if(!n) return "";
   const first=(l.nome||"").split(" ")[0];
+  if(l.tipo==="pre-venda"&&l.equipe==="Com dedicatória") return `https://wa.me/${n}?text=${encodeURIComponent(`Oi, ${first}! Aqui é da equipe do Liderança Z, do Tiago Favaro. Recebemos a sua reserva do livro com dedicatória. Vamos combinar o pagamento e a entrega?`)}`;
   const msg = l.tipo==="empresa"
     ? `Oi, ${first}! Aqui é da equipe do Tiago Favaro, autor de Liderança Z. Recebemos o pedido de proposta da ${l.empresa||"sua empresa"}. Podemos marcar uma conversa rápida para alinhar formato, data e valor?`
     : l.tipo==="pre-venda"
@@ -611,7 +612,9 @@ function openDrawer(id){
       <dt>Líderes</dt><dd>${esc(l.lideres||"—")}</dd>
       <dt>Jovens que saem/ano</dt><dd>${esc(l.saidas_ano||"—")}</dd>
       <dt>Desafios</dt><dd>${esc(String(l.interesse||"").split(" | Desafios: ")[1]||"—")}</dd>
-      <dt>Formatos</dt><dd>${esc(String(l.interesse||"").split(" | Desafios: ")[0]||"—")}</dd>`:`<dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
+      <dt>Formatos</dt><dd>${esc(String(l.interesse||"").split(" | Desafios: ")[0]||"—")}</dd>`:l.tipo==="pre-venda"&&l.equipe==="Com dedicatória"?`<dt>Reserva</dt><dd>Com dedicatória</dd>
+      <dt>Presente</dt><dd>${esc((String(l.interesse||"").match(/Presente: ([^|]*)/)||[,"—"])[1].trim())}</dd>
+      <dt>Dedicatória</dt><dd>${esc((String(l.interesse||"").match(/Dedicatória: (.*)$/)||[,"—"])[1])}</dd>`:`<dt>Lidera</dt><dd>${esc(l.lidera||"—")}</dd>
       <dt>Equipe</dt><dd>${esc(l.equipe||"—")}</dd>
       <dt>Respostas</dt><dd class="mono">${esc((l.respostas||"—").split("").join(" "))}</dd>`}
       <dt>Campanha</dt><dd>${esc([l.utm_source,l.utm_medium,l.utm_campaign].filter(Boolean).join(" / ")||"—")}</dd>

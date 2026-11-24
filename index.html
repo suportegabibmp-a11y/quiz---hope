@@ -564,6 +564,16 @@ canvas{contain:strict}
 .lite section.sec,.lite .manifesto,.lite .author,.lite .hope,.lite .b2b,.lite .event{content-visibility:auto;contain-intrinsic-size:auto 900px}
 .wa-link{display:inline-flex;align-items:center;gap:10px}
 .buy{display:flex;flex-wrap:wrap;gap:12px}
+.ded{margin-top:8px;padding:26px;background:var(--white);border:1px solid var(--line);display:grid;gap:14px}
+.ded h3{font-size:22px;letter-spacing:.08em}
+.ded .form{margin-top:6px}
+.ded textarea{width:100%;font:inherit;font-size:16px;padding:10px 0;border:0;border-bottom:1px solid rgba(22,34,28,.3);background:transparent;color:var(--ink);resize:vertical;border-radius:0}
+.ded textarea:focus{outline:none;border-bottom-color:var(--teal)}
+.seg{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.seg legend{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;padding:0}
+.seg label{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);background:var(--paper);cursor:pointer;font-weight:300}
+.seg label:has(input:checked){border-color:var(--forest);background:var(--forest);color:var(--paper)}
+.seg input{accent-color:var(--paper)}
 </style>
 </head>
 <body>
@@ -678,6 +688,29 @@ canvas{contain:strict}
       <div class="buy">
         <a class="btn btn-ink" id="buyVila" href="#" target="_blank" rel="noopener">Livro físico <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-line" id="buyKindle" href="#" target="_blank" rel="noopener">E-book na Amazon <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <div class="ded">
+        <p class="label">Com a nossa equipe</p>
+        <h3>Reserve seu livro <b>com dedicatória</b></h3>
+        <p class="small" style="font-size:15px">O Tiago autografa o seu exemplar com uma dedicatória. Pode ser para você ou para presentear alguém.</p>
+        <div><button class="btn btn-ink" type="button" id="dedOpen" aria-expanded="false" aria-controls="dedForm">Reservar com dedicatória <span class="arr" aria-hidden="true">→</span></button></div>
+        <form class="form" id="dedForm" novalidate hidden>
+          <div class="field"><label for="dd-nome">Seu nome completo</label><input id="dd-nome" autocomplete="name" placeholder="Como você se chama"></div>
+          <div class="row2">
+            <div class="field"><label for="dd-email">E-mail</label><input id="dd-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
+            <div class="field"><label for="dd-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="dd-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
+          </div>
+          <fieldset class="seg"><legend>É para presente?</legend>
+            <label><input type="radio" name="dd-pres" value="nao" checked> Não, é para mim</label>
+            <label><input type="radio" name="dd-pres" value="sim"> Sim, é presente</label>
+          </fieldset>
+          <div class="field" id="dd-para-f" hidden><label for="dd-para">Nome de quem vai receber</label><input id="dd-para" placeholder="Para quem é a dedicatória"></div>
+          <div class="field"><label for="dd-msg">Mensagem para a dedicatória (opcional)</label><textarea id="dd-msg" rows="3" maxlength="300" placeholder="Ex.: Para a Ana, que lidera com o coração."></textarea></div>
+          <p class="err" id="dd-err" role="alert"></p>
+          <div><button class="btn btn-ink" type="submit">Enviar reserva <span class="arr" aria-hidden="true">→</span></button></div>
+          <p class="small">Sem pagamento agora: a equipe fala com você pelo WhatsApp para combinar o pagamento e a entrega.</p>
+        </form>
+        <div class="ok" id="dedOk" hidden><b>Reserva recebida.</b><span class="small" id="dedOkTxt"></span></div>
       </div>
     </div>
   </div>
@@ -1152,17 +1185,43 @@ function renderResult(){
       <div style="display:grid;gap:14px">
         <h3>Garanta o seu <b>exemplar</b></h3>
         <p>${esc(C.preco)} o livro físico na Livraria da Vila, ou o e-book na Amazon Kindle.</p>
-        <div class="buy"><a class="btn btn-ink" href="${esc(C.linkLivrariaVila)}" target="_blank" rel="noopener" data-buy="vila">Livro físico <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-line" href="${esc(C.linkKindle)}" target="_blank" rel="noopener" data-buy="kindle">E-book na Amazon <span class="arr" aria-hidden="true">→</span></a></div>
+        <div class="buy"><button class="btn btn-ink" type="button" id="qDed">Reservar com dedicatória <span class="arr" aria-hidden="true">→</span></button><a class="btn btn-line" href="${esc(C.linkLivrariaVila)}" target="_blank" rel="noopener" data-buy="vila">Livro físico <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-line" href="${esc(C.linkKindle)}" target="_blank" rel="noopener" data-buy="kindle">E-book na Amazon <span class="arr" aria-hidden="true">→</span></a></div>
       </div>
     </div>
     ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-text" id="again">Próxima pessoa</button></div>`:""}`;
   const el=$("#altCount"), t0=performance.now(), dur=reduce?0:1700;
   (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1,e=1-Math.pow(1-p,3);el.textContent=Math.round(800+(sc.alt-800)*e).toLocaleString("pt-BR");if(p<1)requestAnimationFrame(step)})(t0);
   setTimeout(()=>stage.querySelectorAll(".fill").forEach((f,i)=>{f.style.transitionDelay=(i*120)+"ms";f.style.transform=`scaleX(${Math.max(.03,f.dataset.v/100)})`}),300);
+  $("#qDed").addEventListener("click",()=>{const L=st.lead;closeQuiz();openDed(L)});
   const again=$("#again"); if(again){again.addEventListener("click",()=>{closeQuiz();scrollTo(0,0)});resetTimer=setTimeout(()=>{closeQuiz();scrollTo(0,0)},(C.reinicioEventoSeg||90)*1000)}
 }
 
 $("#buyVila").href=C.linkLivrariaVila||"#"; $("#buyKindle").href=C.linkKindle||"#";
+
+/* ---------- reserva com dedicatória ---------- */
+function openDed(pre){
+  const f=$("#dedForm"); $("#dedOk").hidden=true; f.hidden=false; $("#dedOpen").setAttribute("aria-expanded","true");
+  if(pre){ if(!$("#dd-nome").value)$("#dd-nome").value=pre.nome||""; if(!$("#dd-email").value)$("#dd-email").value=pre.email||""; if(!$("#dd-tel").value)$("#dd-tel").value=String(pre.whatsapp||"").replace(/^\+55/,""); }
+  requestAnimationFrame(()=>{f.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"}); setTimeout(()=>$("#dd-nome").focus({preventScroll:true}),400)});
+}
+$("#dedOpen").addEventListener("click",()=>{ const open=$("#dedForm").hidden; if(open) openDed(); else { $("#dedForm").hidden=true; $("#dedOpen").setAttribute("aria-expanded","false"); } });
+document.querySelectorAll('input[name="dd-pres"]').forEach(r=>r.addEventListener("change",()=>{$("#dd-para-f").hidden=document.querySelector('input[name="dd-pres"]:checked').value!=="sim"}));
+let dedSent=false;
+$("#dedForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const nome=$("#dd-nome").value.trim(), email=$("#dd-email").value.trim(), tel=$("#dd-tel").value.replace(/\D/g,"");
+  const pres=document.querySelector('input[name="dd-pres"]:checked').value==="sim", para=$("#dd-para").value.trim(), msg=$("#dd-msg").value.trim();
+  let err=validate(nome,email,tel);
+  if(!err&&pres&&para.length<2) err="Digite o nome de quem vai receber o presente.";
+  $("#dd-err").textContent=err; if(err)return;
+  if(dedSent)return; dedSent=true;
+  sendLead({tipo:"pre-venda",nome,email,whatsapp:"+55"+tel,
+    lidera:(pres?"Presente para: "+para:"Para mim").slice(0,160), equipe:"Com dedicatória",
+    interesse:("Presente: "+(pres?"sim, para "+para:"não, é para mim")+" | Dedicatória: "+(msg||"(sem mensagem)")).slice(0,800)});
+  $("#dedForm").reset(); $("#dd-para-f").hidden=true; $("#dedForm").hidden=true; $("#dedOk").hidden=false;
+  $("#dedOkTxt").textContent=`A equipe do Liderança Z vai te chamar no WhatsApp (${tel.replace(/^(\d{2})(\d{4,5})(\d{4})$/,"$1 $2-$3")}) para combinar o pagamento e a entrega.`;
+  setTimeout(()=>{dedSent=false},4000);
+});
 
 /* ===================== ABA PARA EMPRESAS ===================== */
 const Emp=(function(){
