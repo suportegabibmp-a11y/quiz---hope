@@ -563,6 +563,7 @@ canvas{contain:strict}
 .lite .strip .track{animation-duration:60s}
 .lite section.sec,.lite .manifesto,.lite .author,.lite .hope,.lite .b2b,.lite .event{content-visibility:auto;contain-intrinsic-size:auto 900px}
 .wa-link{display:inline-flex;align-items:center;gap:10px}
+.buy{display:flex;flex-wrap:wrap;gap:12px}
 </style>
 </head>
 <body>
@@ -598,7 +599,7 @@ canvas{contain:strict}
       <p class="lead fade">Um diagnóstico de três minutos para quem lidera pessoas da Geração Z. Descubra onde a sua equipe sobe junto com você e em que trecho os talentos começam a ficar para trás.</p>
       <div class="actions fade">
         <button class="btn btn-ink" data-start>Fazer o diagnóstico gratuito <span class="arr" aria-hidden="true">→</span></button>
-        <a class="btn btn-text" href="#reserva">Reservar o livro</a>
+        <a class="btn btn-text" href="#reserva">Comprar o livro</a>
       </div>
     </div>
     <figure class="book cover fade"><picture><source media="(max-width:900px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><img src="assets/capa-livro.webp" alt="Capa do livro Liderança Z: como o montanhismo nos ensina a liderar a Gen Z sem perder talentos, de Tiago Favaro" width="720" height="965" fetchpriority="high" decoding="async"></picture><figcaption>Lançamento 23/11 · Livraria da Vila</figcaption></figure>
@@ -665,26 +666,19 @@ canvas{contain:strict}
 
 <section class="sec reserve" id="reserva">
   <div class="wrap grid">
-    <figure class="book cover rv"><img src="assets/capa-livro.webp" alt="" loading="lazy" decoding="async" width="720" height="965"><figcaption>Livro físico · com dedicatória · entrega em casa</figcaption></figure>
+    <figure class="book cover rv"><img src="assets/capa-livro.webp" alt="" loading="lazy" decoding="async" width="720" height="965"><figcaption>Livro físico e e-book</figcaption></figure>
     <div class="rv" style="display:grid;gap:26px">
-      <p class="label">Pré-venda</p>
-      <h2 class="h2">Reserve o seu <b>exemplar</b></h2>
+      <p class="label">Já à venda</p>
+      <h2 class="h2">Garanta o seu <b>exemplar</b></h2>
       <div class="price"><b id="pPrice"></b><s id="pFull"></s></div>
       <ul class="inc">
-        <li>Livro físico com dedicatória do autor</li>
-        <li>Receba o livro em casa</li>
-        <li>Sem pagamento agora: a equipe fala com você pelo WhatsApp</li>
+        <li>Livro físico na Livraria da Vila, com entrega em casa</li>
+        <li>E-book (livro digital) na Amazon Kindle</li>
       </ul>
-      <form class="form" id="reserveForm" novalidate>
-        <div class="field"><label for="rs-nome">Nome completo</label><input id="rs-nome" autocomplete="name" placeholder="Como você se chama"></div>
-        <div class="row2">
-          <div class="field"><label for="rs-email">E-mail</label><input id="rs-email" type="email" autocomplete="email" placeholder="seu@email.com"></div>
-          <div class="field"><label for="rs-tel">WhatsApp</label><div class="phone"><span>+55</span><input id="rs-tel" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 99999-9999"></div></div>
-        </div>
-        <p class="err" id="rs-err" role="alert"></p>
-        <div><button class="btn btn-ink" type="submit">Reservar meu exemplar <span class="arr" aria-hidden="true">→</span></button></div>
-      </form>
-      <div class="ok" id="reserveOk" hidden><b>Reserva feita.</b><span class="small">A equipe do Liderança Z vai te chamar no WhatsApp para combinar o pagamento e a entrega.</span></div>
+      <div class="buy">
+        <a class="btn btn-ink" id="buyVila" href="#" target="_blank" rel="noopener">Comprar na Livraria da Vila <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" id="buyKindle" href="#" target="_blank" rel="noopener">E-book na Amazon Kindle <span class="arr" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -1006,7 +1000,7 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){prof.classL
 
 /* ---------- faixa, preço, contagem ---------- */
 $("#track").innerHTML=('<span>Lançamento <b>23/11</b> · 19h</span><span>Livraria da Vila</span><span>Diagnóstico gratuito</span><span>Pré-venda aberta</span>').repeat(8);
-$("#pPrice").textContent=C.preco||""; $("#pFull").textContent=C.precoCheio?("de "+C.precoCheio):"";
+$("#pPrice").textContent=C.preco||""; $("#pFull").textContent=C.precoCheio?("de "+C.precoCheio):""; $("#pFull").hidden=!C.precoCheio;
 const alvo=new Date(C.lancamento||"2026-11-23T19:00:00-03:00").getTime();
 function tick(){
   let s=Math.max(0,Math.floor((alvo-Date.now())/1000));
@@ -1156,31 +1150,19 @@ function renderResult(){
     <div class="cta-box" style="margin-top:20px">
       <img src="assets/capa-livro.webp" alt="" width="720" height="965">
       <div style="display:grid;gap:14px">
-        <h3>Reserve o seu <b>exemplar</b></h3>
-        <p>${esc(C.preco)} na pré-venda, com dedicatória do autor e entrega em casa. Sem pagamento agora: a equipe fala com você pelo WhatsApp.</p>
-        <div id="resBox"><button class="btn btn-ink" id="reserveBtn">Quero reservar <span class="arr" aria-hidden="true">→</span></button></div>
+        <h3>Garanta o seu <b>exemplar</b></h3>
+        <p>${esc(C.preco)} o livro físico na Livraria da Vila, ou o e-book na Amazon Kindle.</p>
+        <div class="buy"><a class="btn btn-ink" href="${esc(C.linkLivrariaVila)}" target="_blank" rel="noopener" data-buy="vila">Livraria da Vila <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-line" href="${esc(C.linkKindle)}" target="_blank" rel="noopener" data-buy="kindle">E-book Kindle <span class="arr" aria-hidden="true">→</span></a></div>
       </div>
     </div>
     ${MODO_EVENTO?`<div class="q-foot" style="margin-top:28px"><span class="small">A tela volta ao início sozinha em ${C.reinicioEventoSeg||90} s.</span><button class="btn btn-text" id="again">Próxima pessoa</button></div>`:""}`;
   const el=$("#altCount"), t0=performance.now(), dur=reduce?0:1700;
   (function step(now){const p=dur?Math.min(1,(now-t0)/dur):1,e=1-Math.pow(1-p,3);el.textContent=Math.round(800+(sc.alt-800)*e).toLocaleString("pt-BR");if(p<1)requestAnimationFrame(step)})(t0);
   setTimeout(()=>stage.querySelectorAll(".fill").forEach((f,i)=>{f.style.transitionDelay=(i*120)+"ms";f.style.transform=`scaleX(${Math.max(.03,f.dataset.v/100)})`}),300);
-  $("#reserveBtn").addEventListener("click",()=>{
-    if(st.reserved)return; st.reserved=true;
-    const {nome,email,whatsapp,lidera,equipe}=st.lead;
-    sendLead({tipo:"pre-venda",nome,email,whatsapp,lidera,equipe});
-    $("#resBox").innerHTML=`<div class="ok"><b>Reserva feita.</b><span class="small">Vamos te chamar no WhatsApp ${esc(whatsapp)} para combinar o pagamento e a entrega.</span></div>`;
-  });
   const again=$("#again"); if(again){again.addEventListener("click",()=>{closeQuiz();scrollTo(0,0)});resetTimer=setTimeout(()=>{closeQuiz();scrollTo(0,0)},(C.reinicioEventoSeg||90)*1000)}
 }
 
-$("#reserveForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const nome=$("#rs-nome").value.trim(), email=$("#rs-email").value.trim(), tel=$("#rs-tel").value.replace(/\D/g,"");
-  const err=validate(nome,email,tel); $("#rs-err").textContent=err; if(err)return;
-  sendLead({tipo:"pre-venda",nome,email,whatsapp:"+55"+tel});
-  $("#reserveForm").hidden=true; $("#reserveOk").hidden=false;
-});
+$("#buyVila").href=C.linkLivrariaVila||"#"; $("#buyKindle").href=C.linkKindle||"#";
 
 /* ===================== ABA PARA EMPRESAS ===================== */
 const Emp=(function(){

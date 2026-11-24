@@ -12,8 +12,12 @@ window.LZ_CONFIG = {
   supabaseAnonKey: "",   // a chave "anon public"
 
   // Preço mostrado na pré-venda (a reserva não cobra nada; a equipe chama a pessoa no WhatsApp)
-  preco: "R$ 59,90",
-  precoCheio: "R$ 69,90",
+  preco: "R$ 69,90",
+  precoCheio: "",
+
+  // Onde comprar
+  linkLivrariaVila: "https://www.livrariadavila.com.br/978307-lideranca-z---como-o-montanhismo-nos-e/p?idsku=978307",
+  linkKindle: "https://a.co/d/04BvT8jv",
 
   // PDF do 1º capítulo, liberado no fim do diagnóstico
   capitulo1Url: "assets/Lideranca-Z-1o-capitulo.pdf",
