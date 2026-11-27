@@ -323,7 +323,9 @@ const fmtN = n => Number(n||0).toLocaleString("pt-BR");
 function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3000)}
 const MODE = C.sheetsUrl ? "sheets" : (C.supabaseUrl && C.supabaseAnonKey && window.supabase) ? "supabase" : "demo";
 const DEMO = MODE==="demo";
+const TXT=["nome","email","whatsapp","lidera","equipe","acampamento","respostas","origem","utm_source","utm_medium","utm_campaign","status","notas","empresa","cargo","colaboradores","lideres","saidas_ano","interesse","cidade","tipo"];
 function normLead(l){
+  if(l){ l={...l}; for(const k of TXT){ if(l[k]!=null&&typeof l[k]!=="string") l[k]=String(l[k]); } }
   if(l && l.tipo==="diagnostico" && l.acampamento==="EMPRESA"){
     const g=k=>{const m=String(l.lidera||"").match(new RegExp(k+": ([^|]*)"));return m?m[1].trim()||null:null};
     const tira=(v,k)=>v?String(v).replace(k+": ","").trim()||null:null;
@@ -597,7 +599,10 @@ async function patch(id,obj){
 }
 
 function openDrawer(id){
-  const l=leads.find(x=>x.id===id); if(!l)return;
+  try{ drawDrawer(id); }catch(err){ console.error(err); toast("Não consegui abrir este cadastro. Atualize a página e tente de novo."); }
+}
+function drawDrawer(id){
+  const l=leads.find(x=>String(x.id)===String(id)); if(!l)return;
   const d=$("#drawer");
   d.innerHTML=`<button class="x" id="dx" aria-label="Fechar">×</button>
     <div style="display:grid;gap:8px"><span class="mono muted">${esc(new Date(l.created_at).toLocaleString("pt-BR"))} · ${l.origem==="evento"?"evento":"digital"}</span><h2>${esc(l.nome)}</h2></div>
